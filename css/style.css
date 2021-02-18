@@ -1,15 +1,14 @@
 body {
   background: #012244;
 /*  rh ad*/ margin:0;
-        background-image: url('https://projects.cadre.sjsu.edu/democracyproject/assets/hero.svg'); 
-    background-attachment: fixed; 
-    background-position: 50% 200px; /* Center the image */
+    /* background-image: url('https://projects.cadre.sjsu.edu/democracyproject/assets/hero.svg'); */
+    background: url("../assets/gridandfloorplan.svg");
+    background-attachment: fixed;
+    /* background-position: 50% 200px; /* Center the image */ */
     background-repeat: no-repeat; /* Do not repeat the image */
-    background-size:90%; /* Resize the background image to cover the entire container */
+    background-size:100%; /* Resize the background image to cover the entire container */
     background-origin: content-box, padding-box;
 }
-
-
 
 header {
   margin:;
@@ -18,6 +17,8 @@ header {
   z-index: 1;
   position: fixed;
   background-color: #3c1b36;
+  /* background-color: #012244; */
+
 }
 
 header ul {
@@ -120,6 +121,17 @@ p {
   font-weight: lighter;
 }
 
+ul li {
+  color: white;
+  text-align: justify;
+  font-size: 18px;
+  font-family: 'Work Sans', sans-serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: lighter;
+  list-style: none;
+}
+
 footer {
   text-align: center;
   margin: auto;
@@ -200,7 +212,7 @@ div.body-header {
 }
 
 .dropdown .dropbtn {
-  font-size: 17px;    
+  font-size: 17px;
   border: none;
   outline: none;
   color: white;
@@ -272,7 +284,7 @@ div.body-header {
     .topnav .icon {
       display: none;
     }
-    
+
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon2 {
     position: absolute;
@@ -291,10 +303,10 @@ div.body-header {
     width: 100%;
     text-align: left;
   }
-    
+
 /*    end rh add*/
 /*/////////////////////////////////*/
-    
+
 
   div.body-text {
     vertical-align: inherit;
@@ -310,6 +322,14 @@ div.body-header {
     max-width: 1200px;
   }
 
+  #frame {
+      width: 560px;
+      height: 315px;
+      display: block;
+      margin: auto;
+      border: 3px dotted;
+    }
+
   #page-container {
     position: static;
     min-height: inherit;
@@ -322,11 +342,10 @@ div.body-header {
     /* Footer height */
   }
 
+
   footer ul {
     width: 100%;
     flex-direction: column;
     font-size: 50%;
   }
 }
-
-
