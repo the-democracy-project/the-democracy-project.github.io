@@ -65,7 +65,7 @@ var perDemPres = 0.0;
 var perRepPres = 1.0;
 var perIndPres = 0.0;
 
-//Super Majority Cutoff for override of presidential veto
+//supermajority Cutoff for override of presidential veto
 var superThresh = 0.67;
 
 //Historical Likelihood of party affiliation & likelihood of 'yay' vote
@@ -329,14 +329,13 @@ function currentCongLogic() {
   if (bodyCount == 2) {
     print("votingBodyCounts[1][0]= " + votingBodyCounts[1][0] + "votingBodyCounts[1][1] = " + votingBodyCounts[1][1]);
 
-    //simulate tie breaker
-    //votingBodyCounts[1][1] = votingBodyCounts[1][0];
 
-    if (votingBodyCounts[1][0] == votingBodyCounts[1][1] && vpVote == false) {
-      vpVote = true;
-    } else {
-      vpVote = false;
-    }
+
+    // if (votingBodyCounts[1][0] == votingBodyCounts[1][1] && vpVote == true) {
+    //   vpVote = true;
+    // } else {
+    //   vpVote = false;
+    // }
 
     strokeWeight(10);
     translate(offSet * bodyCount, 0);
@@ -521,6 +520,7 @@ function storeBodyVotes() {
   let currentBodyYay = votingBodyCounts[bodyCount][0];
   let currentBodyNay = votingBodyCounts[bodyCount][1];
 
+
   //AB for error checking
   // print(bodyLabel + " yay votes: " + currentBodyYay + " nay votes: " + currentBodyNay);
 
@@ -604,7 +604,8 @@ function drawRect() {
     // }
   }
   //AB: finding problem with x's
-  print("body #: " + bodyCount + " No Vote Bool: " + noVoteBool);
+  // print("body #: " + bodyCount + " No Vote Bool: " + noVoteBool);
+
   // Square is Drawn for Each Vote
   rectMode(CENTER);
 
@@ -615,13 +616,16 @@ function drawRect() {
       noFill();
       strokeWeight(3);
     }
-    print('drawing VP square at' + x + " " + y);
+    //ab for error checking
+    // print('drawing VP square at' + x + " " + y);
   }
 
-  if (bodyCount == 3) {
-    print('drawing PRESIDENT square at' + x + " " + y);
-
+  if (bodyCount == 1) {
+    // simulate vp vote
+    yay = 50;
+    nay = 50;
   }
+
 
   //creates a different shade for each voting party
   if (stopVoteBool == false) {
@@ -660,7 +664,7 @@ function stopVoteChange() {
     stroke(255, 100);
     noFill();
     strokeWeight(3);
-    stopVoteBool == false;
+    // stopVoteBool == false;
   } else {
     fill(bColor);
     noStroke();
@@ -669,19 +673,22 @@ function stopVoteChange() {
   }
 }
 
+//AB this is the logic in which changes the votiing body's squares to outlines when no vote is required
 function stopVoteLogic() {
-  //AB logic for no voting bodies
-  if (bodyPass[0] === false && stopVoteCount < 1) {
+  //AB if the vp vote is not needed, no vote is necessary
+  if (bodyCount == 2 && vpVote == false) {
     stopVoteBool = true;
     stopVoteCount++;
-  } else if (bodyPass[1] === false && stopVoteCount < 2) {
+  }
+  //if the vp votes and it's a NO, then bill dies
+  else if (vpVote == true && bodyPass[2] === false) {
     stopVoteBool = true;
     stopVoteCount++;
-  } else if (bodyPass[1] === false || bodyPass[0] === false && stopVoteCount >= 2) {
+  }
+  //AB if the first or second body is not a pass,  bill dies thus preventing other bodies to vote
+  else if (bodyPass[0] === false || bodyPass[1] === false) {
     stopVoteBool = true;
     stopVoteCount++;
-  } else if (bodyCount == 2 && vpVote == false) {
-    stopVoteBool = true;
   } else {
     stopVoteBool = false;
   }
@@ -698,13 +705,16 @@ function resultLogic() {
   // then vice president votes
 
   if (yay >= numCon * superThresh) {
-    // text('BILL PASSES ' + bodyLabel + ' WITH SUPER MAJORITY', votePadX, votePadY, offSet - votePadX, dHeight - votePadY);
+    // text('BILL PASSES ' + bodyLabel + ' WITH supermajority', votePadX, votePadY, offSet - votePadX, dHeight - votePadY);
     bodyPass[bodyCount] = true;
     superThreshIndex[bodyCount] = true;
   } else if (yay > numCon / 2) {
     // text('BILL PASSES ' + bodyLabel, votePadX, votePadY, offSet, dHeight);
     bodyPass[bodyCount] = true;
     superThreshIndex[bodyCount] = false;
+  } else if (yay == numCon / 2 && bodyLabel == "SENATE") {
+    bodyPass[bodyCount] = true;
+    vpVote = true;
   } else {
     // text('BILL DOES NOT PASS ' + bodyLabel, votePadX, votePadY, offSet, dHeight);
     bodyPass[bodyCount] = false;
@@ -814,9 +824,9 @@ function finalDisplay() {
 
               if (bodyPass[0] === true && bodyPass[1] === true && bodyPass[3] === false) {
                 if (superThreshIndex[0] === true && superThreshIndex[1] === true) {
-                  text('VETO OVERRIDEN BY SUPER MAJORITY IN ALL HOUSES: NO PRESIDENTIAL VOTE', (i - 1) * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\nVETO OVERRIDEN BY supermajority IN ALL HOUSES', (i - 1) * dispW + padX, dHeight / 4, dispW, dispH);
                 } else {
-                  text('PRESIDENT VETOS: BILL IS NOT APPROVED ', (i - 1) * dispW + padX, (i - 1) * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\nPRESIDENT VETOS BILL IS NOT APPROVED ', (i - 1) * dispW + padX, dHeight / 4, dispW, dispH);
                 }
               } else if (bodyPass[i] == true &&
                 superThreshIndex[0] == false ||
@@ -829,7 +839,7 @@ function finalDisplay() {
               textSize(16);
               if (bodyPass[0] == false || bodyPass[1] == false) {
                 // dispY = dispY + (dHeight / 5);
-                text('BILL IS NOT APPROVED BY ALL HOUSES: NO PRESIDENTIAL VOTE', (i - 1) * dispW + padX, padY, dispW, dispH);
+                text('\n\nBILL IS NOT APPROVED BY ALL HOUSES NO PRESIDENTIAL VOTE', (i - 1) * dispW + padX, padY, dispW, dispH);
               } else {
                 text('\n\nDOES NOT VOTE', (i - 1) * dispW + padX, padY, dispW, dispH);
               }
@@ -845,9 +855,8 @@ function finalDisplay() {
               text("\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, dHeight / 2, dispW, dispH);
 
               if (bodyPass[0] == false || bodyPass[1] == false) {
-                text('\n\n\nBILL IS NOT APPROVED BY ALL HOUSES: NO VP VOTE', i * dispW + padX, dHeight * (3 / 4), dispW, dispH);
+                text('\n\n\nBILL IS NOT APPROVED BY ALL HOUSES NO VP VOTE', i * dispW + padX, dHeight * (3 / 4), dispW, dispH);
               } else if (bodyPass[0] == true && bodyPass[1] == true && vpVote == true) {
-                text('\n\n\nTIE BREAKER VOTE INITIATED', i * dispW + padX, dHeight * (3 / 4), dispW, dispH);
                 if (bodyPass[i] == false) {
                   text('\nBILL IS NOT APPROVED', (i) * dispW + padX, dHeight * (3 / 4), dispW, dispH);
                 } else if (bodyPass[i] == true) {
@@ -870,7 +879,9 @@ function finalDisplay() {
               text("\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, padY, dispW, dispH);
               // superthresh
               if (bodyPass[i] == true && superThreshIndex[i] == true) {
-                text('\nBILL IS APPROVED WITH SUPER MAJORITY', i * dispW + padX, dHeight / 4, dispW, dispH);
+                text('\nBILL IS APPROVED WITH SUPERMAJORITY', i * dispW + padX, dHeight / 4, dispW, dispH);
+              } else if (currentBodyLabel == 'SENATE' && bodyPass[0] == true && bodyPass[1] == true && vpVote == true) {
+                text('\nTIE BREAKER VOTE INITIATED', i * dispW + padX, dHeight / 4, dispW, dispH);
               } else if (bodyPass[i] == false) {
                 text('\nBILL IS NOT APPROVED', i * dispW + padX, dHeight / 4, dispW, dispH);
               } else if (bodyPass[i] == true && superThreshIndex[i] == false) {
@@ -886,17 +897,18 @@ function finalDisplay() {
         }
 
         //regular pass
-        if (bodyPass[0] === true && bodyPass[1] === true && bodyPass[3] === true) {
+        if (bodyPass[0] === true && bodyPass[1] === true && vpVote == true && bodyPass[2] == false) {
+          decisionText = "DECISION: BILL DOES NOT BECOME A LAW DUE TO TIE BREAKER VOTE BY VP";
+        } else if (bodyPass[0] === true && bodyPass[1] === true && bodyPass[3] === true) {
           decisionText = "DECISION: BILL BECOMES A LAW";
 
         } else if (bodyPass[0] === true && bodyPass[1] === true && bodyPass[3] === false) {
           if (superThreshIndex[0] === true && superThreshIndex[1] === true) {
-            decisionText = "DECISION: BILL BILL BECOMES A LAW BY SUPERMAJORITY";
+            decisionText = "DECISION: BILL BECOMES A LAW BY SUPERMAJORITY";
 
           } else {
             decisionText = "DECISION: BILL DOES NOT BECOME A LAW DUE TO PRESIDENTIAL VETO";
 
-            print(superThreshIndex[0] + ' ' + superThreshIndex[1]);
           }
         } else if (bodyPass[0] == false || bodyPass[1] == false) {
           dispY = dispY + (dHeight / 5);
@@ -1053,7 +1065,7 @@ function userVars() {
   // text('Historical likelyhood of an Independent Yay vote on any given bill', inputPaddingX + userNumHouse.width + 10, inputPaddingY * i - (textSizeV / 4));
   // i++;
   //
-  // //Super Majority Cutoff for override of presidential veto
+  // //supermajority Cutoff for override of presidential veto
   // userSuperThresh = createInput(superThresh);
   // userSuperThresh.position(inputPaddingX, inputPaddingY * i);
   // text('Precentage of yay votes to be considered a Supermajority', inputPaddingX + userNumHouse.width + 10, inputPaddingY * i - (textSizeV / 4));
@@ -1191,7 +1203,7 @@ function inputVar() {
   // demYaythresh = userDemYaythresh.value();
   // indYaythresh = userIndYaythresh.value();
   //
-  // //Super Majority Cutoff for override of presidential veto
+  // //supermajority Cutoff for override of presidential veto
   // superThresh = userSuperThresh.value();
   //
   // //How Many Voting Bodies (house, senate, president = 3) *for V2 - see TODO at top
