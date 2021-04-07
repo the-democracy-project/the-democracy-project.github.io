@@ -3,7 +3,7 @@ body {
 /*  rh ad*/ margin:0;
     /* background-image: url('https://projects.cadre.sjsu.edu/democracyproject/assets/hero.svg'); */
     background: url("../assets/gridandfloorplan.svg");
-    background-attachment: fixed;
+    /* background-attachment: fixed; */
     /* background-position: 50% 200px; /* Center the image */ */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size:100%; /* Resize the background image to cover the entire container */
@@ -78,6 +78,15 @@ img {
   transition: all 0.3s ease-in-out;
 }
 
+.media-gears {
+  width: 2500px;
+  position: fixed;
+  margin-left: 10px;
+  margin-top: 100px;
+  opacity: 10%;
+}
+
+
 div img {
   display: flex;
   max-height: 400px;
@@ -113,7 +122,7 @@ h3 {
 
 p {
   color: white;
-  text-align: justify;
+  /* text-align: justify; */
   font-size: 18px;
   font-family: 'Work Sans', sans-serif;
   font-style: normal;
@@ -321,14 +330,6 @@ div.body-header {
     margin: auto;
     max-width: 1200px;
   }
-
-  #frame {
-      width: 560px;
-      height: 315px;
-      display: block;
-      margin: auto;
-      border: 3px dotted;
-    }
 
   #page-container {
     position: static;
