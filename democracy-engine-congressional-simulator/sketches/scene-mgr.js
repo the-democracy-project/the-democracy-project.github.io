@@ -224,12 +224,14 @@ function setup() {
   rectMode(CENTER);
   noStroke();
   mgr = new SceneManager();
+  mgr.addScene(democracyEngine0);
   mgr.addScene(democracyEngine);
   mgr.addScene(sLegislative);
   mgr.addScene(sParties);
   mgr.addScene(sMembers);
   mgr.addScene(sBodyPass);
   mgr.addScene(sYesVotes);
+  mgr.addScene(sResults);
   mgr.showNextScene();
 }
 
@@ -246,7 +248,7 @@ function mousePressed() {
 }
 
 function nextScene() {
-  if (mgr.isCurrent(democracyEngine)) {
+  if (mgr.isCurrent(democracyEngine0)) {
     mgr.showScene(sLegislative);
   } else if (mgr.isCurrent(sLegislative)) {
     mgr.showScene(sParties);
@@ -257,7 +259,11 @@ function nextScene() {
   } else if (mgr.isCurrent(sBodyPass)) {
     mgr.showScene(sYesVotes);
   } else if (mgr.isCurrent(sYesVotes)) {
+    mgr.showScene(sResults);
+  } else if (mgr.isCurrent(sResults) && userEdits == true) {
     mgr.showScene(democracyEngine);
+  } else if (mgr.isCurrent(democracyEngine)) {
+    mgr.showScene(sLegislative);
   }
 
 }
@@ -336,9 +342,12 @@ function inputVar() {
   perIndVP = userPerVPBody[2];
 
   //Historical Likelihood of party affiliation & likelihood of 'yay' vote
-  repYaythresh = userRepYaythresh;
-  demYaythresh = userDemYaythresh;
-  indYaythresh = userIndYaythresh;
+  repYaythresh = parseFloat(userRepYaythresh) / 100.0;
+  console.log("rep yay thresh: " + repYaythresh);
+  demYaythresh = parseFloat(userDemYaythresh) / 100.0;
+  console.log("dem yay thresh: " + demYaythresh);
+  indYaythresh = parseFloat(userIndYaythresh) / 100.0;
+  console.log("ind yay thresh: " + indYaythresh);
 
   //supermajority Cutoff for override of presidential veto
   superThresh = userSuperThresh;
