@@ -2,7 +2,7 @@ var mgr;
 
 let dWidth, dHeight;
 let nextButton;
-var buttonRC, buttonReC;
+var buttonRC, buttonReC, dispBtn;
 
 var userNumHouse;
 var userPerHouseBody;
@@ -13,6 +13,7 @@ var userPerPresBody;
 var userNumVP;
 var userPerVPBody;
 var userNumParties;
+var onePartyBool = false;
 
 var userNumHouseRan;
 var userNumSenateRan;
@@ -98,6 +99,8 @@ var perIndPres = 0.0;
 var perDemVP = 0.0;
 var perRepVP = 1.0;
 var perIndVP = 0.0;
+
+var housePercentage, senPercentage, vpPercentage, presPercentage;
 
 //supermajority Cutoff for override of presidential veto
 var superThresh = 0.67;
@@ -252,6 +255,8 @@ function nextScene() {
     mgr.showScene(sLegislative);
   } else if (mgr.isCurrent(sLegislative)) {
     mgr.showScene(sParties);
+  } else if (mgr.isCurrent(sParties) && userNumParties <= 1) {
+    mgr.showScene(sBodyPass);
   } else if (mgr.isCurrent(sParties)) {
     mgr.showScene(sMembers);
   } else if (mgr.isCurrent(sMembers)) {
@@ -283,10 +288,10 @@ function keyPressed() {
   // You can optionaly handle the key press at global level...
   switch (key) {
     case '1':
-      mgr.showScene(sLegislative);
+      mgr.showScene(democracyEngine);
       break;
     case '2':
-      mgr.showScene(sParties);
+      mgr.showScene(sResults);
       break;
     case '3':
       mgr.showScene(sMembers);
@@ -310,18 +315,38 @@ function button() {
   mgr.showNextScene();
 }
 
+function dispResult() {
+  mgr.showScene(sResults);
+}
+
 //User Input Values for Congressional Reconfiguration
 function inputVar() {
-
-
   //Number voting members
   numHouse = userNumHouse;
   numSenate = userNumSenate;
   numPres = userNumPres;
   numVP = userNumVP;
 
+  // based of a three party system
+  // if (userNumParties == 2){
+  //     userPerHouseBody[2] = 0.0;
+  //     userPerSenateBody[2] = 0.0;
+  //     userPerVPBody[2] = 0.0;
+  //     userPerPresBody[2] = 0.0;
+  // }
+  // else if (userNumParties == 1){
+  //   userPerHouseBody[1] = 0.0;
+  //   userPerHouseBody[2] = 0.0;
+  //   userPerSenateBody[1] = 0.0;
+  //   userPerSenateBody[2] = 0.0;
+  //   userPerVPBody[1] = 0.0;
+  //   userPerVPBody[2] = 0.0;
+  //   userPerPresBody[1] = 0.0;
+  //   userPerPresBody[2] = 0.0;
+  // }
   //for 3 party system
   //Demographics of House as decimal percentages 1 = 100%
+
   perDemHouse = userPerHouseBody[0];
   perRepHouse = userPerHouseBody[1];
   perIndHouse = userPerHouseBody[2];
@@ -350,12 +375,17 @@ function inputVar() {
   console.log("ind yay thresh: " + indYaythresh);
 
   //supermajority Cutoff for override of presidential veto
-  superThresh = userSuperThresh;
-  //
+
+  superThresh = parseFloat(userSuperThresh) / 100.0;
+
+  //supermajority in a body
+
+  perPass = parseFloat(userBodyPass) / 100.0;
+
   //How Many Voting Bodies (house, senate, president, VP = 4) *for V2 - see TODO at top
   numBodies = 4;
 
-  perPass = userBodyPass;
+
 
   // //Your Stress Value
   // stressSensorval = userStressSensorval.value();
@@ -367,6 +397,7 @@ function inputVar() {
   resetCount();
   resetDraw();
   superThreshIndex = [];
+  votingBodyCounts = [];
   bodyPass = [];
   removeField();
   // resetSliders();

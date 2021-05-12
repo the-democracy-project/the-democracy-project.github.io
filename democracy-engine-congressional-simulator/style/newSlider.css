@@ -161,3 +161,25 @@
 #enter-btn {
   color: #fff;
 }
+
+
+#slider-disp
+{
+  border-radius: 3px;
+  display: none;
+  background-color: #5785ba;
+  width: 20%;
+  height: 40vh;
+  margin-left: 39%;
+  margin-right: auto;
+  padding: 1%;
+  overflow-y: scroll;
+  font-size: .8em;
+  margin-top: 200px;
+}
+
+#slider-disp h3
+{
+  text-transform: uppercase;
+  font-size: .8em;
+}

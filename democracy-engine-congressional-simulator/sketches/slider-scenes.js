@@ -30,13 +30,22 @@ function democracyEngine() {
     document.getElementById("page6").style.display = "none";
     document.getElementById("slider-value").style.display = "none";
     document.getElementById("vote").style.display = "block";
-    currentCongLogic();
+    document.getElementById("slider-disp").style.display = "none";
+    dispButton();
 
   }
 
   //Logic below is setup for current congressional configuration
   //May want to wrap this in a case state or the like so users can define different logic
   //if the user has input variables use those instead of the Global declaration
+  function dispButton() {
+      var dispBtn;
+      dispBtn = createButton('?');
+      dispBtn.position(19, 19);
+      dispBtn.mousePressed(dispResult);
+
+  }
+
   function currentCongLogic() {
 
     // Logic for House
@@ -496,9 +505,11 @@ function democracyEngine() {
 
     // If voting body == 1 and yay == 50%
     // then vice president votes
-
+    console.log("body pass yay: " + yay + "body pass cutoff: " + numCon * perPass);
+    console.log("body pass yay: " + yay + "body superthresh cutoff: " + numCon * superThresh);
     if (yay >= numCon * superThresh) {
       // text('BILL PASSES ' + bodyLabel + ' WITH supermajority', votePadX, votePadY, offSet - votePadX, dHeight - votePadY);
+
       bodyPass[bodyCount] = true;
       superThreshIndex[bodyCount] = true;
       //AB logic if senate initiates tie breaker
@@ -507,6 +518,7 @@ function democracyEngine() {
       vpVote = true;
     } else if (yay > numCon * perPass) {
       // text('BILL PASSES ' + bodyLabel, votePadX, votePadY, offSet, dHeight);
+
       bodyPass[bodyCount] = true;
       superThreshIndex[bodyCount] = false;
     } else {
@@ -563,6 +575,8 @@ function democracyEngine() {
     //column 2 to be body votes
     textFont(helvFont);
 
+    console.log("body pass: " + bodyPass);
+
     if (bodyCount == numBodies) {
       setTimeout(function() {
         document.body.style.backgroundColor = "black";
@@ -586,10 +600,10 @@ function democracyEngine() {
           } else if (i == 1) {
             currentBodyLabel = 'LEGISLATIVE CHAMBER 2';
           } else if (i == 2) {
-            currentBodyLabel = 'VICE PRESIDENT';
+            currentBodyLabel = 'VICE PRESIDENCY';
           } else if (i == 3) {
             // print("I AM IN PRESIDENT b4 LOGIC");
-            currentBodyLabel = 'PRESIDENT';
+            currentBodyLabel = 'PRESIDENCY';
           }
 
           //yay and nay votes for each voting body
@@ -599,7 +613,7 @@ function democracyEngine() {
 
             print("i = " + i + " and current body label = " + currentBodyLabel);
 
-            if (currentBodyLabel == 'PRESIDENT') {
+            if (currentBodyLabel == 'PRESIDENCY') {
               textSize(23);
               text(currentBodyLabel, (i) * dispW + padX, padY, dispW, dispH);
               textAlign(LEFT);
@@ -638,7 +652,7 @@ function democracyEngine() {
                 }
               }
 
-            } else if (currentBodyLabel == 'VICE PRESIDENT') {
+            } else if (currentBodyLabel == 'VICE PRESIDENCY') {
               textSize(23);
               text(currentBodyLabel, i * dispW + padX, padY, dispW, dispH);
               if (stopVoteArr[i] == false && vpVote == true) {
@@ -758,12 +772,6 @@ function democracyEngine() {
     buttonRC.remove();
     // background(0);
     changeText(" ");
-
-    buttonIV = createButton('Recalculate');
-    buttonIV.id('button-re');
-
-    buttonIV.position(windowWidth - buttonIV.width - buttonReC.width - buttonRC.width - 20, windowHeight - 45);
-    buttonIV.mousePressed(inputVar);
   }
 }
 
@@ -801,6 +809,7 @@ function democracyEngine0() {
     document.getElementById("page6").style.display = "none";
     document.getElementById("slider-value").style.display = "none";
     document.getElementById("vote").style.display = "block";
+    document.getElementById("slider-disp").style.display = "none";
     currentCongLogic();
 
   }
@@ -1181,11 +1190,11 @@ function democracyEngine0() {
       // print('drawing VP square at' + x + " " + y);
     }
 
-    if (bodyCount == 1) {
-      // simulate vp vote
-      yay = 50;
-      nay = 50;
-    }
+    // if (bodyCount == 1) {
+    //   // simulate vp vote after tie
+    //   yay = 50;
+    //   nay = 50;
+    // }
 
 
     //creates a different shade for each voting party
@@ -1328,6 +1337,8 @@ function democracyEngine0() {
     //column 2 to be body votes
     textFont(helvFont);
 
+    console.log("body pass: " + bodyPass);
+
     if (bodyCount == numBodies) {
       setTimeout(function() {
         document.body.style.backgroundColor = "black";
@@ -1351,10 +1362,10 @@ function democracyEngine0() {
           } else if (i == 1) {
             currentBodyLabel = 'SENATE';
           } else if (i == 2) {
-            currentBodyLabel = 'VICE PRESIDENT';
+            currentBodyLabel = 'VICE PRESIDENCY';
           } else if (i == 3) {
             // print("I AM IN PRESIDENT b4 LOGIC");
-            currentBodyLabel = 'PRESIDENT';
+            currentBodyLabel = 'PRESIDENCY';
           }
 
           //yay and nay votes for each voting body
@@ -1364,7 +1375,7 @@ function democracyEngine0() {
 
             print("i = " + i + " and current body label = " + currentBodyLabel);
 
-            if (currentBodyLabel == 'PRESIDENT') {
+            if (currentBodyLabel == 'PRESIDENCY') {
               textSize(23);
               text(currentBodyLabel, (i - 1) * dispW + padX, padY, dispW, dispH);
               textAlign(LEFT);
@@ -1403,7 +1414,7 @@ function democracyEngine0() {
                 }
               }
 
-            } else if (currentBodyLabel == 'VICE PRESIDENT') {
+            } else if (currentBodyLabel == 'VICE PRESIDENCY') {
               textSize(23);
               text(currentBodyLabel, i * dispW + padX, dHeight / 2, dispW, dispH);
               if (stopVoteArr[i] == false && vpVote == true) {
@@ -1555,6 +1566,7 @@ function sLegislative() {
     document.getElementById("page6").style.display = "none";
     document.getElementById("slider-value").style.display = "block";
     document.getElementById("vote").style.display = "none";
+    document.getElementById("slider-disp").style.display = "none";
     // let millisecond;
     //
     // if (millisecond == 1000) {
@@ -1569,8 +1581,6 @@ function sLegislative() {
 
     sliders();
     button();
-    // document.getElementById("top").style.display = "FIRST SLIDER";
-    // document.getElementById("bottom").innerHTML = "";
     document.getElementById("top").style.display = "block";
     document.getElementById("top").innerHTML = "NUMBER OF VOTING MEMBERS";
 
@@ -1729,6 +1739,7 @@ function sParties() {
     document.getElementById("page6").style.display = "none";
     document.getElementById("slider-value").style.display = "block";
     document.getElementById("vote").style.display = "none";
+    document.getElementById("slider-disp").style.display = "none";
     sliders();
     // button();
   }
@@ -1785,6 +1796,22 @@ function sParties() {
       slider5.noUiSlider.on('update', function(values, handle) {
         userNumParties = values[0];
         rangeSliderValueElement.innerHTML = userNumParties;
+        //if there is only one party, then 100% of the members are that party
+        if (userNumParties <= 1)
+        {
+
+          userPerHouseBody = [];
+          userPerSenateBody = [];
+          userPerPresBody = [];
+          userPerVPBody = [];
+          userPerHouseBody[0] = 1.0;
+          userPerSenateBody[0] = 1.0;
+          userPerPresBody[0] = 1.0;
+          userPerVPBody[0] = 1.0;
+          userNumParties = parseInt(userNumParties);
+          onePartyBool = true;
+        }
+
       });
     }
   }
@@ -1807,6 +1834,7 @@ function sMembers() {
     document.getElementById("page6").style.display = "none";
     document.getElementById("slider-value").style.display = "block";
     document.getElementById("vote").style.display = "none";
+    document.getElementById("slider-disp").style.display = "none";
     // cursor();
     sliders();
 
@@ -1818,6 +1846,10 @@ function sMembers() {
   function sliders() {
 
     if (userEdits == true) {
+      if (onePartyBool == true) {
+        createSlider();
+        onePartyBool = false;
+      }
       sliderVals();
     } else {
       createSlider();
@@ -1843,33 +1875,6 @@ function sMembers() {
       userNumVPRan = [];
 
 
-      // if (userEdits == true) {
-      //   sliderVals();
-      //
-      // } else {
-      //   createSlider();
-      //   sliderVals();
-      // }
-
-      // userNumHouseConn = [];
-      if (userNumParties <= 1) {
-        userNumHouseRan[0] = Math.ceil(Math.random() * userNumHouse)
-
-        console.log(userNumHouseRan);
-
-        userNumSenateRan[0] = Math.ceil(Math.random() * userNumSenate)
-
-        console.log(userNumSenateRan);
-
-        userNumPresRan[0] = Math.ceil(Math.random() * userNumPres)
-
-        console.log(userNumPresRan);
-
-        userNumVPRan[0] = Math.ceil(Math.random() * userNumVP)
-
-        console.log(userNumVPRan);
-
-      } else {
         for (var i = 0; i < userNumParties - 1; i++) {
           userNumHouseRan[i] = Math.ceil(Math.random() * userNumHouse)
           if (i > 0) {
@@ -1928,7 +1933,7 @@ function sMembers() {
         }
         userNumVPRan.sort((a, b) => a - b);
         console.log(userNumVPRan);
-      }
+
 
 
 
@@ -2036,7 +2041,7 @@ function sMembers() {
         toolTip9[i].classList.add(classes[i]);
       }
 
-        var rangeSliderValueElement = document.getElementById('slider-value');
+      var rangeSliderValueElement = document.getElementById('slider-value');
 
       if (userNumParties > 1) {
         //connecting values to html, each tab value is stored in an array
@@ -2051,9 +2056,9 @@ function sMembers() {
             } else {
               userPerHouseBody[i] = values[i] - values[i - 1];
             }
-            var toPercentage = userPerHouseBody[i] / userNumHouse;
-            toPercentage = roundNum(toPercentage, 2);
-            userPerHouseBody[i] = toPercentage;
+            housePercentage = userPerHouseBody[i] / userNumHouse;
+            housePercentage = roundNum(housePercentage, 3);
+            userPerHouseBody[i] = housePercentage;
           }
           rangeSliderValueElement.innerHTML = userPerHouseBody + "<br>" + userPerSenateBody + "<br>" + userPerPresBody + "<br>" + userPerVPBody;
         });
@@ -2068,8 +2073,8 @@ function sMembers() {
             } else {
               userPerSenateBody[i] = values[i] - values[i - 1];
             }
-            var senPercentage = userPerSenateBody[i] / userNumSenate;
-            senPercentage = roundNum(senPercentage, 2);
+            senPercentage = userPerSenateBody[i] / userNumSenate;
+            senPercentage = roundNum(senPercentage, 3);
             userPerSenateBody[i] = senPercentage;
           }
 
@@ -2088,8 +2093,8 @@ function sMembers() {
             } else {
               userPerVPBody[i] = values[i] - values[i - 1];
             }
-            var vpPercentage = userPerVPBody[i] / userNumVP;
-            vpPercentage = roundNum(vpPercentage, 2);
+            vpPercentage = userPerVPBody[i] / userNumVP;
+            vpPercentage = roundNum(vpPercentage, 3);
             userPerVPBody[i] = vpPercentage;
           }
 
@@ -2106,51 +2111,16 @@ function sMembers() {
             } else {
               userPerPresBody[i] = values[i] - values[i - 1];
             }
-            var presPercentage = userPerPresBody[i] / userNumPres;
-            presPercentage = roundNum(presPercentage, 2);
+            presPercentage = userPerPresBody[i] / userNumPres;
+            presPercentage = roundNum(presPercentage, 3);
             userPerPresBody[i] = presPercentage;
           }
 
           rangeSliderValueElement.innerHTML = userPerHouseBody + "<br>" + userPerSenateBody + "<br>" + userPerPresBody + "<br>" + userPerVPBody;
         });
-      } else {
-        userPerHouseBody = [];
-        slider6.noUiSlider.on('update', function(values, handle) {
-          userPerHouseBody[0] = values[0];
-          rangeSliderValueElement.innerHTML = userPerHouseBody + "<br>" + userPerSenateBody + "<br>" + userPerPresBody + "<br>" + userPerVPBody;
-
-        });
-
-        userPerSenateBody = [];
-        slider7.noUiSlider.on('update', function(values, handle) {
-          userPerSenateBody = values[0];
-          rangeSliderValueElement.innerHTML = userPerHouseBody + "<br>" + userPerSenateBody + "<br>" + userPerPresBody + "<br>" + userPerVPBody;
-
-        });
-
-        userPerVPBody = [];
-        slider8.noUiSlider.on('update', function(values, handle) {
-          userPerVPBody[0] = values[0];
-          rangeSliderValueElement.innerHTML = userPerHouseBody + "<br>" + userPerSenateBody + "<br>" + userPerPresBody + "<br>" + userPerVPBody;
-
-        });
-
-        userPerPresBody = [];
-        slider9.noUiSlider.on('update', function(values, handle) {
-          userPerPresBody[0] = values[0];
-          rangeSliderValueElement.innerHTML = userPerHouseBody + "<br>" + userPerSenateBody + "<br>" + userPerPresBody + "<br>" + userPerVPBody;
-
-        });
-
-
       }
-
-
     }
-
   }
-
-
 }
 
 
@@ -2178,6 +2148,7 @@ function sBodyPass() {
     document.getElementById("page6").style.display = "none";
     document.getElementById("slider-value").style.display = "block";
     document.getElementById("vote").style.display = "none";
+    document.getElementById("slider-disp").style.display = "none";
     // let millisecond;
     //
     // if (millisecond == 1000) {
@@ -2282,15 +2253,12 @@ function sYesVotes() {
     document.getElementById("page4").style.display = "none";
     document.getElementById("page5").style.display = "block";
     document.getElementById("page6").style.display = "none";
+    document.getElementById("slider-disp").style.display = "none";
 
 
     sliders();
 
-    buttonIV = createButton('Recalculate');
-    buttonIV.id('button-re');
 
-    buttonIV.position(windowWidth - buttonIV.width - buttonReC.width - buttonRC.width - 20, windowHeight - 45);
-    buttonIV.mousePressed(inputVar);
 
   }
 
@@ -2420,6 +2388,7 @@ function sResults() {
     document.getElementById("page6").style.display = "block";
     document.getElementById("slider-value").style.display = "none";
     document.getElementById("vote").style.display = "none";
+    document.getElementById("slider-disp").style.display = "block";
     nextButton.remove();
 
     buttonIV = createButton('Recalculate');
@@ -2432,43 +2401,57 @@ function sResults() {
 
   this.draw = function() {
 
+    if (userNumParties == 2) {
+      userPerHouseBody[2] = 0.0;
+      userPerSenateBody[2] = 0.0;
+      userPerVPBody[2] = 0.0;
+      userPerPresBody[2] = 0.0;
+    }
+    else if (userNumParties == 1) {
+      userPerHouseBody[1] = 0.0;
+      userPerHouseBody[2] = 0.0;
+      userPerSenateBody[1] = 0.0;
+      userPerSenateBody[2] = 0.0;
+      userPerVPBody[1] = 0.0;
+      userPerVPBody[2] = 0.0;
+      userPerPresBody[1] = 0.0;
+      userPerPresBody[2] = 0.0;
+    }
+
+    var userOutputText = document.getElementById('slider-disp');
+
+
+    userOutputText.innerHTML =
+      "<h3>First Legislative Chamber</h3>" +
+      "Voting Members: " + userNumHouse +
+      "<br>Members in Political Party 1: " + Math.round(userPerHouseBody[0] * userNumHouse) +
+      "<br>Members in Political Party 2: " + Math.round(userPerHouseBody[1] * userNumHouse) +
+      "<br>Members in Political Party 3: " + Math.round(userPerHouseBody[2] * userNumHouse) +
+      "<h3>Second Legislative Chamber</h3>" +
+      "Voting Members: " + userNumSenate +
+      "<br>Members in Political Party 1: " + Math.round(userPerSenateBody[0] * userNumSenate) +
+      "<br>Members in Political Party 2: " + Math.round(userPerSenateBody[1] * userNumSenate) +
+      "<br>Members in Political Party 3: " + Math.round(userPerSenateBody[2] * userNumSenate) +
+      "<h3>Vice Presidency</h3>" +
+      "Voting Members: " + userNumVP +
+      "<br>Members in Political Party 1: " + Math.round(userPerPresBody[0] * userNumVP) +
+      "<br>Members in Political Party 2: " + Math.round(userPerPresBody[1] * userNumVP) +
+      "<br>Members in Political Party 3: " + Math.round(userPerPresBody[2] * userNumVP) +
+      "<h3>Presidency</h3>" +
+      "Voting Members: " + userNumPres +
+      "<br>Members in Political Party 1: " + Math.round(userPerVPBody[0] * userNumPres) +
+      "<br>Members in Political Party 2: " + Math.round(userPerVPBody[1] * userNumPres) +
+      "<br>Members in Political Party 3: " + Math.round(userPerVPBody[2] * userNumPres) +
+      "<h3>Likelihood of 'yay' vote: </h3>" +
+      "Political Party 1: " + userRepYaythresh +
+      "<br>Political Party 2: " + userDemYaythresh +
+      "<br>Political Party 3: " + userIndYaythresh +
+      "<h3>Percentage of votes required for approval of bill</h3>" +
+      "Approval by majority: " + userBodyPass +
+      "<br> Approval by supermajority: " + userSuperThresh;
   }
 
-  // //Number voting members
-  // userNumHouse;
-  // userNumSenate;
-  // userNumPres;
-  // userNumVP;
-  //
-  // //for 3 party system
-  // //Demographics of House as decimal percentages 1 = 100%
-  // userPerHouseBody[0];
-  // userPerHouseBody[1];
-  // userPerHouseBody[2];
-  //
-  // //Demographics of Senate as decimal percentages 1 = 100%
-  // userPerSenateBody[0];
-  // userPerSenateBody[1];
-  // userPerSenateBody[2];
-  //
-  // //Demographics of President as decimal percentages 1 = 100%
-  // userPerPresBody[0];
-  // userPerPresBody[1];
-  // userPerPresBody[2];
-  //
-  // //Demographics of President as decimal percentages
-  // userPerVPBody[0];
-  // userPerVPBody[1];
-  // userPerVPBody[2];
-  //
-  // //Historical Likelihood of party affiliation & likelihood of 'yay' vote
-  // parseFloat(userRepYaythresh) / 100.0;
-  //
-  // parseFloat(userDemYaythresh) / 100.0;
-  //
-  // parseFloat(userIndYaythresh) / 100.0;
-  //
-  //
+
   // //supermajority Cutoff for override of presidential veto
   // userSuperThresh;
   //
