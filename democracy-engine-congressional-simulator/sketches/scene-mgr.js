@@ -2,7 +2,7 @@ var mgr;
 
 let dWidth, dHeight;
 let nextButton;
-var buttonRC, buttonReC, dispBtn;
+var buttonRC, buttonRes, dispBtn, buttonIV;
 
 var userNumHouse;
 var userPerHouseBody;
@@ -213,6 +213,7 @@ let userEdits = false;
 var userPaddingX = 20;
 var userInputY = 20;
 var userInputX = 20;
+var userOutputText;
 
 
 function preload() {
@@ -235,6 +236,7 @@ function setup() {
   mgr.addScene(sBodyPass);
   mgr.addScene(sYesVotes);
   mgr.addScene(sResults);
+  mgr.addScene(sDisplay);
   mgr.showNextScene();
 }
 
@@ -316,7 +318,12 @@ function button() {
 }
 
 function dispResult() {
-  mgr.showScene(sResults);
+  if (mgr.isCurrent(sDisplay)){
+      mgr.showScene(democracyEngine);
+  }
+  else {
+      mgr.showScene(sDisplay);
+  }
 }
 
 //User Input Values for Congressional Reconfiguration
@@ -407,10 +414,11 @@ function inputVar() {
 
 
 function removeField() {
-  buttonReC.remove();
+  buttonRes.remove();
   buttonRC.remove();
   buttonIV.remove();
   nextButton.remove();
+
 
   // userEdits = false;
 
