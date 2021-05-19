@@ -90,6 +90,11 @@ img {
   opacity: 10%;
 }
 
+.sim-btn {
+  justify-content: center;
+  margin: auto;
+}
+
 
 div img {
   display: flex;
@@ -389,4 +394,3 @@ div.body-header {
     flex-direction: column;
     font-size: 50%;
   }
-}
