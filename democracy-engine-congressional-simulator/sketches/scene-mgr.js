@@ -228,8 +228,8 @@ function setup() {
   rectMode(CENTER);
   noStroke();
   mgr = new SceneManager();
-  mgr.addScene(democracyEngine0);
-  mgr.addScene(democracyEngine);
+  mgr.addScene(democracyEngineOrigin);
+  mgr.addScene(democracyEngineUser);
   mgr.addScene(sLegislative);
   mgr.addScene(sParties);
   mgr.addScene(sMembers);
@@ -253,7 +253,7 @@ function mousePressed() {
 }
 
 function nextScene() {
-  if (mgr.isCurrent(democracyEngine0)) {
+  if (mgr.isCurrent(democracyEngineOrigin)) {
     mgr.showScene(sLegislative);
   } else if (mgr.isCurrent(sLegislative)) {
     mgr.showScene(sParties);
@@ -268,29 +268,30 @@ function nextScene() {
   } else if (mgr.isCurrent(sYesVotes)) {
     mgr.showScene(sResults);
   } else if (mgr.isCurrent(sResults) && userEdits == true) {
-    mgr.showScene(democracyEngine);
-  } else if (mgr.isCurrent(democracyEngine)) {
+    mgr.showScene(democracyEngineUser);
+  }
+  else if (mgr.isCurrent(democracyEngineUser)) {
     mgr.showScene(sLegislative);
   }
 
 }
 
-function lastScene() {
-  if (mgr.isCurrent(sYesVotes)) {
-    mgr.showScene(sBodyPass);
-  } else if (mgr.isCurrent(sBodyPass)) {
-    mgr.showScene(sMembers);
-  } else if (mgr.isCurrent(sMembers)) {
-    mgr.showScene(sLegislative);
-  } else if (mgr.isCurrent(sLegislative)) {}
-
-}
+// function lastScene() {
+//   if (mgr.isCurrent(sYesVotes)) {
+//     mgr.showScene(sBodyPass);
+//   } else if (mgr.isCurrent(sBodyPass)) {
+//     mgr.showScene(sMembers);
+//   } else if (mgr.isCurrent(sMembers)) {
+//     mgr.showScene(sLegislative);
+//   } else if (mgr.isCurrent(sLegislative)) {}
+//
+// }
 
 function keyPressed() {
   // You can optionaly handle the key press at global level...
   switch (key) {
     case '1':
-      mgr.showScene(democracyEngine);
+      mgr.showScene(democracyEngineUser);
       break;
     case '2':
       mgr.showScene(sResults);
@@ -319,7 +320,7 @@ function button() {
 
 function dispResult() {
   if (mgr.isCurrent(sDisplay)){
-      mgr.showScene(democracyEngine);
+      mgr.showScene(democracyEngineUser);
   }
   else {
       mgr.showScene(sDisplay);
@@ -328,6 +329,8 @@ function dispResult() {
 
 //User Input Values for Congressional Reconfiguration
 function inputVar() {
+
+  document.body.style.backgroundColor = "#012244";
   //Number voting members
   numHouse = userNumHouse;
   numSenate = userNumSenate;
@@ -409,7 +412,7 @@ function inputVar() {
   removeField();
   // resetSliders();
   userEdits = true;
-  nextScene();
+  mgr.showScene(democracyEngineUser);
 }
 
 
@@ -418,6 +421,9 @@ function removeField() {
   buttonRC.remove();
   buttonIV.remove();
   nextButton.remove();
+  if(userEdits == true){
+    dispBtn.remove();
+  }
 
 
   // userEdits = false;

@@ -1,4 +1,4 @@
-function democracyEngine() {
+function democracyEngineUser() {
   console.log("democracy userEdits: " + userEdits);
   this.setup = function() {
 
@@ -39,11 +39,10 @@ function democracyEngine() {
   //May want to wrap this in a case state or the like so users can define different logic
   //if the user has input variables use those instead of the Global declaration
   function dispButton() {
-      var dispBtn;
-      dispBtn = createButton('?');
-      dispBtn.id("disp-btn");
-      // dispBtn.position(19, 19);
-      dispBtn.mousePressed(dispResult);
+    dispBtn = createButton('?');
+    dispBtn.id("disp-btn");
+    // dispBtn.position(19, 19);
+    dispBtn.mousePressed(dispResult);
 
   }
 
@@ -739,6 +738,12 @@ function democracyEngine() {
   //Once Bill Pass result has been calculated users can enter in their own variables to reconfigure congress or recalculate the vote with the same parameters
   function userInput() {
 
+    buttonIV = createButton('RECALCULATE VOTE');
+    buttonIV.id('recal-btn');
+
+    buttonIV.position(windowWidth - buttonIV.width - buttonRes.width - buttonRC.width - 20, windowHeight - 45);
+    buttonIV.mousePressed(inputVar);
+
     bodyCount = numBodies;
     buttonRes = createButton('RESET');
 
@@ -771,7 +776,7 @@ function democracyEngine() {
 }
 
 
-function democracyEngine0() {
+function democracyEngineOrigin() {
 
   console.log("democracy userEdits: " + userEdits);
   this.setup = function() {
@@ -1532,7 +1537,7 @@ function democracyEngine0() {
     changeText(" ");
 
     buttonIV = createButton('RECALCULATE VOTE');
-    buttonIV.id('button-re');
+    buttonIV.id('recal-btn');
 
     buttonIV.position(windowWidth - buttonIV.width - buttonRes.width - buttonRC.width - 20, windowHeight - 45);
     buttonIV.mousePressed(inputVar);
@@ -1542,6 +1547,10 @@ function democracyEngine0() {
 
 function sLegislative() {
 
+  var slider1 = document.getElementById('slider1');
+  var slider2 = document.getElementById('slider2');
+  var slider3 = document.getElementById('slider3');
+  var slider4 = document.getElementById('slider4');
 
   this.setup = function() {
     textSize(15);
@@ -1551,6 +1560,10 @@ function sLegislative() {
   }
 
   this.enter = function() {
+    if (userEdits == true)
+    {
+      removeField();
+    }
     // noCursor();
     console.log("1st Slider Page");
     document.getElementById("page1").style.display = "block";
@@ -1562,11 +1575,6 @@ function sLegislative() {
     document.getElementById("slider-value").style.display = "block";
     document.getElementById("vote").style.display = "none";
     document.getElementById("slider-disp").style.display = "none";
-    if(userEdits == true)
-    {
-      document.getElementById("disp-btn").style.display = "none";
-      document.getElementById("rec-btn").style.display = "none";
-    }
     // let millisecond;
     //
     // if (millisecond == 1000) {
@@ -1607,7 +1615,7 @@ function sLegislative() {
     }
 
     function createSlider() {
-      var range = document.getElementById('slider1');
+
       noUiSlider.create(slider1, {
         start: [250],
         range: {
@@ -1625,7 +1633,7 @@ function sLegislative() {
           decimals: 0
         })
       });
-      var range = document.getElementById('slider2');
+
       noUiSlider.create(slider2, {
         start: [250],
         range: {
@@ -1643,7 +1651,7 @@ function sLegislative() {
           decimals: 0
         })
       });
-      var range = document.getElementById('slider3');
+
       noUiSlider.create(slider3, {
         start: [3],
         range: {
@@ -1662,7 +1670,7 @@ function sLegislative() {
         })
       });
 
-      var range = document.getElementById('slider4');
+
       noUiSlider.create(slider4, {
         start: [3],
         range: {
@@ -1723,6 +1731,7 @@ function sLegislative() {
 
 
 function sParties() {
+  var slider5 = document.getElementById('slider5');
 
   this.setup = function() {
 
@@ -1757,7 +1766,7 @@ function sParties() {
     }
 
     function createSlider() {
-      var range = document.getElementById('slider5');
+
 
       noUiSlider.create(slider5, {
         start: [2],
@@ -1797,8 +1806,7 @@ function sParties() {
         userNumParties = values[0];
         rangeSliderValueElement.innerHTML = userNumParties;
         //if there is only one party, then 100% of the members are that party
-        if (userNumParties <= 1)
-        {
+        if (userNumParties <= 1) {
 
           userPerHouseBody = [];
           userPerSenateBody = [];
@@ -1819,7 +1827,10 @@ function sParties() {
 
 function sMembers() {
 
-
+  var slider6 = document.getElementById('slider6');
+  var slider7 = document.getElementById('slider7');
+  var slider8 = document.getElementById('slider8');
+  var slider9 = document.getElementById('slider9');
 
   this.setup = function() {}
 
@@ -1844,12 +1855,18 @@ function sMembers() {
   }
 
   function sliders() {
-
     if (userEdits == true) {
       if (onePartyBool == true) {
         createSlider();
         onePartyBool = false;
       }
+
+      slider6.noUiSlider.destroy();
+      slider7.noUiSlider.destroy();
+      slider8.noUiSlider.destroy();
+      slider9.noUiSlider.destroy();
+
+      createSlider();
       sliderVals();
     } else {
       createSlider();
@@ -1859,10 +1876,7 @@ function sMembers() {
     function createSlider() {
       // NOui slider slides
 
-      var range = document.getElementById('slider6');
-      var range = document.getElementById('slider7');
-      var range = document.getElementById('slider8');
-      var range = document.getElementById('slider9');
+
 
       userNumHouse = parseInt(userNumHouse);
       userNumPres = parseInt(userNumPres);
@@ -1875,64 +1889,65 @@ function sMembers() {
       userNumVPRan = [];
 
 
-        for (var i = 0; i < userNumParties - 1; i++) {
-          userNumHouseRan[i] = Math.ceil(Math.random() * userNumHouse)
-          if (i > 0) {
-            for (var j = 0; j < userNumHouseRan.length - 1; j++) {
-              if (userNumHouseRan[i] == userNumHouseRan[j]) {
-                userNumHouseRan[i] = parseInt(Math.ceil(Math.random() * userNumHouse));
-              }
+      for (var i = 0; i < userNumParties - 1; i++) {
+        userNumHouseRan[i] = Math.ceil(Math.random() * userNumHouse)
+        if (i > 0) {
+          for (var j = 0; j < userNumHouseRan.length - 1; j++) {
+            if (userNumHouseRan[i] == userNumHouseRan[j]) {
+              userNumHouseRan[i] = parseInt(Math.ceil(Math.random() * userNumHouse));
             }
           }
-          // console.log("random house num: " + userNumHouseRan[i]);
         }
-        userNumHouseRan.sort((a, b) => a - b);
-        console.log(userNumHouseRan);
+        // console.log("random house num: " + userNumHouseRan[i]);
+      }
+      userNumHouseRan.sort((a, b) => a - b);
+      console.log(userNumHouseRan);
 
-        // userNumHouseConn = JSON.parse(userNumHouseConn);
+      // userNumHouseConn = JSON.parse(userNumHouseConn);
 
-        for (var i = 0; i < userNumParties - 1; i++) {
-          userNumSenateRan[i] = Math.ceil(Math.random() * userNumSenate)
-          if (i > 0) {
-            for (var j = 0; j < userNumSenateRan.length - 1; j++) {
-              if (userNumSenateRan[i] == userNumSenateRan[j]) {
-                userNumSenateRan[i] = parseInt(Math.ceil(Math.random() * userNumSenate));
-              }
+      for (var i = 0; i < userNumParties - 1; i++) {
+        userNumSenateRan[i] = Math.ceil(Math.random() * userNumSenate)
+        if (i > 0) {
+          for (var j = 0; j < userNumSenateRan.length - 1; j++) {
+            if (userNumSenateRan[i] == userNumSenateRan[j]) {
+              userNumSenateRan[i] = parseInt(Math.ceil(Math.random() * userNumSenate));
             }
           }
-          // console.log("random house num: " + userNumSenateRan[i]);
         }
-        userNumSenateRan.sort((a, b) => a - b);
-        console.log(userNumSenateRan);
+        // console.log("random house num: " + userNumSenateRan[i]);
+      }
+      userNumSenateRan.sort((a, b) => a - b);
+      console.log(userNumSenateRan);
 
 
-        for (var i = 0; i < userNumParties - 1; i++) {
-          userNumPresRan[i] = Math.ceil(Math.random() * userNumPres)
-          if (i > 0) {
-            for (var j = 0; j < userNumPresRan.length - 1; j++) {
-              if (userNumPresRan[i] == userNumPresRan[j]) {
-                userNumPresRan[i] = parseInt(Math.ceil(Math.random() * userNumPres));
-              }
+      for (var i = 0; i < userNumParties - 1; i++) {
+        userNumPresRan[i] = Math.ceil(Math.random() * userNumPres)
+        if (i > 0) {
+          for (var j = 0; j < userNumPresRan.length - 1; j++) {
+            if (userNumPresRan[i] == userNumPresRan[j]) {
+              userNumPresRan[i] = parseInt(Math.ceil(Math.random() * userNumPres));
             }
           }
-          // console.log("random house num: " + userNumSenateRan[i]);
         }
-        userNumPresRan.sort((a, b) => a - b);
-        console.log(userNumParties);
+        // console.log("random house num: " + userNumSenateRan[i]);
+      }
+      userNumPresRan.sort((a, b) => a - b);
+      console.log(userNumParties);
 
-        for (var i = 0; i < userNumParties - 1; i++) {
-          userNumVPRan[i] = Math.ceil(Math.random() * userNumVP)
-          if (i > 0) {
-            for (var j = 0; j < userNumVPRan.length - 1; j++) {
-              if (userNumVPRan[i] == userNumVPRan[j]) {
-                userNumVPRan[i] = parseInt(Math.ceil(Math.random() * userNumVP));
-              }
+      for (var i = 0; i < userNumParties - 1; i++) {
+        userNumVPRan[i] = Math.ceil(Math.random() * userNumVP)
+        if (i > 0) {
+          for (var j = 0; j < userNumVPRan.length - 1; j++) {
+            if (userNumVPRan[i] == userNumVPRan[j]) {
+              userNumVPRan[i] = parseInt(Math.ceil(Math.random() * userNumVP));
             }
           }
-          // console.log("random house num: " + userNumSenateRan[i]);
         }
-        userNumVPRan.sort((a, b) => a - b);
-        console.log(userNumVPRan);
+        // console.log("random house num: " + userNumSenateRan[i]);
+      }
+      userNumVPRan.sort((a, b) => a - b);
+      console.log(userNumVPRan);
+
 
 
 
@@ -1956,6 +1971,8 @@ function sMembers() {
           decimals: 0
         })
       });
+
+
 
       noUiSlider.create(slider7, {
         start: userNumSenateRan,
@@ -1992,6 +2009,7 @@ function sMembers() {
           decimals: 0
         })
       });
+
 
       noUiSlider.create(slider9, {
         start: userNumPresRan,
@@ -2392,7 +2410,7 @@ function sResults() {
     nextButton.remove();
 
     buttonIV = createButton('RECALCULATE VOTE');
-    buttonIV.id('rec-btn');
+    buttonIV.id('recal-btn');
 
     buttonIV.position(windowWidth - buttonIV.width - buttonRes.width - buttonRC.width - 20, windowHeight - 45);
     buttonIV.mousePressed(inputVar);
@@ -2406,8 +2424,7 @@ function sResults() {
       userPerSenateBody[2] = 0.0;
       userPerVPBody[2] = 0.0;
       userPerPresBody[2] = 0.0;
-    }
-    else if (userNumParties == 1) {
+    } else if (userNumParties == 1) {
       userPerHouseBody[1] = 0.0;
       userPerHouseBody[2] = 0.0;
       userPerSenateBody[1] = 0.0;
