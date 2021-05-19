@@ -38,12 +38,12 @@ function democracyEngineUser() {
   //Logic below is setup for current congressional configuration
   //May want to wrap this in a case state or the like so users can define different logic
   //if the user has input variables use those instead of the Global declaration
+
   function dispButton() {
     dispBtn = createButton('?');
     dispBtn.id("disp-btn");
     // dispBtn.position(19, 19);
     dispBtn.mousePressed(dispResult);
-
   }
 
   function currentCongLogic() {
@@ -774,7 +774,6 @@ function democracyEngineUser() {
     changeText(" ");
   }
 }
-
 
 function democracyEngineOrigin() {
 
@@ -1691,6 +1690,8 @@ function sLegislative() {
     }
 
 
+// COME BACK HERE FOR CODE REVIEW
+
     function sliderVals() {
       //connecting values to html, each tab value is stored in an array
       var rangeSliderValueElement = document.getElementById('slider-value');
@@ -1728,7 +1729,6 @@ function sLegislative() {
     nextButton.mousePressed(nextScene);
   }
 }
-
 
 function sParties() {
   var slider5 = document.getElementById('slider5');
@@ -2141,7 +2141,6 @@ function sMembers() {
   }
 }
 
-
 function sBodyPass() {
 
 
@@ -2464,7 +2463,7 @@ function sResults() {
       "<br>Political Party 2: " + userDemYaythresh +
       "<br>Political Party 3: " + userIndYaythresh +
       "<h3>Percentage of votes required for approval of bill</h3>" +
-      "Approval by majority: " + userBodyPass +
+      "Approval for majority: " + userBodyPass +
       "<br> Approval by supermajority: " + userSuperThresh + "</div>";
   }
 
