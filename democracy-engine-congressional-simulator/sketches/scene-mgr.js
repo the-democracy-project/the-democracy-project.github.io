@@ -287,32 +287,33 @@ function nextScene() {
 //
 // }
 
-function keyPressed() {
-  // You can optionaly handle the key press at global level...
-  switch (key) {
-    case '1':
-      mgr.showScene(democracyEngineUser);
-      break;
-    case '2':
-      mgr.showScene(sResults);
-      break;
-    case '3':
-      mgr.showScene(sMembers);
-      break;
-      // case 'space':
-      //     mgr.showScene(main);
-      //     break;
+// function keyPressed() {
+//   // You can optionaly handle the key press at global level...
+//   switch (key) {
+//     case '1':
+//       mgr.showScene(democracyEngineUser);
+//       break;
+//     case '2':
+//       mgr.showScene(sResults);
+//       break;
+//     case '3':
+//       mgr.showScene(sMembers);
+//       break;
+//       // case 'space':
+//       //     mgr.showScene(main);
+//       //     break;
+//
+//   }
+//
+//   // ... then dispatch via the SceneManager.
+//   mgr.keyPressed();
+// }
 
-  }
-
-  // ... then dispatch via the SceneManager.
-  mgr.keyPressed();
-}
-
-
+//might not work for fullscreen
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
+
 
 function button() {
   mgr.showNextScene();
@@ -337,26 +338,8 @@ function inputVar() {
   numPres = userNumPres;
   numVP = userNumVP;
 
-  // based of a three party system
-  // if (userNumParties == 2){
-  //     userPerHouseBody[2] = 0.0;
-  //     userPerSenateBody[2] = 0.0;
-  //     userPerVPBody[2] = 0.0;
-  //     userPerPresBody[2] = 0.0;
-  // }
-  // else if (userNumParties == 1){
-  //   userPerHouseBody[1] = 0.0;
-  //   userPerHouseBody[2] = 0.0;
-  //   userPerSenateBody[1] = 0.0;
-  //   userPerSenateBody[2] = 0.0;
-  //   userPerVPBody[1] = 0.0;
-  //   userPerVPBody[2] = 0.0;
-  //   userPerPresBody[1] = 0.0;
-  //   userPerPresBody[2] = 0.0;
-  // }
-  //for 3 party system
-  //Demographics of House as decimal percentages 1 = 100%
 
+  //Demographics of House as decimal percentages 1 = 100%
   perDemHouse = userPerHouseBody[0];
   perRepHouse = userPerHouseBody[1];
   perIndHouse = userPerHouseBody[2];
