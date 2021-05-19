@@ -1,4 +1,4 @@
-Approval for majorityfunction democracyEngineUser() {
+function democracyEngineUser() {
   console.log("democracy userEdits: " + userEdits);
   this.setup = function() {
 
