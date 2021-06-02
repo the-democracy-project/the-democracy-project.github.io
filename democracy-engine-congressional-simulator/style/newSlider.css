@@ -187,14 +187,6 @@
   color: #fff;
 }
 
-#column1
-{
-  float: left;
-  margin-right: 20px;
-}
-#column2
-{
-}
 #slider-disp {
   /* -webkit-column-count: 2;
   -moz-column-count: 2;

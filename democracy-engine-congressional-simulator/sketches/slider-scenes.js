@@ -2438,7 +2438,7 @@ function sResults() {
 
 
     userOutputText.innerHTML =
-      "<div id = 'column1'><h3>First Legislative Chamber</h3>" +
+      "<div><h3>First Legislative Chamber</h3>" +
       "Voting Members: " + userNumHouse +
       "<br>Members in Political Party 1: " + Math.round(userPerHouseBody[0] * userNumHouse) +
       "<br>Members in Political Party 2: " + Math.round(userPerHouseBody[1] * userNumHouse) +
@@ -2452,8 +2452,8 @@ function sResults() {
       "Voting Members: " + userNumVP +
       "<br>Members in Political Party 1: " + Math.round(userPerPresBody[0] * userNumVP) +
       "<br>Members in Political Party 2: " + Math.round(userPerPresBody[1] * userNumVP) +
-      "<br>Members in Political Party 3: " + Math.round(userPerPresBody[2] * userNumVP) + "</div>" +
-      "<div id = 'column2'><h3>Presidency</h3>" +
+      "<br>Members in Political Party 3: " + Math.round(userPerPresBody[2] * userNumVP) +
+      "<h3>Presidency</h3>" +
       "Voting Members: " + userNumPres +
       "<br>Members in Political Party 1: " + Math.round(userPerVPBody[0] * userNumPres) +
       "<br>Members in Political Party 2: " + Math.round(userPerVPBody[1] * userNumPres) +
@@ -2498,7 +2498,7 @@ function sDisplay() {
 
   this.draw = function() {
     userOutputText.innerHTML =
-      "<div id = 'column1'><h3>First Legislative Chamber</h3>" +
+      "<div><h3>First Legislative Chamber</h3>" +
       "Voting Members: " + userNumHouse +
       "<br>Members in Political Party 1: " + Math.round(userPerHouseBody[0] * userNumHouse) +
       "<br>Members in Political Party 2: " + Math.round(userPerHouseBody[1] * userNumHouse) +
@@ -2512,8 +2512,8 @@ function sDisplay() {
       "Voting Members: " + userNumVP +
       "<br>Members in Political Party 1: " + Math.round(userPerPresBody[0] * userNumVP) +
       "<br>Members in Political Party 2: " + Math.round(userPerPresBody[1] * userNumVP) +
-      "<br>Members in Political Party 3: " + Math.round(userPerPresBody[2] * userNumVP) + "</div>" +
-      "<div id = 'column2'><h3>Presidency</h3>" +
+      "<br>Members in Political Party 3: " + Math.round(userPerPresBody[2] * userNumVP) +
+      "<h3>Presidency</h3>" +
       "Voting Members: " + userNumPres +
       "<br>Members in Political Party 1: " + Math.round(userPerVPBody[0] * userNumPres) +
       "<br>Members in Political Party 2: " + Math.round(userPerVPBody[1] * userNumPres) +
