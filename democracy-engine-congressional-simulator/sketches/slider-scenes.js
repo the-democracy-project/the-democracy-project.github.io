@@ -778,6 +778,7 @@ function democracyEngineUser() {
 function democracyEngineOrigin() {
 
   console.log("democracy userEdits: " + userEdits);
+
   this.setup = function() {
 
     textFont(helvFont);
@@ -787,8 +788,6 @@ function democracyEngineOrigin() {
     dHeight = height;
     background(bColor);
 
-    // let fs = fullscreen();
-    // fullscreen(!fs);
   }
 
   this.draw = function() {
@@ -796,6 +795,7 @@ function democracyEngineOrigin() {
     rot += 0.5;
 
     currentCongLogic();
+
   }
 
   this.enter = function() {
@@ -810,7 +810,12 @@ function democracyEngineOrigin() {
     document.getElementById("vote").style.display = "block";
     document.getElementById("slider-disp").style.display = "none";
     currentCongLogic();
+  }
 
+
+  function windowResized() {
+    console.log("resizing canvas");
+    resetDraw();
   }
 
   function currentCongLogic() {
@@ -1046,12 +1051,6 @@ function democracyEngineOrigin() {
       test = 1;
     }
     if (count1 < numCon) {
-
-      //AB for gradient from white to blue
-      // if (tranVal > 0) {
-      //     tranVal -= .3;
-      // }
-
       stopVoteLogic();
 
       drawRect();
@@ -1242,7 +1241,7 @@ function democracyEngineOrigin() {
     }
   }
 
-  //AB this is the logic in which changes the votiing body's squares to outlines when no vote is required
+  //AB -- Logic in which changes the voting body's squares to outlines when no vote is required
   function stopVoteLogic() {
     //AB if the vp vote is not needed, no vote is necessary
     if (bodyCount == 2 && vpVote == false) {
@@ -1559,8 +1558,7 @@ function sLegislative() {
   }
 
   this.enter = function() {
-    if (userEdits == true)
-    {
+    if (userEdits == true) {
       removeField();
     }
     // noCursor();
@@ -1571,7 +1569,7 @@ function sLegislative() {
     document.getElementById("page4").style.display = "none";
     document.getElementById("page5").style.display = "none";
     document.getElementById("page6").style.display = "none";
-    document.getElementById("slider-value").style.display = "block";
+    document.getElementById("slider-value").style.display = "none";
     document.getElementById("vote").style.display = "none";
     document.getElementById("slider-disp").style.display = "none";
     // let millisecond;
@@ -1690,7 +1688,7 @@ function sLegislative() {
     }
 
 
-// COME BACK HERE FOR CODE REVIEW
+    // COME BACK HERE FOR CODE REVIEW
 
     function sliderVals() {
       //connecting values to html, each tab value is stored in an array
@@ -1698,19 +1696,19 @@ function sLegislative() {
 
       slider1.noUiSlider.on('update', function(values, handle) {
         userNumHouse = values[0]
-        rangeSliderValueElement.innerHTML = userNumHouse + " " + userNumSenate + " " + userNumPres + " " + userNumVP;
+        // rangeSliderValueElement.innerHTML = userNumHouse + " " + userNumSenate + " " + userNumPres + " " + userNumVP;
       });
       slider2.noUiSlider.on('update', function(values, handle) {
         userNumSenate = values[0];
-        rangeSliderValueElement.innerHTML = userNumHouse + " " + userNumSenate + " " + userNumPres + " " + userNumVP;
+        // rangeSliderValueElement.innerHTML = userNumHouse + " " + userNumSenate + " " + userNumPres + " " + userNumVP;
       });
       slider3.noUiSlider.on('update', function(values, handle) {
         userNumVP = values[0];
-        rangeSliderValueElement.innerHTML = userNumHouse + " " + userNumSenate + " " + userNumPres + " " + userNumVP;
+        // rangeSliderValueElement.innerHTML = userNumHouse + " " + userNumSenate + " " + userNumPres + " " + userNumVP;
       });
       slider4.noUiSlider.on('update', function(values, handle) {
         userNumPres = values[0];
-        rangeSliderValueElement.innerHTML = userNumHouse + " " + userNumSenate + " " + userNumPres + " " + userNumVP;
+        // rangeSliderValueElement.innerHTML = userNumHouse + " " + userNumSenate + " " + userNumPres + " " + userNumVP;
       });
 
     }
@@ -1725,6 +1723,7 @@ function sLegislative() {
 
     nextButton = createButton('NEXT');
     nextButton.id("next-btn");
+    //position of next button is handled in css
     // nextButton.position((windowWidth / 2) - (nextButton.width / 2), dHeight - 50);
     nextButton.mousePressed(nextScene);
   }
@@ -1746,7 +1745,7 @@ function sParties() {
     document.getElementById("page4").style.display = "none";
     document.getElementById("page5").style.display = "none";
     document.getElementById("page6").style.display = "none";
-    document.getElementById("slider-value").style.display = "block";
+    document.getElementById("slider-value").style.display = "none";
     document.getElementById("vote").style.display = "none";
     document.getElementById("slider-disp").style.display = "none";
     sliders();
@@ -1804,7 +1803,7 @@ function sParties() {
 
       slider5.noUiSlider.on('update', function(values, handle) {
         userNumParties = values[0];
-        rangeSliderValueElement.innerHTML = userNumParties;
+        // rangeSliderValueElement.innerHTML = userNumParties;
         //if there is only one party, then 100% of the members are that party
         if (userNumParties <= 1) {
 
@@ -1949,10 +1948,6 @@ function sMembers() {
       console.log(userNumVPRan);
 
 
-
-
-
-
       noUiSlider.create(slider6, {
         start: userNumHouseRan,
         range: {
@@ -2059,7 +2054,10 @@ function sMembers() {
         toolTip9[i].classList.add(classes[i]);
       }
 
-      var rangeSliderValueElement = document.getElementById('slider-value');
+      var value1 = document.getElementById('value-1');
+      var value2 = document.getElementById('value-2');
+      var value3 = document.getElementById('value-3');
+      var value4 = document.getElementById('value-4');
 
       if (userNumParties > 1) {
         //connecting values to html, each tab value is stored in an array
@@ -2075,10 +2073,19 @@ function sMembers() {
               userPerHouseBody[i] = values[i] - values[i - 1];
             }
             housePercentage = userPerHouseBody[i] / userNumHouse;
-            housePercentage = roundNum(housePercentage, 3);
+            housePercentage = roundNum(housePercentage, 2);
             userPerHouseBody[i] = housePercentage;
           }
-          rangeSliderValueElement.innerHTML = userPerHouseBody + "<br>" + userPerSenateBody + "<br>" + userPerPresBody + "<br>" + userPerVPBody;
+
+          //made for up to three political parties
+          if (userPerHouseBody.length == 3) {
+            value1.innerHTML = userPerHouseBody[0] + " " + userPerHouseBody[1] + " " + userPerHouseBody[2];
+          } else if (userPerHouseBody.length == 2) {
+            value1.innerHTML = userPerHouseBody[0] + " " + userPerHouseBody[1];
+          } else {
+            value1.innerHTML = userPerHouseBody[0];
+          }
+
         });
 
         userPerSenateBody = [];
@@ -2092,12 +2099,18 @@ function sMembers() {
               userPerSenateBody[i] = values[i] - values[i - 1];
             }
             senPercentage = userPerSenateBody[i] / userNumSenate;
-            senPercentage = roundNum(senPercentage, 3);
+            senPercentage = roundNum(senPercentage, 2);
             userPerSenateBody[i] = senPercentage;
           }
 
-
-          rangeSliderValueElement.innerHTML = userPerHouseBody + "<br>" + userPerSenateBody + "<br>" + userPerPresBody + "<br>" + userPerVPBody;
+          //made for up to three political parties
+          if (userPerSenateBody.length == 3) {
+            value2.innerHTML = userPerSenateBody[0] + " " + userPerSenateBody[1] + " " + userPerSenateBody[2];
+          } else if (userPerSenateBody.length == 2) {
+            value2.innerHTML = userPerSenateBody[0] + " " + userPerSenateBody[1];
+          } else {
+            value2.innerHTML = userPerSenateBody[0];
+          }
         });
 
 
@@ -2112,11 +2125,19 @@ function sMembers() {
               userPerVPBody[i] = values[i] - values[i - 1];
             }
             vpPercentage = userPerVPBody[i] / userNumVP;
-            vpPercentage = roundNum(vpPercentage, 3);
+            vpPercentage = roundNum(vpPercentage, 2);
             userPerVPBody[i] = vpPercentage;
           }
 
-          rangeSliderValueElement.innerHTML = userPerHouseBody + "<br>" + userPerSenateBody + "<br>" + userPerPresBody + "<br>" + userPerVPBody;
+          //made for up to three political parties
+          if (userPerVPBody.length == 3) {
+            value3.innerHTML = userPerVPBody[0] + " " + userPerVPBody[1] + " " + userPerVPBody[2];
+          } else if (userPerVPBody.length == 2) {
+            value3.innerHTML = userPerVPBody[0] + " " + userPerVPBody[1];
+          } else {
+            value3.innerHTML = userPerVPBody[0];
+          }
+
         });
 
         userPerPresBody = [];
@@ -2130,11 +2151,17 @@ function sMembers() {
               userPerPresBody[i] = values[i] - values[i - 1];
             }
             presPercentage = userPerPresBody[i] / userNumPres;
-            presPercentage = roundNum(presPercentage, 3);
+            presPercentage = roundNum(presPercentage, 2);
             userPerPresBody[i] = presPercentage;
           }
+          if (userPerPresBody.length == 3) {
+            value4.innerHTML = userPerPresBody[0] + " " + userPerPresBody[1] + " " + userPerPresBody[2];
+          } else if (userPerPresBody.length == 2) {
+            value4.innerHTML = userPerPresBody[0] + " " + userPerPresBody[1];
+          } else {
+            value4.innerHTML = userPerPresBody[0];
+          }
 
-          rangeSliderValueElement.innerHTML = userPerHouseBody + "<br>" + userPerSenateBody + "<br>" + userPerPresBody + "<br>" + userPerVPBody;
         });
       }
     }
@@ -2163,7 +2190,7 @@ function sBodyPass() {
     document.getElementById("page4").style.display = "block";
     document.getElementById("page5").style.display = "none";
     document.getElementById("page6").style.display = "none";
-    document.getElementById("slider-value").style.display = "block";
+    document.getElementById("slider-value").style.display = "none";
     document.getElementById("vote").style.display = "none";
     document.getElementById("slider-disp").style.display = "none";
     // let millisecond;
@@ -2271,6 +2298,7 @@ function sYesVotes() {
     document.getElementById("page5").style.display = "block";
     document.getElementById("page6").style.display = "none";
     document.getElementById("slider-disp").style.display = "none";
+    document.getElementById("slider-value").style.display = "none";
 
 
     sliders();

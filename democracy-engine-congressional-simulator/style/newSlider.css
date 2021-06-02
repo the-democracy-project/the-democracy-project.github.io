@@ -111,11 +111,20 @@
 #slider-value {
   display: none;
   color: #fff;
-  width: 10%;
-  height: 10%;
-  padding-top: 100px;
-  margin-left: 47.75%;
-  margin-right: auto;
+  width: 200px;
+  height: 200px;
+  padding: 10px;
+  text-align: justify;
+  background-color: #b0c6de;
+  position: absolute;
+  left: 100px;
+  top: 40%;
+
+}
+
+#value-1, #value-2, #value-3, #value-4
+{
+  font-size: .7em;
 }
 
 .c-5-color {

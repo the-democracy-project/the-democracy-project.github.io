@@ -238,6 +238,7 @@ function setup() {
   mgr.addScene(sResults);
   mgr.addScene(sDisplay);
   mgr.showNextScene();
+  window.addEventListener("resize", resized);
 }
 
 function draw() {
@@ -246,6 +247,12 @@ function draw() {
   // textSize(100);
   // text(sliderVal, windowWidth/2, windowHeight/2);
 
+}
+
+function resized()
+{
+    resetDraw();
+    window.location.reload();
 }
 
 function mousePressed() {
@@ -409,8 +416,6 @@ function removeField() {
   }
 
 
-  // userEdits = false;
-
 }
 
 function resetCount() {
@@ -426,11 +431,6 @@ function resetCount() {
   moveArrow = 0;
 }
 
-// function resetSliders(){
-//
-//
-// }
-
 function resetDraw() {
   if (yCountT * skip >= offSet) {
     skip = offSet / (1.025 * xCount);
@@ -439,9 +439,6 @@ function resetDraw() {
   fill(bColor);
   tranVal = 255;
   rectMode(CORNER);
-
-  //AB: removed this rect b/c it covers vp or president during logic
-  // rect(0, 0, offSet, dHeight);
 
   x = skip / 2;
   y = skip / 2;

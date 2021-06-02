@@ -10,6 +10,7 @@
   <script src="p5/scene-manager.js"></script>
   <script language="javascript" type="text/javascript" src="sketches/slider-scenes.js"></script>
   <script language="javascript" type="text/javascript" src="sketches/scene-mgr.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
   <link rel="stylesheet" type="text/css" href="slider/nouislider.css">
   <link rel="stylesheet" type="text/css" href="style/style.css">
   <link rel="stylesheet" type="text/css" href="style/newSlider.css">
@@ -29,13 +30,39 @@
 <body>
   <header>
     <ul class="topnav" id="myTopnav">
-      <li><a href="../index.html">THE FUTURE DEMOCRACIES LABORATORY</a></li>
-      <li><a class="active" href="index.html">SIMULATOR</a></li>
-      <li><a href="../media.html">MEDIA</a></li>
-      <li><a href="../about.html">ABOUT</a></li>
-      <li><a href="../code.html">CODE</a></li>
+      <li><a href="../index.html">THE FUTURE DEMOCRACIES LABORATORY
+      <!-- <img class="icon" src="../assets/numberline.svg" style="padding-top: 10px;"/> -->
+    </a></li>
+      <li>
+        <a class="active" href="../democracy-engine-congressional-simulator/index.html">
+          SIMULATOR
+          <!-- <img class="icon" src="../assets/simulator-icon.svg" /> -->
+        </a>
+      </li>
+      <li>
+        <a href="../media.html">
+          MEDIA
+          <!-- <img class="icon" src="../assets/media-icon.svg" /> -->
+        </a>
+      </li>
+      <li>
+        <a href="../about.html">
+          ABOUT
+          <!-- <img class="icon" src="../assets/about-icon.svg" /> -->
+        </a>
+      </li>
+      <li>
+        <a href="../code.html">
+          CODE
+          <!-- <img class="icon" src="../assets/code-icon.svg" /> -->
+        </a>
+      </li>
+<!--RH Add from drop-down menu-->
+            <a href="javascript:void(0);" style="font-size:15px;" class="icon2" onclick="myFunction()">&#9776;</a>
+<!--end RH Add from drop-down menu-->
     </ul>
   </header>
+
 
   <!-- <script class="sketch" src="sketches/nouislider.js"></script> -->
 
@@ -104,7 +131,12 @@
 
   </div>
 
-  <div id="slider-value"></div>
+  <div id="slider-value">
+    <p id = "value-1"></p>
+    <p id = "value-2"></p>
+    <p id = "value-3"></p>
+    <p id = "value-4"></p>
+  </div>
 
 
   <div id ="slider-disp"></div>

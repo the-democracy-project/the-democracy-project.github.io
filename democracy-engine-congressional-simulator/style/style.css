@@ -4,6 +4,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: #012244;
+    background-image: none;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-style: normal;
     font-variant: normal;
@@ -22,7 +23,7 @@ body {
     height: 50%;
     padding: 20px;
     text-align: center;
-    z-index: 10;
+    z-index: 0;
 }
 
 h2 {
@@ -39,11 +40,7 @@ h2 {
     background-color: #012244;
     width: 80%;
     height: 80%;
-    z-index: 10;
-}
-
-.form {
-    background-color: #0f0;
+    z-index: 1;
 }
 
 #result {
