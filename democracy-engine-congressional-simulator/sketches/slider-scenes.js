@@ -1692,7 +1692,7 @@ function sLegislative() {
 
     function sliderVals() {
       //connecting values to html, each tab value is stored in an array
-      var rangeSliderValueElement = document.getElementById('slider-value');
+      // var rangeSliderValueElement = document.getElementById('slider-value');
 
       slider1.noUiSlider.on('update', function(values, handle) {
         userNumHouse = values[0]
@@ -1799,7 +1799,7 @@ function sParties() {
       }
 
       //connecting values to html, each tab value is stored in an array
-      var rangeSliderValueElement = document.getElementById('slider-value');
+      // var rangeSliderValueElement = document.getElementById('slider-value');
 
       slider5.noUiSlider.on('update', function(values, handle) {
         userNumParties = values[0];
@@ -2035,6 +2035,13 @@ function sMembers() {
       var toolTip8 = slider8.querySelectorAll('.noUi-tooltip');
       var toolTip9 = slider9.querySelectorAll('.noUi-tooltip');
 
+      var value1 = document.getElementById('value-1');
+      var value2 = document.getElementById('value-2');
+      var value3 = document.getElementById('value-3');
+      var value4 = document.getElementById('value-4');
+
+      // var rangeSliderValueElement = document.getElementById('slider-value');
+
       var classes = ['c-1-color', 'c-2-color', 'c-3-color', 'c-4-color', 'c-5-color'];
 
       for (var i = 0; i < toolTip6.length; i++) {
@@ -2054,10 +2061,7 @@ function sMembers() {
         toolTip9[i].classList.add(classes[i]);
       }
 
-      var value1 = document.getElementById('value-1');
-      var value2 = document.getElementById('value-2');
-      var value3 = document.getElementById('value-3');
-      var value4 = document.getElementById('value-4');
+
 
       if (userNumParties > 1) {
         //connecting values to html, each tab value is stored in an array
@@ -2076,11 +2080,13 @@ function sMembers() {
             housePercentage = roundNum(housePercentage, 2);
             userPerHouseBody[i] = housePercentage;
           }
+          console.log();
 
           //made for up to three political parties
           if (userPerHouseBody.length == 3) {
             value1.innerHTML = userPerHouseBody[0] + " " + userPerHouseBody[1] + " " + userPerHouseBody[2];
           } else if (userPerHouseBody.length == 2) {
+            // rangeSliderValueElement.innerHTML = userPerHouseBody[0] + " " + userPerHouseBody[1];
             value1.innerHTML = userPerHouseBody[0] + " " + userPerHouseBody[1];
           } else {
             value1.innerHTML = userPerHouseBody[0];
@@ -2258,19 +2264,19 @@ function sBodyPass() {
 
     function sliderVals() {
       //connecting values to html, each tab value is stored in an array
-      var rangeSliderValueElement = document.getElementById('slider-value');
+      // var rangeSliderValueElement = document.getElementById('slider-value');
 
       userBodyPass = "";
       userSuperThresh = "";
 
       slider10.noUiSlider.on('update', function(values, handle) {
         userBodyPass = values[0]
-        rangeSliderValueElement.innerHTML = userBodyPass + " " + userSuperThresh;
+        // rangeSliderValueElement.innerHTML = userBodyPass + " " + userSuperThresh;
 
       });
       slider11.noUiSlider.on('update', function(values, handle) {
         userSuperThresh = values[0];
-        rangeSliderValueElement.innerHTML = userBodyPass + " " + userSuperThresh;
+        // rangeSliderValueElement.innerHTML = userBodyPass + " " + userSuperThresh;
 
       });
 
@@ -2384,7 +2390,7 @@ function sYesVotes() {
 
     function sliderVals() {
       //connecting values to html, each tab value is stored in an array
-      var rangeSliderValueElement = document.getElementById('slider-value');
+      // var rangeSliderValueElement = document.getElementById('slider-value');
 
 
       userRepYaythresh = "";
@@ -2393,18 +2399,18 @@ function sYesVotes() {
 
       slider12.noUiSlider.on('update', function(values, handle) {
         userDemYaythresh = values[0];
-        rangeSliderValueElement.innerHTML = userDemYaythresh + " " + userRepYaythresh + " " + userIndYaythresh;
+        // rangeSliderValueElement.innerHTML = userDemYaythresh + " " + userRepYaythresh + " " + userIndYaythresh;
 
       });
       slider13.noUiSlider.on('update', function(values, handle) {
         userRepYaythresh = values[0];
-        rangeSliderValueElement.innerHTML = userDemYaythresh + " " + userRepYaythresh + " " + userIndYaythresh;
+        // rangeSliderValueElement.innerHTML = userDemYaythresh + " " + userRepYaythresh + " " + userIndYaythresh;
 
       });
 
       slider14.noUiSlider.on('update', function(values, handle) {
         userIndYaythresh = values[0];
-        rangeSliderValueElement.innerHTML = userDemYaythresh + " " + userRepYaythresh + " " + userIndYaythresh;
+        // rangeSliderValueElement.innerHTML = userDemYaythresh + " " + userRepYaythresh + " " + userIndYaythresh;
 
       });
 
