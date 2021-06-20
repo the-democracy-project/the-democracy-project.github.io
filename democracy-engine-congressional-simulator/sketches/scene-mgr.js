@@ -2,7 +2,7 @@ var mgr;
 
 let dWidth, dHeight;
 let nextButton;
-var buttonRC, buttonRes, dispBtn, buttonIV;
+var buttonRC, buttonRes, dispBtn, buttonRecal;
 
 var userNumHouse;
 var userPerHouseBody;
@@ -238,7 +238,7 @@ function setup() {
   mgr.addScene(sResults);
   mgr.addScene(sDisplay);
   mgr.showNextScene();
-  window.addEventListener("resize", resized);
+
 }
 
 function draw() {
@@ -249,10 +249,11 @@ function draw() {
 
 }
 
-function resized()
-{
-    resetDraw();
-    window.location.reload();
+function resized() {
+  // resetDraw();
+  // setup();
+  window.location.reload();
+  // redraw();
 }
 
 function mousePressed() {
@@ -276,8 +277,7 @@ function nextScene() {
     mgr.showScene(sResults);
   } else if (mgr.isCurrent(sResults) && userEdits == true) {
     mgr.showScene(democracyEngineUser);
-  }
-  else if (mgr.isCurrent(democracyEngineUser)) {
+  } else if (mgr.isCurrent(democracyEngineUser)) {
     mgr.showScene(sLegislative);
   }
 
@@ -327,18 +327,17 @@ function button() {
 }
 
 function dispResult() {
-  if (mgr.isCurrent(sDisplay)){
-      mgr.showScene(democracyEngineUser);
-  }
-  else {
-      mgr.showScene(sDisplay);
+  if (mgr.isCurrent(sDisplay)) {
+    mgr.showScene(democracyEngineUser);
+  } else {
+    mgr.showScene(sDisplay);
   }
 }
 
 //User Input Values for Congressional Reconfiguration
 function inputVar() {
-
   document.body.style.backgroundColor = "#012244";
+  changeText(" ");
   //Number voting members
   numHouse = userNumHouse;
   numSenate = userNumSenate;
@@ -377,10 +376,11 @@ function inputVar() {
   //supermajority Cutoff for override of presidential veto
 
   superThresh = parseFloat(userSuperThresh) / 100.0;
-
+  console.log("superThresh: " + superThresh);
   //supermajority in a body
 
   perPass = parseFloat(userBodyPass) / 100.0;
+  console.log("per pass: " + perPass);
 
   //How Many Voting Bodies (house, senate, president, VP = 4) *for V2 - see TODO at top
   numBodies = 4;
@@ -409,13 +409,8 @@ function inputVar() {
 function removeField() {
   buttonRes.remove();
   buttonRC.remove();
-  buttonIV.remove();
+  buttonRecal.remove();
   nextButton.remove();
-  if(userEdits == true){
-    dispBtn.remove();
-  }
-
-
 }
 
 function resetCount() {
@@ -451,4 +446,10 @@ function resetDraw() {
 
 function roundNum(value, decimals) {
   return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+}
+
+
+
+function changeText(text) {
+  document.getElementById("result").innerHTML = text;
 }
