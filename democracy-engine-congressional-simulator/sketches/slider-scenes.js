@@ -8,7 +8,7 @@ function democracyEngineUser() {
     dWidth = width;
     dHeight = height;
     background(bColor);
-    dispButton();
+    // dispButton();
     // let fs = fullscreen();
     // fullscreen(!fs);
   }
@@ -31,6 +31,7 @@ function democracyEngineUser() {
     document.getElementById("slider-value").style.display = "none";
     document.getElementById("vote").style.display = "block";
     document.getElementById("slider-disp").style.display = "none";
+    document.getElementById("sim-info").style.display = "none";
 
     window.addEventListener("resize", resized);
     console.log(mgr.isCurrent(democracyEngineUser));
@@ -41,15 +42,15 @@ function democracyEngineUser() {
   //May want to wrap this in a case state or the like so users can define different logic
   //if the user has input variables use those instead of the Global declaration
 
-  function dispButton() {
-    dispBtn = createButton('VARIABLES');
-    dispBtn.id("disp-btn");
-    dispBtn.class('buttons');
-    let buttonDiv = document.getElementById('button-div');
-    dispBtn.parent(buttonDiv);
-    // dispBtn.position(19, 19);
-    dispBtn.mousePressed(dispResult);
-  }
+  // function dispButton() {
+  //   dispBtn = createButton('VARIABLES');
+  //   dispBtn.id("disp-btn");
+  //   dispBtn.class('buttons');
+  //   let buttonDiv = document.getElementById('button-div');
+  //   dispBtn.parent(buttonDiv);
+  //   // dispBtn.position(19, 19);
+  //   dispBtn.mousePressed(dispResult);
+  // }
 
   function currentCongLogic() {
 
@@ -265,9 +266,9 @@ function democracyEngineUser() {
     rotate(PI / 180 * rot);
     imageMode(CENTER);
     image(loadingImage, 0, 0, 150, 150);
-    //AB: small square to cover rotating image after
+    //AB: small circle to cover rotating image after
     if (count == numCon - 2) {
-      rect(0, 0, 160, 160);
+      ellipse(0, 0, 160, 160);
     }
     pop();
 
@@ -364,7 +365,7 @@ function democracyEngineUser() {
 
     }
     //Independent is Voting
-    else if (countR >= numDem && countR < numDem + numWild) {
+    else if (countR >= numDem && countR < numDem + numRep) {
       currentPartyNum = partyNum + 1;
       currentTransVal = tranVal - currentPartyNum * valAdjust;
 
@@ -504,10 +505,10 @@ function democracyEngineUser() {
 
     // If voting body == 1 and yay == 50%
     // then vice president votes
-    console.log("body pass yay: " + yay + "body pass cutoff: " + numCon * perPass);
-    console.log(numCon + " " + perPass);
-    console.log("body pass yay: " + yay + "body superthresh cutoff: " + numCon * superThresh);
-    console.log(numCon + " " + superThresh);
+    // console.log("body pass yay: " + yay + "body pass cutoff: " + numCon * perPass);
+    // console.log(numCon + " " + perPass);
+    // console.log("body pass yay: " + yay + "body superthresh cutoff: " + numCon * superThresh);
+    // console.log(numCon + " " + superThresh);
     if (yay >= numCon * superThresh) {
       // text('BILL PASSES ' + bodyLabel + ' WITH supermajority', votePadX, votePadY, offSet - votePadX, dHeight - votePadY);
 
@@ -623,7 +624,7 @@ function democracyEngineUser() {
                 textSize(20);
                 text("\n\n\nVOTES \n", (i) * dispW + padX, padY, dispW, dispH);
                 textSize(16);
-                text("\n\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", (i) * dispW + padX, padY, dispW, dispH);
+                text("\n\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", (i) * dispW + padX, padY);
 
 
                 // print("President: \n\n\n\nYES: " + votingBodyCounts[3][0] + "\nNO: " + votingBodyCounts[3][1]);
@@ -660,7 +661,7 @@ function democracyEngineUser() {
                 textSize(20);
                 text("\n\n\nVOTES \n", i * dispW + padX, padY, dispW, dispH);
                 textSize(16);
-                text("\n\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, padY, dispW, dispH);
+                text("\n\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, padY);
 
                 if (bodyPass[0] == false || bodyPass[1] == false) {
                   text('\n\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: NO VICE PRESIDENTIAL VOTE', i * dispW + padX, (dHeight / 4), dispW, dispH);
@@ -684,7 +685,7 @@ function democracyEngineUser() {
                 textSize(20);
                 text("\n\n\nVOTES \n", i * dispW + padX, padY, dispW, dispH);
                 textSize(16);
-                text("\n\n\n\n\nYES: " + votingBodyCounts[i][0] + "\n" + "NO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, padY, dispW, dispH);
+                text("\n\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, padY);
                 // superthresh
                 if (bodyPass[i] == true && superThreshIndex[i] == true) {
                   text('\n\n\nBILL IS APPROVED WITH SUPERMAJORITY', i * dispW + padX, dHeight / 4, dispW, dispH);
@@ -1579,8 +1580,7 @@ function sLegislative() {
     document.body.style.backgroundColor = bColor;
     buttonRC.remove();
     buttonRes.remove();
-    if(userEdits == true)
-    {
+    if (userEdits == true) {
       dispBtn.remove();
       buttonRecal.remove();
     }
@@ -1619,7 +1619,7 @@ function sLegislative() {
       noUiSlider.create(slider1, {
         start: [250],
         range: {
-          'min': [0],
+          'min': [1],
           'max': [500]
         },
         cssPrefix: 'noUi-',
@@ -1637,7 +1637,7 @@ function sLegislative() {
       noUiSlider.create(slider2, {
         start: [250],
         range: {
-          'min': [0],
+          'min': [1],
           'max': [500]
         },
         cssPrefix: 'noUi-',
@@ -1655,7 +1655,7 @@ function sLegislative() {
       noUiSlider.create(slider3, {
         start: [3],
         range: {
-          'min': [0],
+          'min': [1],
           'max': [500]
         },
         cssPrefix: 'noUi-',
@@ -1674,7 +1674,7 @@ function sLegislative() {
       noUiSlider.create(slider4, {
         start: [3],
         range: {
-          'min': [0],
+          'min': [1],
           'max': [500]
         },
         cssPrefix: 'noUi-',
@@ -1765,6 +1765,11 @@ function sParties() {
     } else {
       createSlider();
       sliderVals();
+      if (userNumParties == parseInt(1))
+      {
+        userEditCount += 1;
+        console.log("one party count: " + userEditCount);
+      }
     }
 
     function createSlider() {
@@ -1789,10 +1794,6 @@ function sParties() {
       });
     }
 
-
-
-
-
     function sliderVals() {
       var toolTip = slider5.querySelectorAll('.noUi-tooltip');
       var classes = ['c-1-color', 'c-2-color', 'c-3-color', 'c-4-color', 'c-5-color'];
@@ -1807,9 +1808,7 @@ function sParties() {
       slider5.noUiSlider.on('update', function(values, handle) {
         userNumParties = values[0];
         // rangeSliderValueElement.innerHTML = userNumParties;
-        //if there is only one party, then 100% of the members are that party
         if (userNumParties <= 1) {
-
           userPerHouseBody = [];
           userPerSenateBody = [];
           userPerPresBody = [];
@@ -1820,6 +1819,7 @@ function sParties() {
           userPerVPBody[0] = 1.0;
           userNumParties = parseInt(userNumParties);
           onePartyBool = true;
+
         }
 
       });
@@ -1854,21 +1854,9 @@ function sMembers() {
   }
   this.draw = function() {
 
-    // var slider6handle = document.getElementById("slider6");
-    // slider6handle.onmouseover = logMouseOver;
-    // slider6handle.onmouseout = logMouseOut;
-    //
-    // function logMouseOver() {
-    //   document.getElementById("value-1").style.display = "block";
-    // }
-    //
-    // function logMouseOut() {
-    //   document.getElementById("value-1").style.display = "none";
-    // }
   }
 
-  function mouseOver(slider,value)
-  {
+  function mouseOver(slider, value) {
 
     slider.onmouseover = logMouseOver;
     slider.onmouseout = logMouseOut;
@@ -1884,17 +1872,19 @@ function sMembers() {
 
   function sliders() {
     if (userEdits == true) {
-      if (onePartyBool == true) {
+      //when user chooses 1 party the first time, no sliders get created.
+      //The second round needs to create the sliders.
+      if (userEditCount == 1 && onePartyBool == true) {
         createSlider();
-        onePartyBool = false;
       }
-
-      slider6.noUiSlider.destroy();
-      slider7.noUiSlider.destroy();
-      slider8.noUiSlider.destroy();
-      slider9.noUiSlider.destroy();
-
-      createSlider();
+      // makes it possible to choose different number of parties each time around
+      else {
+        slider6.noUiSlider.destroy();
+        slider7.noUiSlider.destroy();
+        slider8.noUiSlider.destroy();
+        slider9.noUiSlider.destroy();
+        createSlider();
+      }
       sliderVals();
     } else {
       createSlider();
@@ -1902,10 +1892,7 @@ function sMembers() {
     }
 
     function createSlider() {
-      // NOui slider slides
-
-
-
+      // NOui slider
       userNumHouse = parseInt(userNumHouse);
       userNumPres = parseInt(userNumPres);
       userNumVP = parseInt(userNumPres);
@@ -1980,7 +1967,7 @@ function sMembers() {
       noUiSlider.create(slider6, {
         start: userNumHouseRan,
         range: {
-          'min': [1],
+          'min': [0],
           'max': [userNumHouse]
         },
         // connect: [true, true, true, true,true,true],
@@ -2001,7 +1988,7 @@ function sMembers() {
       noUiSlider.create(slider7, {
         start: userNumSenateRan,
         range: {
-          'min': [1],
+          'min': [0],
           'max': [userNumSenate]
         },
         cssPrefix: 'noUi-',
@@ -2019,7 +2006,7 @@ function sMembers() {
       noUiSlider.create(slider8, {
         start: userNumVPRan,
         range: {
-          'min': [1],
+          'min': [0],
           'max': [userNumVP]
         },
         cssPrefix: 'noUi-',
@@ -2038,7 +2025,7 @@ function sMembers() {
       noUiSlider.create(slider9, {
         start: userNumPresRan,
         range: {
-          'min': [1],
+          'min': [0],
           'max': [userNumPres]
         },
         cssPrefix: 'noUi-',
@@ -2116,14 +2103,14 @@ function sMembers() {
 
           // made for up to three political parties
           if (userPerHouseBody.length == 3) {
-            value1.innerHTML = "Party One: " +  + numPerHouseBody[0] + " Party Two: " + numPerHouseBody[1] + " Party Three: " + numPerHouseBody[2];
+            value1.innerHTML = "Party A: " + +numPerHouseBody[0] + " Party B: " + numPerHouseBody[1] + " Party C: " + numPerHouseBody[2];
           } else if (userPerHouseBody.length == 2) {
             // rangeSliderValueElement.innerHTML = userPerHouseBody[0] + " " + userPerHouseBody[1];
-            value1.innerHTML = "Party One: " + numPerHouseBody[0] + " Party Two: " + numPerHouseBody[1];
+            value1.innerHTML = "Party A: " + numPerHouseBody[0] + " Party B: " + numPerHouseBody[1];
           } else {
-            value1.innerHTML = "Party One: " + numPerHouseBody[0];
+            value1.innerHTML = "Party A: " + numPerHouseBody[0];
           }
-          mouseOver(slider6,value1);
+          mouseOver(slider6, value1);
         });
 
         userPerSenateBody = [];
@@ -2145,13 +2132,13 @@ function sMembers() {
 
           //made for up to three political parties
           if (userPerSenateBody.length == 3) {
-            value2.innerHTML = "Party One: " + numPerSenateBody[0] + " Party Two: " + numPerSenateBody[1] + " Party Three: " + numPerSenateBody[2];
+            value2.innerHTML = "Party A: " + numPerSenateBody[0] + " Party B: " + numPerSenateBody[1] + " Party C: " + numPerSenateBody[2];
           } else if (userPerSenateBody.length == 2) {
-            value2.innerHTML = "Party One: " + numPerSenateBody[0] + " Party Two: " + numPerSenateBody[1];
+            value2.innerHTML = "Party A: " + numPerSenateBody[0] + " Party B: " + numPerSenateBody[1];
           } else {
-            value2.innerHTML = "Party One: " + numPerSenateBody[0];
+            value2.innerHTML = "Party A: " + numPerSenateBody[0];
           }
-          mouseOver(slider7,value2);
+          mouseOver(slider7, value2);
         });
 
 
@@ -2166,7 +2153,7 @@ function sMembers() {
             } else {
               userPerVPBody[i] = values[i] - values[i - 1];
             }
-            numPerVPBody[i] =  userPerVPBody[i];
+            numPerVPBody[i] = userPerVPBody[i];
             vpPercentage = userPerVPBody[i] / userNumVP;
             vpPercentage = roundNum(vpPercentage, 2);
             userPerVPBody[i] = vpPercentage;
@@ -2174,13 +2161,13 @@ function sMembers() {
 
 
           if (userPerVPBody.length == 3) {
-            value3.innerHTML ="Party One: " + numPerVPBody[0] + " Party Two: " + numPerVPBody[1] + " Party Three " + numPerVPBody[2];
+            value3.innerHTML = "Party A: " + numPerVPBody[0] + " Party B: " + numPerVPBody[1] + " Party C " + numPerVPBody[2];
           } else if (userPerVPBody.length == 2) {
-            value3.innerHTML ="Party One: " + numPerVPBody[0] + " Party Two: " + numPerVPBody[1];
+            value3.innerHTML = "Party A: " + numPerVPBody[0] + " Party B: " + numPerVPBody[1];
           } else {
-            value3.innerHTML ="Party One: " + numPerVPBody[0];
+            value3.innerHTML = "Party A: " + numPerVPBody[0];
           }
-          mouseOver(slider8,value3);
+          mouseOver(slider8, value3);
 
 
         });
@@ -2202,13 +2189,13 @@ function sMembers() {
             userPerPresBody[i] = presPercentage;
           }
           if (userPerPresBody.length == 3) {
-            value4.innerHTML = "Party One: " + numPerPresBody[0] + " Party Two: " + numPerPresBody[1] + " Party Three: " + numPerPresBody[2];
+            value4.innerHTML = "Party A: " + numPerPresBody[0] + " Party B: " + numPerPresBody[1] + " Party C: " + numPerPresBody[2];
           } else if (userPerPresBody.length == 2) {
-            value4.innerHTML = "Party One: " + numPerPresBody[0] + " Party Two: " + numPerPresBody[1];
+            value4.innerHTML = "Party A: " + numPerPresBody[0] + " Party B: " + numPerPresBody[1];
           } else {
-            value4.innerHTML = "Party One: " + numPerPresBody[0];
+            value4.innerHTML = "Party A: " + numPerPresBody[0];
           }
-              mouseOver(slider9,value4);
+          mouseOver(slider9, value4);
 
         });
       }
@@ -2348,7 +2335,7 @@ function sYesVotes() {
     document.getElementById("slider-disp").style.display = "none";
     document.getElementById("slider-value").style.display = "none";
 
-
+    checkParties();
     sliders();
 
 
@@ -2358,6 +2345,20 @@ function sYesVotes() {
   this.draw = function() {}
 
 
+  function checkParties() {
+    if (userNumParties == 1) {
+      document.getElementById("slider13").style.display = "none";
+      document.getElementById("slider14").style.display = "none";
+
+    } else if (userNumParties == 2) {
+      document.getElementById("slider14").style.display = "none";
+    } else {
+      document.getElementById("slider12").style.display = "block";
+      document.getElementById("slider13").style.display = "block";
+      document.getElementById("slider14").style.display = "block";
+
+    }
+  }
 
   function sliders() {
     // NOui slider slides
@@ -2372,7 +2373,7 @@ function sYesVotes() {
 
     function createSlider() {
       noUiSlider.create(slider12, {
-        start: [50],
+        start: [0],
         range: {
           'min': [0],
           'max': [100]
@@ -2391,7 +2392,7 @@ function sYesVotes() {
       });
 
       noUiSlider.create(slider13, {
-        start: [50],
+        start: [0],
         range: {
           'min': [0],
           'max': [100]
@@ -2410,7 +2411,7 @@ function sYesVotes() {
       });
 
       noUiSlider.create(slider14, {
-        start: [50],
+        start: [0],
         range: {
           'min': [0],
           'max': [100]
@@ -2444,17 +2445,26 @@ function sYesVotes() {
         // rangeSliderValueElement.innerHTML = userDemYaythresh + " " + userRepYaythresh + " " + userIndYaythresh;
 
       });
-      slider13.noUiSlider.on('update', function(values, handle) {
-        userRepYaythresh = values[0];
-        // rangeSliderValueElement.innerHTML = userDemYaythresh + " " + userRepYaythresh + " " + userIndYaythresh;
+      if (userNumParties >= 2) {
+        slider13.noUiSlider.on('update', function(values, handle) {
+          userRepYaythresh = values[0];
+          // rangeSliderValueElement.innerHTML = userDemYaythresh + " " + userRepYaythresh + " " + userIndYaythresh;
 
-      });
+        });
+      } else {
+        userRepYaythresh = 0 + "%";
+      }
 
-      slider14.noUiSlider.on('update', function(values, handle) {
-        userIndYaythresh = values[0];
-        // rangeSliderValueElement.innerHTML = userDemYaythresh + " " + userRepYaythresh + " " + userIndYaythresh;
+      if (userNumParties == 3) {
+        slider14.noUiSlider.on('update', function(values, handle) {
+          userIndYaythresh = values[0];
+          // rangeSliderValueElement.innerHTML = userDemYaythresh + " " + userRepYaythresh + " " + userIndYaythresh;
 
-      });
+        });
+      } else {
+        userIndYaythresh = 0 + "%";
+      }
+
 
     }
 
@@ -2470,7 +2480,8 @@ function sResults() {
   }
 
   this.enter = function() {
-
+    userEditCount++;
+    console.log("user edit count: " + userEditCount);
     console.log("user result page");
     document.getElementById("top").innerHTML = "DEMOCRACY ENGINE SIMULATOR INPUTS";
     document.getElementById("page1").style.display = "none";
@@ -2482,14 +2493,6 @@ function sResults() {
     document.getElementById("slider-value").style.display = "none";
     document.getElementById("vote").style.display = "none";
     document.getElementById("slider-disp").style.display = "block";
-    nextButton.remove();
-
-    buttonRecal = createButton('RECALCULATE VOTE');
-    buttonRecal.id('recal-btn');
-
-    buttonRecal.position(windowWidth - buttonRecal.width - buttonRes.width - buttonRC.width - 20, windowHeight - 45);
-    buttonRecal.mousePressed(inputVar);
-
   }
 
   this.draw = function() {
@@ -2514,34 +2517,34 @@ function sResults() {
 
 
     userOutputText.innerHTML =
-      "<div><h3>First Legislative Chamber</h3>" +
-      "<p>Voting Members: " + userNumHouse +
-      "<br>Members in Political Party 1: " + Math.round(userPerHouseBody[0] * userNumHouse) +
-      "<br>Members in Political Party 2: " + Math.round(userPerHouseBody[1] * userNumHouse) +
-      "<br>Members in Political Party 3: " + Math.round(userPerHouseBody[2] * userNumHouse) +
-      "</p><h3>Second Legislative Chamber</h3>" +
-      "<p>Voting Members: " + userNumSenate +
-      "<br>Members in Political Party 1: " + Math.round(userPerSenateBody[0] * userNumSenate) +
-      "<br>Members in Political Party 2: " + Math.round(userPerSenateBody[1] * userNumSenate) +
-      "<br>Members in Political Party 3: " + Math.round(userPerSenateBody[2] * userNumSenate) +
-      "</p><h3>Vice Presidency</h3>" +
-      "<p>Voting Members: " + userNumVP +
-      "<br>Members in Political Party 1: " + Math.round(userPerPresBody[0] * userNumVP) +
-      "<br>Members in Political Party 2: " + Math.round(userPerPresBody[1] * userNumVP) +
-      "<br>Members in Political Party 3: " + Math.round(userPerPresBody[2] * userNumVP) +
-      "</p><h3>Presidency</h3>" +
-      "<p>Voting Members: " + userNumPres +
-      "<br>Members in Political Party 1: " + Math.round(userPerVPBody[0] * userNumPres) +
-      "<br>Members in Political Party 2: " + Math.round(userPerVPBody[1] * userNumPres) +
-      "<br>Members in Political Party 3: " + Math.round(userPerVPBody[2] * userNumPres) +
-      "</p><h3>Likelihood of 'yay' vote: </h3>" +
-      "<p>Political Party 1: " + userRepYaythresh +
-      "<br>Political Party 2: " + userDemYaythresh +
-      "<br>Political Party 3: " + userIndYaythresh +
-      "</p><h3>Percentage of votes required for approval of bill</h3>" +
-      "<p>Approval for majority: " + userBodyPass +
-      "<br> Approval by supermajority: " + userSuperThresh + "</div></p>";
-  }
+    "<div><h3>First Legislative Chamber</h3>" +
+    "<p>Voting Members: " + userNumHouse +
+    "<br>Members in Political Party A: " + Math.round(userPerHouseBody[0] * userNumHouse) +
+    "<br>Members in Political Party B: " + Math.round(userPerHouseBody[1] * userNumHouse) +
+    "<br>Members in Political Party C: " + Math.round(userPerHouseBody[2] * userNumHouse) +
+    "</p><h3>Second Legislative Chamber</h3>" +
+    "<p>Voting Members: " + userNumSenate +
+    "<br>Members in Political Party A: " + Math.round(userPerSenateBody[0] * userNumSenate) +
+    "<br>Members in Political Party B: " + Math.round(userPerSenateBody[1] * userNumSenate) +
+    "<br>Members in Political Party C: " + Math.round(userPerSenateBody[2] * userNumSenate) +
+    "</p><h3>Vice Presidency</h3>" +
+    "<p>Voting Members: " + userNumVP +
+    "<br>Members in Political Party A: " + Math.round(userPerPresBody[0] * userNumVP) +
+    "<br>Members in Political Party B: " + Math.round(userPerPresBody[1] * userNumVP) +
+    "<br>Members in Political Party C: " + Math.round(userPerPresBody[2] * userNumVP) +
+    "</p><h3>Presidency</h3>" +
+    "<p>Voting Members: " + userNumPres +
+    "<br>Members in Political Party A: " + Math.round(userPerVPBody[0] * userNumPres) +
+    "<br>Members in Political Party B: " + Math.round(userPerVPBody[1] * userNumPres) +
+    "<br>Members in Political Party C: " + Math.round(userPerVPBody[2] * userNumPres) +
+    "</p><h3>Likelihood of 'yay' vote: </h3>" +
+    "<p>Political Party A: " + userDemYaythresh +
+    "<br>Political Party B: " + userRepYaythresh +
+    "<br>Political Party C: " + userIndYaythresh +
+    "</p><h3>Percentage of votes required for approval of bill</h3>" +
+    "<p>Approval for majority: " + userBodyPass +
+    "<br> Approval by supermajority: " + userSuperThresh + "</div></p>";
+    }
 
 
   // //supermajority Cutoff for override of presidential veto
@@ -2550,14 +2553,57 @@ function sResults() {
   // userBodyPass;
 
 }
+function sInfo() {
+
+  this.setup = function() {
+
+  }
+
+  this.enter = function() {
+    userEditCount++;
+    console.log("simulator info page");
+    document.getElementById("top").innerHTML = " ";
+    document.getElementById("page1").style.display = "none";
+    document.getElementById("page2").style.display = "none";
+    document.getElementById("page3").style.display = "none";
+    document.getElementById("page4").style.display = "none";
+    document.getElementById("page5").style.display = "none";
+    document.getElementById("page6").style.display = "none";
+    document.getElementById("slider-value").style.display = "none";
+    document.getElementById("vote").style.display = "none";
+    document.getElementById("slider-disp").style.display = "none";
+    document.getElementById("sim-info").style.display = "block";
+    nextButton.remove();
+
+    buttonRecal = createButton('RECALCULATE VOTE');
+    buttonRecal.id('recal-btn');
+    buttonRecal.class('buttons');
+    let buttonDiv = document.getElementById('button-div');
+    buttonRecal.parent(buttonDiv);
+
+    // buttonRecal.position(windowWidth - buttonRecal.width - buttonRes.width - buttonRC.width - 20, windowHeight - 45);
+    buttonRecal.mousePressed(inputVar);
+
+  }
+
+  this.draw = function() {
+
+
+    simInfoText = document.getElementById('sim-info');
+
+
+    simInfoText.innerHTML =
+      "<div id='page-container'><div id='content-wrap'><div class='body-text'><p>The simulator will now run through one legislative cycle with the provided inputs. The user will then have the option of running the simulator through additional legislative cycles with the same values or changing the parameters by clicking on the 'User Configurations' button</p></div></div></div>";
+
+  }
+
+
+}
 
 function sDisplay() {
 
   this.setup = function() {
-    rectMode(CORNER);
-    noStroke();
-    fill(bColor);
-    rect(0, 0, windowWidth, windowHeight);
+
   }
 
   this.enter = function() {
@@ -2578,33 +2624,33 @@ function sDisplay() {
   this.draw = function() {
 
     userOutputText.innerHTML =
-    "<div><h3>First Legislative Chamber</h3>" +
-    "<p>Voting Members: " + userNumHouse +
-    "<br>Members in Political Party 1: " + Math.round(userPerHouseBody[0] * userNumHouse) +
-    "<br>Members in Political Party 2: " + Math.round(userPerHouseBody[1] * userNumHouse) +
-    "<br>Members in Political Party 3: " + Math.round(userPerHouseBody[2] * userNumHouse) +
-    "</p><h3>Second Legislative Chamber</h3>" +
-    "<p>Voting Members: " + userNumSenate +
-    "<br>Members in Political Party 1: " + Math.round(userPerSenateBody[0] * userNumSenate) +
-    "<br>Members in Political Party 2: " + Math.round(userPerSenateBody[1] * userNumSenate) +
-    "<br>Members in Political Party 3: " + Math.round(userPerSenateBody[2] * userNumSenate) +
-    "</p><h3>Vice Presidency</h3>" +
-    "<p>Voting Members: " + userNumVP +
-    "<br>Members in Political Party 1: " + Math.round(userPerPresBody[0] * userNumVP) +
-    "<br>Members in Political Party 2: " + Math.round(userPerPresBody[1] * userNumVP) +
-    "<br>Members in Political Party 3: " + Math.round(userPerPresBody[2] * userNumVP) +
-    "</p><h3>Presidency</h3>" +
-    "<p>Voting Members: " + userNumPres +
-    "<br>Members in Political Party 1: " + Math.round(userPerVPBody[0] * userNumPres) +
-    "<br>Members in Political Party 2: " + Math.round(userPerVPBody[1] * userNumPres) +
-    "<br>Members in Political Party 3: " + Math.round(userPerVPBody[2] * userNumPres) +
-    "</p><h3>Likelihood of 'yay' vote: </h3>" +
-    "<p>Political Party 1: " + userRepYaythresh +
-    "<br>Political Party 2: " + userDemYaythresh +
-    "<br>Political Party 3: " + userIndYaythresh +
-    "</p><h3>Percentage of votes required for approval of bill</h3>" +
-    "<p>Approval for majority: " + userBodyPass +
-    "<br> Approval by supermajority: " + userSuperThresh + "</div></p>";
+      "<div><h3>First Legislative Chamber</h3>" +
+      "<p>Voting Members: " + userNumHouse +
+      "<br>Members in Political Party A: " + Math.round(userPerHouseBody[0] * userNumHouse) +
+      "<br>Members in Political Party B: " + Math.round(userPerHouseBody[1] * userNumHouse) +
+      "<br>Members in Political Party C: " + Math.round(userPerHouseBody[2] * userNumHouse) +
+      "</p><h3>Second Legislative Chamber</h3>" +
+      "<p>Voting Members: " + userNumSenate +
+      "<br>Members in Political Party A: " + Math.round(userPerSenateBody[0] * userNumSenate) +
+      "<br>Members in Political Party B: " + Math.round(userPerSenateBody[1] * userNumSenate) +
+      "<br>Members in Political Party C: " + Math.round(userPerSenateBody[2] * userNumSenate) +
+      "</p><h3>Vice Presidency</h3>" +
+      "<p>Voting Members: " + userNumVP +
+      "<br>Members in Political Party A: " + Math.round(userPerPresBody[0] * userNumVP) +
+      "<br>Members in Political Party B: " + Math.round(userPerPresBody[1] * userNumVP) +
+      "<br>Members in Political Party C: " + Math.round(userPerPresBody[2] * userNumVP) +
+      "</p><h3>Presidency</h3>" +
+      "<p>Voting Members: " + userNumPres +
+      "<br>Members in Political Party A: " + Math.round(userPerVPBody[0] * userNumPres) +
+      "<br>Members in Political Party B: " + Math.round(userPerVPBody[1] * userNumPres) +
+      "<br>Members in Political Party C: " + Math.round(userPerVPBody[2] * userNumPres) +
+      "</p><h3>Likelihood of 'yay' vote: </h3>" +
+      "<p>Political Party A: " + userDemYaythresh +
+      "<br>Political Party B: " + userRepYaythresh +
+      "<br>Political Party C: " + userIndYaythresh +
+      "</p><h3>Percentage of votes required for approval of bill</h3>" +
+      "<p>Approval for majority: " + userBodyPass +
+      "<br> Approval by supermajority: " + userSuperThresh + "</div></p>";
   }
 
 

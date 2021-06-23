@@ -13,7 +13,9 @@ var userPerPresBody;
 var userNumVP;
 var userPerVPBody;
 var userNumParties;
-var onePartyBool = false;
+var prevUserNumParties;
+var userEditCount = 0;
+var onePartyBool = true;
 
 var userNumHouseRan;
 var userNumSenateRan;
@@ -195,6 +197,8 @@ var rot = 0;
 let mainText;
 let headerText;
 let subHeaderText;
+let simInfoText;
+let userOutputText;
 
 //checks for voting bodies and sees if they will actually vote or not
 let stopVoteBool = false;
@@ -213,7 +217,7 @@ let userEdits = false;
 var userPaddingX = 20;
 var userInputY = 20;
 var userInputX = 20;
-var userOutputText;
+
 
 
 function preload() {
@@ -236,6 +240,7 @@ function setup() {
   mgr.addScene(sBodyPass);
   mgr.addScene(sYesVotes);
   mgr.addScene(sResults);
+  mgr.addScene(sInfo);
   mgr.addScene(sDisplay);
   mgr.showNextScene();
 
@@ -275,7 +280,9 @@ function nextScene() {
     mgr.showScene(sYesVotes);
   } else if (mgr.isCurrent(sYesVotes)) {
     mgr.showScene(sResults);
-  } else if (mgr.isCurrent(sResults) && userEdits == true) {
+  }  else if (mgr.isCurrent(sResults)) {
+    mgr.showScene(sInfo);
+  } else if (mgr.isCurrent(sInfo) && userEdits == true) {
     mgr.showScene(democracyEngineUser);
   } else if (mgr.isCurrent(democracyEngineUser)) {
     mgr.showScene(sLegislative);
@@ -338,6 +345,9 @@ function dispResult() {
 function inputVar() {
   document.body.style.backgroundColor = "#012244";
   changeText(" ");
+  if(!document.getElementById('disp-btn')){
+          dispButton();
+    }
   //Number voting members
   numHouse = userNumHouse;
   numSenate = userNumSenate;
@@ -403,6 +413,16 @@ function inputVar() {
   // resetSliders();
   userEdits = true;
   mgr.showScene(democracyEngineUser);
+}
+
+function dispButton() {
+  dispBtn = createButton('USER CONFIGURATIONS');
+  dispBtn.id("disp-btn");
+  dispBtn.class('buttons');
+  let buttonDiv = document.getElementById('button-div');
+  dispBtn.parent(buttonDiv);
+  // dispBtn.position(19, 19);
+  dispBtn.mousePressed(dispResult);
 }
 
 

@@ -156,3 +156,10 @@ button{
   margin: 0px 2px;
   margin-top: 6px;
 }
+
+#sim-info{
+  width: 70vw;
+  margin-left: 15vw;
+  margin-right:15vw;
+  margin-top: 100px;
+}
