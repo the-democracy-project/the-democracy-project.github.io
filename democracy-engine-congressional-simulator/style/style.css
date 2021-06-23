@@ -159,7 +159,10 @@ button{
 
 #sim-info{
   width: 70vw;
+  height: 50vh;
   margin-left: 15vw;
   margin-right:15vw;
-  margin-top: 100px;
+  margin-top: 30px;
+  font-size: 2em;
+  overflow-y: hidden;
 }

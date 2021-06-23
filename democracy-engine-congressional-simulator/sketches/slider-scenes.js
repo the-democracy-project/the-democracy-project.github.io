@@ -2493,6 +2493,7 @@ function sResults() {
     document.getElementById("slider-value").style.display = "none";
     document.getElementById("vote").style.display = "none";
     document.getElementById("slider-disp").style.display = "block";
+    document.getElementById("sim-info").style.display = "none";
   }
 
   this.draw = function() {
@@ -2619,6 +2620,7 @@ function sDisplay() {
     document.getElementById("slider-value").style.display = "none";
     document.getElementById("vote").style.display = "none";
     document.getElementById("slider-disp").style.display = "block";
+    document.getElementById("sim-info").style.display = "none";
   }
 
   this.draw = function() {
