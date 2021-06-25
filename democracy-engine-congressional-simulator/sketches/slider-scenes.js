@@ -3,14 +3,15 @@ function democracyEngineUser() {
   this.setup = function() {
 
     textFont(helvFont);
-    let canvas = createCanvas(windowWidth * .8, windowHeight * .8);
+    dWidth = windowWidth * .8;
+    dHeight = windowHeight * .8;
+    let canvas = createCanvas(dWidth, dHeight);
     canvas.parent('vote');
-    dWidth = width;
-    dHeight = height;
     background(bColor);
     // dispButton();
     // let fs = fullscreen();
     // fullscreen(!fs);
+
   }
 
   this.draw = function() {
@@ -21,6 +22,17 @@ function democracyEngineUser() {
   }
 
   this.enter = function() {
+
+    if (reconfigBool == true)
+    {
+      // windowResized();
+      dWidth = windowWidth * .8;
+      dHeight = windowHeight * .8;
+      canvas = createCanvas(dWidth, dHeight);
+      canvas.parent('vote');
+      reconfigBool = false;
+    }
+    //
     document.getElementById("top").style.display = "none";
     document.getElementById("page1").style.display = "none";
     document.getElementById("page2").style.display = "none";
@@ -33,7 +45,7 @@ function democracyEngineUser() {
     document.getElementById("slider-disp").style.display = "none";
     document.getElementById("sim-info").style.display = "none";
 
-    window.addEventListener("resize", resized);
+    // window.addEventListener("resize", resized);
     console.log(mgr.isCurrent(democracyEngineUser));
 
   }
@@ -495,7 +507,7 @@ function democracyEngineUser() {
     }
   }
 
-  //logic for all the ending results
+  //logic for all the final results
   function resultLogic() {
 
     //padding & offsets for text display
@@ -555,7 +567,7 @@ function democracyEngineUser() {
     endBody = 1;
   }
 
-  //Display of the result text
+  //Display of the final reults
   function finalDisplay() {
 
     let currentBodyLabel;
@@ -734,11 +746,6 @@ function democracyEngineUser() {
 
   }
 
-  // //changes the bottom text
-  // function changeText(text) {
-  //   document.getElementById("result").innerHTML = text;
-  // }
-
 
   function nextBody() {
     bodyCount++;
@@ -787,13 +794,11 @@ function democracyEngineOrigin() {
   console.log("democracy userEdits: " + userEdits);
 
   this.setup = function() {
-
     textFont(helvFont);
-    let canvas = createCanvas(windowWidth * .8, windowHeight * .8);
+    dWidth = windowWidth * .8;
+    dHeight = windowHeight * .8;
+    let canvas = createCanvas(dWidth, dHeight);
     canvas.parent('vote');
-    dWidth = width;
-    dHeight = height;
-    background(bColor);
 
   }
 
@@ -806,6 +811,8 @@ function democracyEngineOrigin() {
   }
 
   this.enter = function() {
+    background(bColor);
+
     document.getElementById("top").style.display = "none";
     document.getElementById("page1").style.display = "none";
     document.getElementById("page2").style.display = "none";
@@ -817,7 +824,7 @@ function democracyEngineOrigin() {
     document.getElementById("vote").style.display = "block";
     document.getElementById("slider-disp").style.display = "none";
     currentCongLogic();
-    window.addEventListener("resize", resized);
+    // window.addEventListener("resize", resized);
   }
 
 
@@ -1765,8 +1772,7 @@ function sParties() {
     } else {
       createSlider();
       sliderVals();
-      if (userNumParties == parseInt(1))
-      {
+      if (userNumParties == parseInt(1)) {
         userEditCount += 1;
         console.log("one party count: " + userEditCount);
       }
@@ -2476,7 +2482,23 @@ function sYesVotes() {
 function sResults() {
 
   this.setup = function() {
-
+    if (userNumParties == 2) {
+      userPerHouseBody[2] = 0.0;
+      userPerSenateBody[2] = 0.0;
+      userPerVPBody[2] = 0.0;
+      userPerPresBody[2] = 0.0;
+    } else if (userNumParties == 1) {
+      userPerHouseBody[1] = 0.0;
+      userPerHouseBody[2] = 0.0;
+      userPerSenateBody[1] = 0.0;
+      userPerSenateBody[2] = 0.0;
+      userPerVPBody[1] = 0.0;
+      userPerVPBody[2] = 0.0;
+      userPerPresBody[1] = 0.0;
+      userPerPresBody[2] = 0.0;
+    }
+    userOutputText = document.getElementById('slider-disp');
+    inputTxt();
   }
 
   this.enter = function() {
@@ -2498,54 +2520,39 @@ function sResults() {
 
   this.draw = function() {
 
-    if (userNumParties == 2) {
-      userPerHouseBody[2] = 0.0;
-      userPerSenateBody[2] = 0.0;
-      userPerVPBody[2] = 0.0;
-      userPerPresBody[2] = 0.0;
-    } else if (userNumParties == 1) {
-      userPerHouseBody[1] = 0.0;
-      userPerHouseBody[2] = 0.0;
-      userPerSenateBody[1] = 0.0;
-      userPerSenateBody[2] = 0.0;
-      userPerVPBody[1] = 0.0;
-      userPerVPBody[2] = 0.0;
-      userPerPresBody[1] = 0.0;
-      userPerPresBody[2] = 0.0;
-    }
+  }
 
-    userOutputText = document.getElementById('slider-disp');
-
+  function inputTxt() {
 
     userOutputText.innerHTML =
-    "<div><h3>First Legislative Chamber</h3>" +
-    "<p>Voting Members: " + userNumHouse +
-    "<br>Members in Political Party A: " + Math.round(userPerHouseBody[0] * userNumHouse) +
-    "<br>Members in Political Party B: " + Math.round(userPerHouseBody[1] * userNumHouse) +
-    "<br>Members in Political Party C: " + Math.round(userPerHouseBody[2] * userNumHouse) +
-    "</p><h3>Second Legislative Chamber</h3>" +
-    "<p>Voting Members: " + userNumSenate +
-    "<br>Members in Political Party A: " + Math.round(userPerSenateBody[0] * userNumSenate) +
-    "<br>Members in Political Party B: " + Math.round(userPerSenateBody[1] * userNumSenate) +
-    "<br>Members in Political Party C: " + Math.round(userPerSenateBody[2] * userNumSenate) +
-    "</p><h3>Vice Presidency</h3>" +
-    "<p>Voting Members: " + userNumVP +
-    "<br>Members in Political Party A: " + Math.round(userPerPresBody[0] * userNumVP) +
-    "<br>Members in Political Party B: " + Math.round(userPerPresBody[1] * userNumVP) +
-    "<br>Members in Political Party C: " + Math.round(userPerPresBody[2] * userNumVP) +
-    "</p><h3>Presidency</h3>" +
-    "<p>Voting Members: " + userNumPres +
-    "<br>Members in Political Party A: " + Math.round(userPerVPBody[0] * userNumPres) +
-    "<br>Members in Political Party B: " + Math.round(userPerVPBody[1] * userNumPres) +
-    "<br>Members in Political Party C: " + Math.round(userPerVPBody[2] * userNumPres) +
-    "</p><h3>Likelihood of 'yay' vote: </h3>" +
-    "<p>Political Party A: " + userDemYaythresh +
-    "<br>Political Party B: " + userRepYaythresh +
-    "<br>Political Party C: " + userIndYaythresh +
-    "</p><h3>Percentage of votes required for approval of bill</h3>" +
-    "<p>Approval for majority: " + userBodyPass +
-    "<br> Approval by supermajority: " + userSuperThresh + "</div></p>";
-    }
+      "<div><h3>First Legislative Chamber</h3>" +
+      "<p>Voting Members: " + userNumHouse +
+      "<br>Members in Political Party A: " + Math.round(userPerHouseBody[0] * userNumHouse) +
+      "<br>Members in Political Party B: " + Math.round(userPerHouseBody[1] * userNumHouse) +
+      "<br>Members in Political Party C: " + Math.round(userPerHouseBody[2] * userNumHouse) +
+      "</p><h3>Second Legislative Chamber</h3>" +
+      "<p>Voting Members: " + userNumSenate +
+      "<br>Members in Political Party A: " + Math.round(userPerSenateBody[0] * userNumSenate) +
+      "<br>Members in Political Party B: " + Math.round(userPerSenateBody[1] * userNumSenate) +
+      "<br>Members in Political Party C: " + Math.round(userPerSenateBody[2] * userNumSenate) +
+      "</p><h3>Vice Presidency</h3>" +
+      "<p>Voting Members: " + userNumVP +
+      "<br>Members in Political Party A: " + Math.round(userPerPresBody[0] * userNumVP) +
+      "<br>Members in Political Party B: " + Math.round(userPerPresBody[1] * userNumVP) +
+      "<br>Members in Political Party C: " + Math.round(userPerPresBody[2] * userNumVP) +
+      "</p><h3>Presidency</h3>" +
+      "<p>Voting Members: " + userNumPres +
+      "<br>Members in Political Party A: " + Math.round(userPerVPBody[0] * userNumPres) +
+      "<br>Members in Political Party B: " + Math.round(userPerVPBody[1] * userNumPres) +
+      "<br>Members in Political Party C: " + Math.round(userPerVPBody[2] * userNumPres) +
+      "</p><h3>Likelihood of 'yay' vote: </h3>" +
+      "<p>Political Party A: " + userDemYaythresh +
+      "<br>Political Party B: " + userRepYaythresh +
+      "<br>Political Party C: " + userIndYaythresh +
+      "</p><h3>Percentage of votes required for approval of bill</h3>" +
+      "<p>Approval for majority: " + userBodyPass +
+      "<br> Approval by supermajority: " + userSuperThresh + "</div></p>";
+  }
 
 
   // //supermajority Cutoff for override of presidential veto
@@ -2554,10 +2561,12 @@ function sResults() {
   // userBodyPass;
 
 }
+
 function sInfo() {
 
   this.setup = function() {
-
+    simInfoText = document.getElementById('sim-info');
+    inputTxt();
   }
 
   this.enter = function() {
@@ -2589,13 +2598,10 @@ function sInfo() {
 
   this.draw = function() {
 
+  }
 
-    simInfoText = document.getElementById('sim-info');
-
-
-    simInfoText.innerHTML =
-      "<div id='page-container'><div id='content-wrap'><div class='body-text'><p>The simulator will now run through one legislative cycle with the provided inputs. The user will then have the option of running the simulator through additional legislative cycles with the same values or changing the parameters by clicking on the 'User Configurations' button</p></div></div></div>";
-
+  function inputTxt() {
+    simInfoText.innerHTML = "<div id='page-container'><div id='content-wrap'><div class='body-text'><p>The simulator will now run through one legislative cycle with the provided inputs. The user will then have the option of running the simulator through additional legislative cycles with the same values or changing the parameters by clicking on the 'Display User Settings' button</p></div></div></div>";
   }
 
 
@@ -2604,11 +2610,11 @@ function sInfo() {
 function sDisplay() {
 
   this.setup = function() {
-
+    inputTxt();
   }
 
   this.enter = function() {
-
+    window.removeEventListener("resize", resized);
     console.log("user display page");
     document.getElementById("top").innerHTML = "DEMOCRACY ENGINE SIMULATOR INPUT DISPLAY";
     document.getElementById("page1").style.display = "none";
@@ -2625,6 +2631,10 @@ function sDisplay() {
 
   this.draw = function() {
 
+
+  }
+
+  function inputTxt() {
     userOutputText.innerHTML =
       "<div><h3>First Legislative Chamber</h3>" +
       "<p>Voting Members: " + userNumHouse +

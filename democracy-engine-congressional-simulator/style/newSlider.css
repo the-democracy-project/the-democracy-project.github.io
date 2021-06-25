@@ -21,8 +21,6 @@
   background: #012266;
 }
 
-
-
 .noUi-target {
   border: dashed;
   background-color: #012244;
@@ -53,60 +51,81 @@
   white-space: nowrap;
 }
 
-#slider2, #slider3, #slider4, #slider7, #slider8, #slider9, #slider11, #slider13, #slider14 {
-  z-index: 100;
-  margin-top: 70px;
-  margin-left: 35%;
-  width: 30%;
-}
-
-
 .first-slider {
   z-index: 100;
-  margin-top: 250px;
+    margin-top: 30vh;
+  position: fixed;
+  top: 0;
   margin-left: 35%;
   width: 30%;
 }
+
+
+#slider2, #slider7, #slider11, #slider13
+{
+  z-index: 100;
+  margin-top: 40vh;
+  position: fixed;
+  top: 0;
+  width: 30%;
+  margin-left: 35%;
+}
+
+#slider3, #slider8, #slider14
+{
+  z-index: 100;
+  margin-top: 50vh;
+  position: fixed;
+  top: 0;
+  margin-left: 35%;
+  width: 30%;
+}
+
+#slider4, #slider9 {
+  z-index: 100;
+  margin-top: 60vh;
+  position: fixed;
+  top: 0;
+  width: 30%;
+  margin-left: 35%;
+}
+
 
 /* 72px between each text */
 #slider-text-1 {
-  color: #fff;
-  clear: both;
-  margin-top: 0px;
+  z-index: 100;
+  margin-top: 29vh;
   position: fixed;
-  top: 240px;
+  top: 0;
   right: 70%;
   font-size: .8em;
 }
 
 #slider-text-2 {
-  color: #fff;
-  clear: both;
-  margin-top: 0px;
+  z-index: 100;
+  margin-top: 39vh;
   position: fixed;
-  top: 312px;
+  top: 0;
   right: 70%;
-    font-size: .8em;
+  font-size: .8em;
 }
 
 #slider-text-3 {
-  color: #fff;
-  clear: both;
-  margin-top: 0px;
+  z-index: 100;
+  margin-top: 49vh;
   position: fixed;
-  top: 386px;
+  top: 0;
   right: 70%;
-    font-size: .8em;
+  font-size: .8em;
 }
 
 #slider-text-4 {
-  color: #fff;
-  clear: both;
-  margin-top: 0px;
+  z-index: 100;
+  margin-top: 59vh;
   position: fixed;
-  top: 456px;
+  top: 0;
   right: 70%;
-    font-size: .8em;
+  font-size: .8em;
 }
 
 #page1, #page2, #page3, #page4, #page5 {
@@ -114,8 +133,7 @@
 }
 
 #slider-value {
-  display: block;
-
+  display: none;
   color: #fff;
   width: 200px;
   height: 200px;
@@ -125,49 +143,42 @@
   border-radius: 3px;
 }
 
-
-#value-1, #value-2, #value-3, #value-4
-{
+#value-1, #value-2, #value-3, #value-4 {
+  display: none;
   font-size: .65em;
   text-transform: uppercase;
-  background-color: #7b9fc9;
+  background-color: #012266;
   padding: 2px;
   border-radius: 2px;
+  z-index: 1;
 }
 
-#value-1
-{
-  margin-top: 0px;
-  position: absolute;
-  top: 240px;
+#value-1 {
+  margin-top: 29vh;
+  position: fixed;
+  top: 0;
   left: 70%;
-  display: none;
 }
 
-#value-2
-{
-  margin-top: 0px;
-  position: absolute;
-  top: 312px;
+#value-2 {
+  margin-top: 39vh;
+  position: fixed;
+  top: 0;
   left: 70%;
-  display: none;
 }
 
-#value-3
-{
-  margin-top: 0px;
-  position: absolute;
-  top: 384px;
+#value-3 {
+  margin-top: 49vh;
+  position: fixed;
+  top: 0;
   left: 70%;
-  display: none;
 }
-#value-4
-{
-  margin-top: 0px;
-  position: absolute;
-top: 456px;
+
+#value-4 {
+  margin-top: 59vh;
+  position: fixed;
+  top: 0;
   left: 70%;
-  display: none;
 }
 
 .c-5-color {
@@ -190,24 +201,10 @@ top: 456px;
   background: #416c9d;
 }
 
-#top {
-  margin: 0px;
-  /* margin-top: 100px; */
-  display: block;
-  position: absolute;
-  top: 100px;
-  width: 100%;
-  height: 100px;
-  text-align: center;
-  font-size: 1.5em;
-  color: white;
-  z-index: 100;
-  text-transform: uppercase;
-  font-weight: 500;
-}
+
 
 #next-btn {
-  background-color: #7b9fc9;
+  background-color: #012266;
   color: #fff;
   border: none;
   width: 55px;
@@ -245,29 +242,53 @@ top: 456px;
 #slider-disp {
   border-radius: 3px;
   display: none;
-  background-color: #5785ba;
+  background-color: #012266;
   width: 40vw;
   height: 50vh;
-  margin-left:30vw;
+  margin-left: 30vw;
   margin-right: auto;
   padding: 1%;
-  margin-top: 15%;
+  z-index: 100;
+  margin-top: 25vh;
+  position: fixed;
+  top: 0;
   overflow-y: auto;
   overflow-x: hidden;
   font-size: .8em;
-
+  /* z-index: 100; */
 }
 
 #slider-disp h3 {
-  color: #012233;
+  color: #ddd;
   text-transform: uppercase;
   font-size: .9em;
   text-align: left;
   padding-left: 20px;
-
 }
-#slider-disp p{
+
+#slider-disp p {
   color: #ddd;
-  padding-left:50px;
+  padding-left: 50px;
   font-size: .85em;
+}
+#top {
+  font-family: "Work Sans","Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  margin: 0px;
+  /* margin-top: 100px; */
+  display: block;
+  position: fixed;
+  top: 15%;;
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  font-size: 1.5em;
+  color: white;
+  z-index: 100;
+}
+
+
+#slider-pages{
 }

@@ -15,6 +15,7 @@ var userPerVPBody;
 var userNumParties;
 var prevUserNumParties;
 var userEditCount = 0;
+var reconfigBool = true;
 var onePartyBool = true;
 
 var userNumHouseRan;
@@ -29,6 +30,7 @@ var userSuperThresh;
 var userRepYaythresh;
 var userDemYaythresh;
 var userIndYaythresh;
+
 
 
 //V1 TO DO
@@ -78,8 +80,10 @@ var stressPlanetHigh = 10; //change this to the low stress masimum
 var stressOffset;
 
 //Number voting members
-var numHouse = 435;
-var numSenate = 100;
+// var numHouse = 435;
+// var numSenate = 100;
+var numHouse = 20;
+var numSenate = 20;
 var numPres = 1;
 var numVP = 1;
 
@@ -228,8 +232,8 @@ function preload() {
 
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  rectMode(CENTER);
+  // createCanvas(windowWidth*.8, windowHeight*.8);
+  // rectMode(CENTER);
   noStroke();
   mgr = new SceneManager();
   mgr.addScene(democracyEngineOrigin);
@@ -323,10 +327,10 @@ function nextScene() {
 //   mgr.keyPressed();
 // }
 
-//might not work for fullscreen
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-}
+// might not work for fullscreen
+// function windowResized() {
+//   resizeCanvas(windowWidth*8, windowHeight*8);
+// }
 
 
 function button() {
@@ -348,6 +352,8 @@ function inputVar() {
   if(!document.getElementById('disp-btn')){
           dispButton();
     }
+
+
   //Number voting members
   numHouse = userNumHouse;
   numSenate = userNumSenate;
@@ -412,11 +418,12 @@ function inputVar() {
   removeField();
   // resetSliders();
   userEdits = true;
+  reconfigBool = true;
   mgr.showScene(democracyEngineUser);
 }
 
 function dispButton() {
-  dispBtn = createButton('USER CONFIGURATIONS');
+  dispBtn = createButton('DISPLAY USER SETTINGS');
   dispBtn.id("disp-btn");
   dispBtn.class('buttons');
   let buttonDiv = document.getElementById('button-div');

@@ -5,15 +5,13 @@ body {
     height: 100%;
     background-color: #012244;
     background-image: none;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Work Sans","Helvetica Neue", Helvetica, Arial, sans-serif;
     font-style: normal;
     font-variant: normal;
     font-weight: 100;
 }
 
 .p5Canvas {
-    font-family: "Helvetica-Neue", Helvetica, Arial, sans-serif !important;
-    font-weight: lighter !important;
     display: block;
     position: absolute;
     left: 50%;
@@ -29,22 +27,13 @@ body {
 h2 {
     color: blue;
     width: 100%;
+    font-weight: lighter;
 }
-/* .container {
-    position: relative;
-    background-color: peachpuff;
-    /* padding: 25px; */
-/* } */
+
 #vote {
     background-color: #012244;
-    width: 80%;
-    height: 80%;
-    z-index: 1;
+    z-index: 0;
 }
-
-
-
-
 
 input[type=text] {
     width: 50px;
@@ -93,7 +82,7 @@ header ul {
 
 header ul li {
     font-size: 21px;
-    font-family: "Helvetica Neue";
+      font-family: "Work Sans","Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 24px;
     font-style: normal;
     font-variant: normal;
@@ -149,7 +138,7 @@ footer {
 
 
 button{
-  background-color: #7b9fc9;
+  background-color: #012266;
   color: #fff;
   border: none;
   border-radius: 2px;
@@ -165,4 +154,14 @@ button{
   margin-top: 30px;
   font-size: 2em;
   overflow-y: hidden;
+}
+
+p {
+  color: white;
+  text-align: justify;
+  font-size: 18px;
+  font-family: "Work Sans","Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: lighter;
 }
