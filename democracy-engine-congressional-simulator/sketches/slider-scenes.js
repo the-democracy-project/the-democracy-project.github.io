@@ -6,7 +6,8 @@ function democracyEngineUser() {
     dWidth = windowWidth * .8;
     dHeight = windowHeight * .8;
     let canvas = createCanvas(dWidth, dHeight);
-    canvas.parent('vote');
+    let canvasDiv = document.getElementById('vote');
+    canvas.parent(canvasDiv);
     background(bColor);
     // dispButton();
     // let fs = fullscreen();
@@ -29,7 +30,8 @@ function democracyEngineUser() {
       dWidth = windowWidth * .8;
       dHeight = windowHeight * .8;
       canvas = createCanvas(dWidth, dHeight);
-      canvas.parent('vote');
+      let canvasDiv = document.getElementById('vote');
+      canvas.parent(canvasDiv);
       reconfigBool = false;
     }
     //
@@ -798,7 +800,8 @@ function democracyEngineOrigin() {
     dWidth = windowWidth * .8;
     dHeight = windowHeight * .8;
     let canvas = createCanvas(dWidth, dHeight);
-    canvas.parent('vote');
+    let canvasDiv = document.getElementById('vote');
+    canvas.parent(canvasDiv);
 
   }
 

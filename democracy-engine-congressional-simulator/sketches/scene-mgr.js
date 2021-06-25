@@ -80,10 +80,8 @@ var stressPlanetHigh = 10; //change this to the low stress masimum
 var stressOffset;
 
 //Number voting members
-// var numHouse = 435;
-// var numSenate = 100;
-var numHouse = 20;
-var numSenate = 20;
+var numHouse = 435;
+var numSenate = 100;
 var numPres = 1;
 var numVP = 1;
 

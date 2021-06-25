@@ -17,12 +17,14 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
-    height: 50%;
+    width: 80vw !important;
+    height: auto!important;
+    max-width: 920px;
     padding: 20px;
     text-align: center;
     z-index: 0;
 }
+
 
 h2 {
     color: blue;
@@ -31,8 +33,12 @@ h2 {
 }
 
 #vote {
+    display: none;
     background-color: #012244;
     z-index: 0;
+
+
+
 }
 
 input[type=text] {
