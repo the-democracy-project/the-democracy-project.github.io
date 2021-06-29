@@ -86,22 +86,22 @@ var numPres = 1;
 var numVP = 1;
 
 //Demographics of House as decimal percentages 1 = 100%
-var perDemHouse = 0.5333;
-var perRepHouse = 0.4551;
-var perIndHouse = 0.0115;
+var perDemHouse = 0.505;
+var perRepHouse = 0.485;
+var perIndHouse = 0.00;
 
 //Demographics of Senate as decimal percentages 1 = 100%
-var perDemSenate = 0.45;
-var perRepSenate = 0.53;
+var perDemSenate = 0.48;
+var perRepSenate = 0.50;
 var perIndSenate = 0.02;
 
 //Demographics of President as decimal percentages 1 = 100%
-var perDemPres = 0.0;
-var perRepPres = 1.0;
+var perDemPres = 1.0;
+var perRepPres = 0.0;
 var perIndPres = 0.0;
 
-var perDemVP = 0.0;
-var perRepVP = 1.0;
+var perDemVP = 1.0;
+var perRepVP = 0.0;
 var perIndVP = 0.0;
 
 var housePercentage, senPercentage, vpPercentage, presPercentage;
