@@ -2693,7 +2693,6 @@ function sDisplay() {
 
   function inputTxt() {
     userOutputText.innerHTML =
-      "<a href='mailto:democracy.project.cadre@gmail.com' target='_blank' rel='noopener noreferrer'>Email Us</a>" +
       "<div><h3>First Legislative Chamber</h3>" +
       "<p>Voting Members: " + userNumHouse +
       "<br>Members in Political Party A: " + Math.round(userPerHouseBody[0] * userNumHouse) +
