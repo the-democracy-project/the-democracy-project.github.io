@@ -2,7 +2,7 @@ var mgr;
 
 let dWidth, dHeight;
 let nextButton;
-var buttonRC, buttonRes, dispBtn, buttonRecal;
+var buttonRC, buttonRes, dispBtn, buttonRecal, buttonDef, emailBtn;
 
 var userNumHouse;
 var userPerHouseBody;
@@ -15,8 +15,8 @@ var userPerVPBody;
 var userNumParties;
 var prevUserNumParties;
 var userEditCount = 0;
-var reconfigBool = true;
-var onePartyBool = true;
+var reconfigBool = false;
+var onePartyBool = false;
 
 var userNumHouseRan;
 var userNumSenateRan;
@@ -244,8 +244,8 @@ function setup() {
   mgr.addScene(sResults);
   mgr.addScene(sInfo);
   mgr.addScene(sDisplay);
+  mgr.addScene(sDefault);
   mgr.showNextScene();
-
 }
 
 function draw() {
@@ -282,9 +282,9 @@ function nextScene() {
     mgr.showScene(sYesVotes);
   } else if (mgr.isCurrent(sYesVotes)) {
     mgr.showScene(sResults);
-  }  else if (mgr.isCurrent(sResults)) {
+  }  else if (mgr.isCurrent(sResults) && userEditCount < 2) {
     mgr.showScene(sInfo);
-  } else if (mgr.isCurrent(sInfo) && userEdits == true) {
+  }  else if (mgr.isCurrent(sInfo) && userEdits == true) {
     mgr.showScene(democracyEngineUser);
   } else if (mgr.isCurrent(democracyEngineUser)) {
     mgr.showScene(sLegislative);
@@ -338,8 +338,20 @@ function button() {
 function dispResult() {
   if (mgr.isCurrent(sDisplay)) {
     mgr.showScene(democracyEngineUser);
+    dispBtn.elt.textContent = "DISPLAY USER SETTINGS";
   } else {
     mgr.showScene(sDisplay);
+    dispBtn.elt.textContent = "DISPLAY VOTE";
+  }
+}
+
+function defResult() {
+  if (mgr.isCurrent(sDefault)) {
+    mgr.showScene(democracyEngineOrigin);
+    buttonDef.elt.textContent = "DISPLAY DEFAULT SETTINGS";
+  } else {
+    mgr.showScene(sDefault);
+    buttonDef.elt.textContent = "DISPLAY VOTE";
   }
 }
 
@@ -434,8 +446,16 @@ function dispButton() {
 function removeField() {
   buttonRes.remove();
   buttonRC.remove();
-  buttonRecal.remove();
+  if (mgr.isCurrent(democracyEngineUser) || mgr.isCurrent(sResults))
+  {
+    buttonRecal.remove();
+    emailBtn.remove();
+  }
   nextButton.remove();
+}
+
+function emailFunc(){
+  window.location.href='mailto'+':democracy'+'.project.'+'cadre@'+'gmail.com?subject=The%20Future%20Democracies%20Laboratory%20Simulator%7C%20User%20Results%20and%20Settings&body=Please%20insert%20a%20copy%20of%20your%20user%20settings%20and%20a%20screenshot%20of%20the%20generated%20voting%20results%0D%0A';
 }
 
 function resetCount() {
@@ -472,8 +492,6 @@ function resetDraw() {
 function roundNum(value, decimals) {
   return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
 }
-
-
 
 function changeText(text) {
   document.getElementById("result").innerHTML = text;

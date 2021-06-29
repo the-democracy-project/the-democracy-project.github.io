@@ -10,24 +10,25 @@ body {
   font-variant: normal;
   font-weight: 100;
 }
-
-#vote {
-  width: 100vw !important;
-  background-color: #012244;
-  z-index: 0;
-}
-
 .p5Canvas {
   display: block;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  max-width: 920px;
   padding: 20px;
   text-align: center;
   z-index: 0;
 }
+
+#vote {
+  width: 100vw !important;
+  height: auto !important;
+  background-color: #012244;
+  z-index: 0;
+}
+
+
 
 h2 {
   color: blue;
@@ -148,7 +149,8 @@ button {
   height: 50vh;
   margin-left: 15vw;
   margin-right: 15vw;
-  margin-top: 30px;
+  margin-top: 25vh;
+  margin-bottom: auto;
   font-size: 2em;
   overflow-y: hidden;
 }

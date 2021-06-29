@@ -15,12 +15,7 @@ function democracyEngineUser() {
 
   }
 
-  this.draw = function() {
 
-    rot += 0.5;
-
-    currentCongLogic();
-  }
 
   this.enter = function() {
 
@@ -50,6 +45,13 @@ function democracyEngineUser() {
     // window.addEventListener("resize", resized);
     console.log(mgr.isCurrent(democracyEngineUser));
 
+  }
+
+  this.draw = function() {
+
+    rot += 0.5;
+
+    currentCongLogic();
   }
 
   //Logic below is setup for current congressional configuration
@@ -580,7 +582,7 @@ function democracyEngineUser() {
     let padY = 20;
     let padX = 20;
     let dispW = (dWidth / columnAmount);
-    let dispH = (dHeight / rowAmount);
+    let dispH = dHeight;
 
     let dispX = 0 + padX;
     let dispY = 0 + padY;
@@ -630,7 +632,7 @@ function democracyEngineUser() {
             print("i = " + i + " and current body label = " + currentBodyLabel);
 
             if (currentBodyLabel == 'PRESIDENCY') {
-              textSize(23);
+              textSize(22);
               text(currentBodyLabel, (i) * dispW + padX, padY, dispW, dispH);
               textAlign(LEFT);
 
@@ -645,31 +647,32 @@ function democracyEngineUser() {
                 //president veto/super
 
                 if (bodyPass[0] === true && bodyPass[1] === true && bodyPass[3] === false) {
+                  textSize(16);
                   if (superThreshIndex[0] === true && superThreshIndex[1] === true) {
-                    text('\n\n\nVETO OVERRIDE BY SUPERMAJORITY IN ALL LEGISLATIVE CHAMBERS', (i) * dispW + padX, dHeight / 4, dispW, dispH);
+                    text('\n\n\nVETO OVERRIDE BY SUPERMAJORITY IN ALL LEGISLATIVE CHAMBERS', (i) * dispW + padX, dHeight / 4, dispW-padX, dispH);
                   } else {
-                    text('\n\n\nPRESIDENTIAL VETO: BILL IS NOT APPROVED', (i) * dispW + padX, dHeight / 4, dispW, dispH);
+                    text('\n\n\nPRESIDENTIAL VETO: BILL IS NOT APPROVED', (i) * dispW + padX, dHeight / 4, dispW-padX, dispH);
                   }
                 } else if (bodyPass[i] == true &&
                   superThreshIndex[0] == false ||
                   superThreshIndex[1] == false) {
-                  text('\n\n\nBILL IS APPROVED', (i) * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\n\n\nBILL IS APPROVED', (i) * dispW + padX, dHeight / 4, dispW-padX, dispH);
                 } else if (bodyPass[i] == false) {
-                  text('\n\n\nBILL IS NOT APPROVED ', (i) * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\n\n\nBILL IS NOT APPROVED ', (i) * dispW + padX, dHeight / 4, dispW-padX, dispH);
                 }
               } else {
                 textSize(16);
                 if (bodyPass[0] == false || bodyPass[1] == false) {
                   // dispY = dispY + (dHeight / 5);
-                  text('\n\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: PRESIDENT DOES NOT VOTE', (i) * dispW + padX, padY, dispW, dispH);
+                  text('\n\n\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: PRESIDENT DOES NOT VOTE', (i) * dispW + padX, padY, dispW-padX, dispH);
                 } else {
                   textSize(20);
-                  text('\n\n\nDOES NOT VOTE', (i) * dispW + padX, padY, dispW, dispH);
+                  text('\n\n\n\nDOES NOT VOTE', (i) * dispW + padX, padY, dispW-padX, dispH);
                 }
               }
 
             } else if (currentBodyLabel == 'VICE PRESIDENCY') {
-              textSize(23);
+              textSize(22);
               text(currentBodyLabel, i * dispW + padX, padY, dispW, dispH);
               if (stopVoteArr[i] == false && vpVote == true) {
                 textSize(20);
@@ -678,41 +681,42 @@ function democracyEngineUser() {
                 text("\n\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, padY);
 
                 if (bodyPass[0] == false || bodyPass[1] == false) {
-                  text('\n\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: NO VICE PRESIDENTIAL VOTE', i * dispW + padX, (dHeight / 4), dispW, dispH);
+                  textSize(16);
+                  text('\n\n\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: NO VICE PRESIDENTIAL VOTE', i * dispW + padX, (dHeight / 4), dispW-padX, dispH);
                 } else if (bodyPass[0] == true && bodyPass[1] == true && vpVote == true) {
                   if (bodyPass[i] == false) {
-                    text('\n\n\nBILL IS NOT APPROVED', (i) * dispW + padX, dHeight / 4, dispW, dispH);
+                    text('\n\n\nBILL IS NOT APPROVED', (i) * dispW + padX, dHeight / 4, dispW-padX, dispH);
                   } else if (bodyPass[i] == true) {
-                    text('\n\n\nBILL IS APPROVED', (i) * dispW + padX, dHeight / 4, dispW, dispH);
+                    text('\n\n\nBILL IS APPROVED', (i) * dispW + padX, dHeight / 4, dispW-padX, dispH);
                   }
                 }
 
               } else {
                 textSize(20);
-                text('\n\n\nDOES NOT VOTE', i * dispW + padX, padY, dispW, dispH);
+                text('\n\n\nDOES NOT VOTE', i * dispW + padX, padY, dispW-padX, dispH);
               }
 
             } else {
-              textSize(23);
-              text(currentBodyLabel, i * dispW + padX, padY, dispW, dispH);
+              textSize(22);
+              text(currentBodyLabel, i * dispW + padX, padY, dispW-padX, dispH);
               if (stopVoteArr[i] == false) {
                 textSize(20);
-                text("\n\n\nVOTES \n", i * dispW + padX, padY, dispW, dispH);
+                text("\n\n\nVOTES \n", i * dispW + padX, padY, dispW-padX, dispH);
                 textSize(16);
                 text("\n\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, padY);
                 // superthresh
                 if (bodyPass[i] == true && superThreshIndex[i] == true) {
-                  text('\n\n\nBILL IS APPROVED WITH SUPERMAJORITY', i * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\n\n\nBILL IS APPROVED WITH SUPERMAJORITY', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
                 } else if (currentBodyLabel == 'SENATE' && bodyPass[0] == true && bodyPass[1] == true && vpVote == true) {
-                  text('\n\n\nTIE-BREAKER VOTE INITIATED', i * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\n\n\nTIE-BREAKER VOTE INITIATED', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
                 } else if (bodyPass[i] == false) {
-                  text('\n\n\nBILL IS NOT APPROVED', i * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\n\n\nBILL IS NOT APPROVED', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
                 } else if (bodyPass[i] == true && superThreshIndex[i] == false) {
-                  text('\n\n\nBILL IS APPROVED', i * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\n\n\nBILL IS APPROVED', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
                 }
               } else {
                 textSize(20);
-                text('\n\n\nDOES NOT VOTE', i * dispW + padX, padY, dispW, dispH);
+                text('\n\n\nDOES NOT VOTE', i * dispW + padX, padY, dispW-padX, dispH);
               }
             }
 
@@ -761,16 +765,23 @@ function democracyEngineUser() {
     buttonRecal.class('buttons');
     buttonRecal.mousePressed(inputVar);
 
-    buttonRes = createButton('RESET');
+    buttonRC = createButton('RECONFIGURE GOVERNMENT');
+    buttonRC.id('rec-btn');
+    buttonRC.class('buttons');
+    buttonRC.mousePressed(nextScene);
+
+    buttonRes = createButton('RUN DEFAULT SETTINGS');
     buttonRes.id('res-btn');
     buttonRes.class('buttons');
     buttonRes.mousePressed(userRecount);
 
-    buttonRC = createButton('RECONFIGURE CONGRESS');
-    buttonRC.id('rec-btn');
-    buttonRC.class('buttons');
-    buttonRC.mousePressed(nextScene);
+    emailBtn = createButton('EMAIL YOUR RESULTS');
+    emailBtn.id('email-btn');
+    emailBtn.class('buttons');
+    emailBtn.mousePressed(emailFunc);
+
     let buttonDiv = document.getElementById('button-div');
+    emailBtn.parent(buttonDiv);
     buttonRC.parent(buttonDiv);
     buttonRes.parent(buttonDiv);
     buttonRecal.parent(buttonDiv);
@@ -805,16 +816,7 @@ function democracyEngineOrigin() {
 
   }
 
-  this.draw = function() {
-
-    rot += 0.5;
-
-    currentCongLogic();
-
-  }
-
   this.enter = function() {
-    background(bColor);
 
     document.getElementById("top").style.display = "none";
     document.getElementById("page1").style.display = "none";
@@ -829,6 +831,16 @@ function democracyEngineOrigin() {
     currentCongLogic();
     // window.addEventListener("resize", resized);
   }
+
+  this.draw = function() {
+
+    rot += 0.5;
+
+    currentCongLogic();
+
+  }
+
+
 
 
   // function windowResized() {
@@ -1392,7 +1404,7 @@ function democracyEngineOrigin() {
             print("i = " + i + " and current body label = " + currentBodyLabel);
 
             if (currentBodyLabel == 'PRESIDENCY') {
-              textSize(23);
+              textSize(22);
               text(currentBodyLabel, (i - 1) * dispW + padX, padY, dispW, dispH);
               textAlign(LEFT);
 
@@ -1408,73 +1420,73 @@ function democracyEngineOrigin() {
 
                 if (bodyPass[0] === true && bodyPass[1] === true && bodyPass[3] === false) {
                   if (superThreshIndex[0] === true && superThreshIndex[1] === true) {
-                    text('\nVETO OVERRIDE BY SUPERMAJORITY IN ALL LEGISLATIVE CHAMBERS', (i - 1) * dispW + padX, dHeight / 4, dispW, dispH);
+                    text('\nVETO OVERRIDE BY SUPERMAJORITY IN ALL LEGISLATIVE CHAMBERS', (i - 1) * dispW + padX, dHeight / 4, dispW-padX, dispH);
                   } else {
-                    text('\nPRESIDENTIAL VETO: BILL IS NOT APPROVED ', (i - 1) * dispW + padX, dHeight / 4, dispW, dispH);
+                    text('\nPRESIDENTIAL VETO: BILL IS NOT APPROVED ', (i - 1) * dispW + padX, dHeight / 4, dispW-padX, dispH);
                   }
                 } else if (bodyPass[i] == true &&
                   superThreshIndex[0] == false ||
                   superThreshIndex[1] == false) {
-                  text('\nBILL IS APPROVED', (i - 1) * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\nBILL IS APPROVED', (i - 1) * dispW + padX, dHeight / 4, dispW-padX, dispH);
                 } else if (bodyPass[i] == false) {
-                  text('\nBILL IS NOT APPROVED ', (i - 1) * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\nBILL IS NOT APPROVED ', (i - 1) * dispW + padX, dHeight / 4, dispW-padX, dispH);
                 }
               } else {
 
                 if (bodyPass[0] == false || bodyPass[1] == false) {
                   textSize(16);
-                  text('\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: PRESIDENT DOES NOT VOTE', (i - 1) * dispW + padX, padY, dispW, dispH);
+                  text('\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: PRESIDENT DOES NOT VOTE', (i - 1) * dispW + padX, padY, dispW-padX, dispH);
                 } else {
                   textSize(20);
-                  text('\n\nDOES NOT VOTE', (i - 1) * dispW + padX, padY, dispW, dispH);
+                  text('\n\nDOES NOT VOTE', (i - 1) * dispW + padX, padY, dispW-padX, dispH);
                 }
               }
 
             } else if (currentBodyLabel == 'VICE PRESIDENCY') {
-              textSize(23);
+              textSize(22);
               text(currentBodyLabel, i * dispW + padX, dHeight / 2, dispW, dispH);
               if (stopVoteArr[i] == false && vpVote == true) {
                 textSize(20);
                 text("\n\nVOTES \n", i * dispW + padX, dHeight / 2, dispW, dispH);
                 textSize(16);
-                text("\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, dHeight / 2, dispW, dispH);
+                text("\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, dHeight / 2, dispW-padX, dispH);
 
                 if (bodyPass[0] == false || bodyPass[1] == false) {
-                  text('\n\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: NO VICE PRESIDENTIAL VOTE', i * dispW + padX, dHeight * (3 / 4), dispW, dispH);
+                  text('\n\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: NO VICE PRESIDENTIAL VOTE', i * dispW + padX, dHeight * (3 / 4), dispW-padX, dispH);
                 } else if (bodyPass[0] == true && bodyPass[1] == true && vpVote == true) {
                   if (bodyPass[i] == false) {
-                    text('\nBILL IS NOT APPROVED', (i) * dispW + padX, dHeight * (3 / 4), dispW, dispH);
+                    text('\nBILL IS NOT APPROVED', (i) * dispW + padX, dHeight * (3 / 4), dispW-padX, dispH);
                   } else if (bodyPass[i] == true) {
-                    text('\nBILL IS APPROVED', (i) * dispW + padX, dHeight * (3 / 4), dispW, dispH);
+                    text('\nBILL IS APPROVED', (i) * dispW + padX, dHeight * (3 / 4), dispW-padX, dispH);
                   }
                 }
 
               } else {
                 textSize(20);
-                text('\n\nDOES NOT VOTE', i * dispW + padX, dHeight / 2, dispW, dispH);
+                text('\n\nDOES NOT VOTE', i * dispW + padX, dHeight / 2, dispW-padX, dispH);
               }
 
             } else {
-              textSize(23);
-              text(currentBodyLabel, i * dispW + padX, padY, dispW, dispH);
+              textSize(22);
+              text(currentBodyLabel, i * dispW + padX, padY, dispW-padX, dispH);
               if (stopVoteArr[i] == false) {
                 textSize(20);
-                text("\n\nVOTES \n", i * dispW + padX, padY, dispW, dispH);
+                text("\n\nVOTES \n", i * dispW + padX, padY, dispW-padX, dispH);
                 textSize(16);
                 text("\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, padY, dispW, dispH);
                 // superthresh
                 if (bodyPass[i] == true && superThreshIndex[i] == true) {
-                  text('\nBILL IS APPROVED WITH SUPERMAJORITY', i * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\nBILL IS APPROVED WITH SUPERMAJORITY', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
                 } else if (currentBodyLabel == 'SENATE' && bodyPass[0] == true && bodyPass[1] == true && vpVote == true) {
-                  text('\nTIE-BREAKER VOTE INITIATED', i * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\nTIE-BREAKER VOTE INITIATED', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
                 } else if (bodyPass[i] == false) {
-                  text('\nBILL IS NOT APPROVED', i * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\nBILL IS NOT APPROVED', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
                 } else if (bodyPass[i] == true && superThreshIndex[i] == false) {
-                  text('\nBILL IS APPROVED', i * dispW + padX, dHeight / 4, dispW, dispH);
+                  text('\nBILL IS APPROVED', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
                 }
               } else {
                 textSize(20);
-                text('\n\nDOES NOT VOTE', i * dispW + padX, padY, dispW, dispH);
+                text('\n\nDOES NOT VOTE', i * dispW + padX, padY, dispW-padX, dispH);
               }
             }
 
@@ -1525,18 +1537,22 @@ function democracyEngineOrigin() {
 
     bodyCount = numBodies;
 
-    buttonRes = createButton('RESET');
+    buttonDef = createButton('DISPLAY DEFAULT SETTINGS');
+    buttonDef.id('def-btn');
+    buttonDef.mousePressed(defResult);
+
+    buttonRes = createButton('RECALCULATE VOTE');
     buttonRes.id('res-btn');
-    // buttonRes.class('buttons');
     buttonRes.mousePressed(userRecount);
 
-    buttonRC = createButton('RECONFIGURE CONGRESS');
+    buttonRC = createButton('RECONFIGURE GOVERNMENT');
     buttonRC.id('rec-btn');
-    // buttonRC.class('buttons');
     buttonRC.mousePressed(nextScene);
+
     let buttonDiv = document.getElementById('button-div');
     buttonRC.parent(buttonDiv);
     buttonRes.parent(buttonDiv);
+    buttonDef.parent(buttonDiv);
     // buttonDiv.center("horizontal");
   }
 
@@ -1555,10 +1571,17 @@ function sLegislative() {
   var slider2 = document.getElementById('slider2');
   var slider3 = document.getElementById('slider3');
   var slider4 = document.getElementById('slider4');
+  var curNumHouse = parseInt(numHouse);
+  var curNumSen = parseInt(numSenate);
+  var curNumVP = parseInt(numVP);
+  var curNumPres = parseInt(numPres);
+
 
   this.setup = function() {
     textSize(15);
     noStroke();
+
+
 
 
   }
@@ -1590,6 +1613,7 @@ function sLegislative() {
     document.body.style.backgroundColor = bColor;
     buttonRC.remove();
     buttonRes.remove();
+    buttonDef.remove();
     if (userEdits == true) {
       dispBtn.remove();
       buttonRecal.remove();
@@ -1627,7 +1651,7 @@ function sLegislative() {
     function createSlider() {
 
       noUiSlider.create(slider1, {
-        start: [250],
+        start: curNumHouse,
         range: {
           'min': [1],
           'max': [500]
@@ -1645,7 +1669,7 @@ function sLegislative() {
       });
 
       noUiSlider.create(slider2, {
-        start: [250],
+        start: curNumSen,
         range: {
           'min': [1],
           'max': [500]
@@ -1663,7 +1687,7 @@ function sLegislative() {
       });
 
       noUiSlider.create(slider3, {
-        start: [3],
+        start: curNumVP,
         range: {
           'min': [1],
           'max': [500]
@@ -1682,7 +1706,7 @@ function sLegislative() {
 
 
       noUiSlider.create(slider4, {
-        start: [3],
+        start: curNumPres,
         range: {
           'min': [1],
           'max': [500]
@@ -1775,10 +1799,10 @@ function sParties() {
     } else {
       createSlider();
       sliderVals();
-      if (userNumParties == parseInt(1)) {
-        userEditCount += 1;
-        console.log("one party count: " + userEditCount);
-      }
+      // if (userNumParties == parseInt(1)) {
+      //   userEditCount += 1;
+      //   console.log("one party count: " + userEditCount);
+      // }
     }
 
     function createSlider() {
@@ -1883,8 +1907,10 @@ function sMembers() {
     if (userEdits == true) {
       //when user chooses 1 party the first time, no sliders get created.
       //The second round needs to create the sliders.
+      console.log("User Edit Count: " + userEditCount + " One Party Chosen Previously?: "+ onePartyBool);
       if (userEditCount == 1 && onePartyBool == true) {
         createSlider();
+        // sliderVals();
       }
       // makes it possible to choose different number of parties each time around
       else {
@@ -1904,7 +1930,7 @@ function sMembers() {
       // NOui slider
       userNumHouse = parseInt(userNumHouse);
       userNumPres = parseInt(userNumPres);
-      userNumVP = parseInt(userNumPres);
+      userNumVP = parseInt(userNumVP);
       userNumSenate = parseInt(userNumSenate);
       userNumParties = parseInt(userNumParties);
       userNumHouseRan = [];
@@ -1969,6 +1995,7 @@ function sMembers() {
         }
         // console.log("random house num: " + userNumSenateRan[i]);
       }
+
       userNumVPRan.sort((a, b) => a - b);
       console.log(userNumVPRan);
 
@@ -2055,10 +2082,11 @@ function sMembers() {
 
 
     function sliderVals() {
-      var toolTip6 = slider6.querySelectorAll('.noUi-tooltip');
-      var toolTip7 = slider7.querySelectorAll('.noUi-tooltip');
-      var toolTip8 = slider8.querySelectorAll('.noUi-tooltip');
-      var toolTip9 = slider9.querySelectorAll('.noUi-tooltip');
+
+      var handle6 = slider6.querySelectorAll('.noUi-handle');
+      var handle7 = slider7.querySelectorAll('.noUi-handle');
+      var handle8 = slider8.querySelectorAll('.noUi-handle');
+      var handle9 = slider9.querySelectorAll('.noUi-handle');
 
       var value1 = document.getElementById('value-1');
       var value2 = document.getElementById('value-2');
@@ -2069,21 +2097,21 @@ function sMembers() {
 
       var classes = ['c-1-color', 'c-2-color', 'c-3-color', 'c-4-color', 'c-5-color'];
 
-      for (var i = 0; i < toolTip6.length; i++) {
-        toolTip6[i].classList.add(classes[i]);
+      for (var i = 0; i < handle6.length; i++) {
+        handle6[i].classList.add(classes[i]);
 
       }
-      for (var i = 0; i < toolTip7.length; i++) {
-        toolTip7[i].classList.add(classes[i]);
+      for (var i = 0; i < handle7.length; i++) {
+        handle7[i].classList.add(classes[i]);
 
       }
 
-      for (var i = 0; i < toolTip8.length; i++) {
-        toolTip8[i].classList.add(classes[i]);
+      for (var i = 0; i < handle8.length; i++) {
+        handle8[i].classList.add(classes[i]);
       }
 
-      for (var i = 0; i < toolTip9.length; i++) {
-        toolTip9[i].classList.add(classes[i]);
+      for (var i = 0; i < handle9.length; i++) {
+        handle9[i].classList.add(classes[i]);
       }
 
 
@@ -2112,7 +2140,7 @@ function sMembers() {
 
           // made for up to three political parties
           if (userPerHouseBody.length == 3) {
-            value1.innerHTML = "Party A: " + +numPerHouseBody[0] + " Party B: " + numPerHouseBody[1] + " Party C: " + numPerHouseBody[2];
+            value1.innerHTML = "Party A: " + numPerHouseBody[0] + " Party B: " + numPerHouseBody[1] + " Party C: " + numPerHouseBody[2];
           } else if (userPerHouseBody.length == 2) {
             // rangeSliderValueElement.innerHTML = userPerHouseBody[0] + " " + userPerHouseBody[1];
             value1.innerHTML = "Party A: " + numPerHouseBody[0] + " Party B: " + numPerHouseBody[1];
@@ -2272,7 +2300,7 @@ function sBodyPass() {
           mode: 'range',
           density: 'range',
         },
-        step: 10,
+        step: 1,
         format: wNumb({
           decimals: 0,
           suffix: '%'
@@ -2291,7 +2319,7 @@ function sBodyPass() {
           mode: 'range',
           density: 'range',
         },
-        step: 10,
+        step: 1,
         format: wNumb({
           decimals: 0,
           suffix: '%'
@@ -2356,10 +2384,13 @@ function sYesVotes() {
 
   function checkParties() {
     if (userNumParties == 1) {
+      document.getElementById("slider12").style.display = "block";
       document.getElementById("slider13").style.display = "none";
       document.getElementById("slider14").style.display = "none";
 
     } else if (userNumParties == 2) {
+      document.getElementById("slider12").style.display = "block";
+      document.getElementById("slider13").style.display = "block";
       document.getElementById("slider14").style.display = "none";
     } else {
       document.getElementById("slider12").style.display = "block";
@@ -2393,7 +2424,7 @@ function sYesVotes() {
           mode: 'range',
           density: 'range',
         },
-        step: 10,
+        step: 1,
         format: wNumb({
           decimals: 0,
           suffix: '%'
@@ -2412,7 +2443,7 @@ function sYesVotes() {
           mode: 'range',
           density: 'range',
         },
-        step: 10,
+        step: 1,
         format: wNumb({
           decimals: 0,
           suffix: '%'
@@ -2431,7 +2462,7 @@ function sYesVotes() {
           mode: 'range',
           density: 'range',
         },
-        step: 10,
+        step: 1,
         format: wNumb({
           decimals: 0,
           suffix: '%'
@@ -2485,23 +2516,9 @@ function sYesVotes() {
 function sResults() {
 
   this.setup = function() {
-    if (userNumParties == 2) {
-      userPerHouseBody[2] = 0.0;
-      userPerSenateBody[2] = 0.0;
-      userPerVPBody[2] = 0.0;
-      userPerPresBody[2] = 0.0;
-    } else if (userNumParties == 1) {
-      userPerHouseBody[1] = 0.0;
-      userPerHouseBody[2] = 0.0;
-      userPerSenateBody[1] = 0.0;
-      userPerSenateBody[2] = 0.0;
-      userPerVPBody[1] = 0.0;
-      userPerVPBody[2] = 0.0;
-      userPerPresBody[1] = 0.0;
-      userPerPresBody[2] = 0.0;
-    }
+
     userOutputText = document.getElementById('slider-disp');
-    inputTxt();
+
   }
 
   this.enter = function() {
@@ -2519,6 +2536,22 @@ function sResults() {
     document.getElementById("vote").style.display = "none";
     document.getElementById("slider-disp").style.display = "block";
     document.getElementById("sim-info").style.display = "none";
+    if (userNumParties == 2) {
+      userPerHouseBody[2] = 0.0;
+      userPerSenateBody[2] = 0.0;
+      userPerVPBody[2] = 0.0;
+      userPerPresBody[2] = 0.0;
+    } else if (userNumParties == 1) {
+      userPerHouseBody[1] = 0.0;
+      userPerHouseBody[2] = 0.0;
+      userPerSenateBody[1] = 0.0;
+      userPerSenateBody[2] = 0.0;
+      userPerVPBody[1] = 0.0;
+      userPerVPBody[2] = 0.0;
+      userPerPresBody[1] = 0.0;
+      userPerPresBody[2] = 0.0;
+    }
+    inputTxt();
   }
 
   this.draw = function() {
@@ -2548,14 +2581,29 @@ function sResults() {
       "<br>Members in Political Party A: " + Math.round(userPerVPBody[0] * userNumPres) +
       "<br>Members in Political Party B: " + Math.round(userPerVPBody[1] * userNumPres) +
       "<br>Members in Political Party C: " + Math.round(userPerVPBody[2] * userNumPres) +
-      "</p><h3>Likelihood of 'yay' vote: </h3>" +
+      "</p><h3>Likelihood of Yes Vote: </h3>" +
       "<p>Political Party A: " + userDemYaythresh +
       "<br>Political Party B: " + userRepYaythresh +
       "<br>Political Party C: " + userIndYaythresh +
       "</p><h3>Percentage of votes required for approval of bill</h3>" +
-      "<p>Approval for majority: " + userBodyPass +
+      "<p>Approval By Majority: " + userBodyPass +
       "<br> Approval by supermajority: " + userSuperThresh + "</div></p>";
+
+      if (userEditCount >=2)
+      {
+        nextButton.remove();
+        buttonRecal = createButton('RECALCULATE VOTE');
+        buttonRecal.id('recal-btn');
+        buttonRecal.class('buttons');
+        let buttonDiv = document.getElementById('button-div');
+        buttonRecal.parent(buttonDiv);
+
+        // buttonRecal.position(windowWidth - buttonRecal.width - buttonRes.width - buttonRC.width - 20, windowHeight - 45);
+        buttonRecal.mousePressed(inputVar);
+      }
   }
+
+
 
 
   // //supermajority Cutoff for override of presidential veto
@@ -2569,11 +2617,9 @@ function sInfo() {
 
   this.setup = function() {
     simInfoText = document.getElementById('sim-info');
-    inputTxt();
   }
 
   this.enter = function() {
-    userEditCount++;
     console.log("simulator info page");
     document.getElementById("top").innerHTML = " ";
     document.getElementById("page1").style.display = "none";
@@ -2587,15 +2633,21 @@ function sInfo() {
     document.getElementById("slider-disp").style.display = "none";
     document.getElementById("sim-info").style.display = "block";
     nextButton.remove();
+    inputTxt();
+    var delayInMilliseconds = 13000; //15 seconds
 
-    buttonRecal = createButton('RECALCULATE VOTE');
-    buttonRecal.id('recal-btn');
-    buttonRecal.class('buttons');
-    let buttonDiv = document.getElementById('button-div');
-    buttonRecal.parent(buttonDiv);
+    setTimeout(function() {
+      inputVar();
+    }, delayInMilliseconds);
 
-    // buttonRecal.position(windowWidth - buttonRecal.width - buttonRes.width - buttonRC.width - 20, windowHeight - 45);
-    buttonRecal.mousePressed(inputVar);
+    // buttonRecal = createButton('RECALCULATE VOTE');
+    // buttonRecal.id('recal-btn');
+    // buttonRecal.class('buttons');
+    // let buttonDiv = document.getElementById('button-div');
+    // buttonRecal.parent(buttonDiv);
+    //
+    // // buttonRecal.position(windowWidth - buttonRecal.width - buttonRes.width - buttonRC.width - 20, windowHeight - 45);
+    // buttonRecal.mousePressed(inputVar);
 
   }
 
@@ -2604,7 +2656,8 @@ function sInfo() {
   }
 
   function inputTxt() {
-    simInfoText.innerHTML = "<div id='page-container'><div id='content-wrap'><div class='body-text'><p>The simulator will now run through one legislative cycle with the provided inputs. The user will then have the option of running the simulator through additional legislative cycles with the same values or changing the parameters by clicking on the 'Display User Settings' button</p></div></div></div>";
+    simInfoText.innerHTML = "<div id='page-container'><div id='content-wrap'><div class='body-text'><p>The simulator will now run through one legislative cycle with the provided inputs. The user will then have the option of running the simulator through additional legislative cycles with the same values or changing the parameters by clicking on the 'Reconfigure Government' button.</p></div></div></div>";
+
   }
 
 
@@ -2613,7 +2666,7 @@ function sInfo() {
 function sDisplay() {
 
   this.setup = function() {
-    inputTxt();
+
   }
 
   this.enter = function() {
@@ -2630,6 +2683,7 @@ function sDisplay() {
     document.getElementById("vote").style.display = "none";
     document.getElementById("slider-disp").style.display = "block";
     document.getElementById("sim-info").style.display = "none";
+    inputTxt();
   }
 
   this.draw = function() {
@@ -2639,6 +2693,7 @@ function sDisplay() {
 
   function inputTxt() {
     userOutputText.innerHTML =
+      "<a href='mailto:democracy.project.cadre@gmail.com' target='_blank' rel='noopener noreferrer'>Email Us</a>" +
       "<div><h3>First Legislative Chamber</h3>" +
       "<p>Voting Members: " + userNumHouse +
       "<br>Members in Political Party A: " + Math.round(userPerHouseBody[0] * userNumHouse) +
@@ -2659,12 +2714,12 @@ function sDisplay() {
       "<br>Members in Political Party A: " + Math.round(userPerVPBody[0] * userNumPres) +
       "<br>Members in Political Party B: " + Math.round(userPerVPBody[1] * userNumPres) +
       "<br>Members in Political Party C: " + Math.round(userPerVPBody[2] * userNumPres) +
-      "</p><h3>Likelihood of 'yay' vote: </h3>" +
+      "</p><h3>Likelihood of Yes Vote: </h3>" +
       "<p>Political Party A: " + userDemYaythresh +
       "<br>Political Party B: " + userRepYaythresh +
       "<br>Political Party C: " + userIndYaythresh +
       "</p><h3>Percentage of votes required for approval of bill</h3>" +
-      "<p>Approval for majority: " + userBodyPass +
+      "<p>Approval By Majority: " + userBodyPass +
       "<br> Approval by supermajority: " + userSuperThresh + "</div></p>";
   }
 
@@ -2673,5 +2728,67 @@ function sDisplay() {
   // userSuperThresh;
   //
   // userBodyPass;
+
+}
+
+function sDefault() {
+
+  this.setup = function() {
+    userOutputText = document.getElementById('slider-disp');
+  }
+
+  this.enter = function() {
+
+    console.log("default settings display page");
+    document.getElementById("top").innerHTML = " ";
+    document.getElementById("page1").style.display = "none";
+    document.getElementById("page2").style.display = "none";
+    document.getElementById("page3").style.display = "none";
+    document.getElementById("page4").style.display = "none";
+    document.getElementById("page5").style.display = "none";
+    document.getElementById("page6").style.display = "none";
+    document.getElementById("slider-value").style.display = "none";
+    document.getElementById("vote").style.display = "none";
+    document.getElementById("slider-disp").style.display = "block";
+    document.getElementById("sim-info").style.display = "none";
+    inputTxt();
+  }
+
+  this.draw = function() {
+
+
+  }
+
+  function inputTxt() {
+    userOutputText.innerHTML =
+      "<div><h3>House</h3>" +
+      "<p>Voting Members: " + numHouse +
+      "<br>Members in Democrat Party: " + Math.round(perDemHouse * numHouse) +
+      "<br>Members in Independent Party: " + Math.round(perIndHouse * numHouse) +
+      "<br>Members in Republican Party: " + Math.round(perRepHouse * numHouse) +
+      "</p><h3>Senate</h3>" +
+      "<p>Voting Members: " + numSenate +
+      "<br>Members in Democrat Party: " + Math.round(perDemSenate * numSenate) +
+      "<br>Members in Independent Party: " + Math.round(perIndSenate * numSenate) +
+      "<br>Members in Republican Party: " + Math.round(perRepSenate * numSenate) +
+      "</p><h3>Vice Presidency</h3>" +
+      "<p>Voting Members: " + numVP +
+      "<br>Members in Democrat Party: " + Math.round(perDemVP * numVP) +
+      "<br>Members in Independent Party: " + Math.round(perIndVP * numVP) +
+      "<br>Members in Republican Party: " + Math.round(perRepVP * numVP) +
+      "</p><h3>Presidency</h3>" +
+      "<p>Voting Members: " + numPres +
+      "<br>Members in Democrat Party: " + Math.round(perDemPres * numPres) +
+      "<br>Members in Independent Party: " + Math.round(perIndPres * numPres) +
+      "<br>Members in Republican Party: " + Math.round(perRepPres * numPres) +
+      "</p><h3>Likelihood of Yes Vote: </h3>" +
+      "<p>Democrat Party: " + demYaythresh +
+      "<br>Independent Party: " + indYaythresh +
+      "<br>Republican Party: " + repYaythresh +
+      "</p><h3>Percentage of votes required for approval of bill</h3>" +
+      "<p>Approval By Majority: " + perPass +
+      "<br> Approval by supermajority: " + superThresh + "</p></div>";
+  }
+
 
 }

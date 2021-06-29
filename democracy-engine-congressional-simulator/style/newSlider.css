@@ -32,7 +32,7 @@
 .noUi-handle {
   border-style: none;
   outline: none;
-  background: #5785ba;
+  background: #012266;
   width: 20px !important;
   height: 20px !important;
   margin-top: 2px;
@@ -44,7 +44,7 @@
   position: absolute;
   border: none;
   border-radius: 3px;
-  background: #5785ba;
+  background: #012266;
   color: #fff;
   padding: 5px;
   text-align: center;
@@ -53,7 +53,7 @@
 
 .first-slider {
   z-index: 100;
-    margin-top: 30vh;
+  margin-top: 30vh;
   position: fixed;
   top: 0;
   margin-left: 35%;
@@ -93,6 +93,7 @@
 
 /* 72px between each text */
 #slider-text-1 {
+  display: block;
   z-index: 100;
   margin-top: 29vh;
   position: fixed;
@@ -102,6 +103,7 @@
 }
 
 #slider-text-2 {
+  display: block;
   z-index: 100;
   margin-top: 39vh;
   position: fixed;
@@ -111,6 +113,7 @@
 }
 
 #slider-text-3 {
+  display: block;
   z-index: 100;
   margin-top: 49vh;
   position: fixed;
@@ -120,6 +123,7 @@
 }
 
 #slider-text-4 {
+  display: block;
   z-index: 100;
   margin-top: 59vh;
   position: fixed;
@@ -190,15 +194,15 @@
 }
 
 .c-3-color {
-  background: #5785ba;
+  background: #4b58ab;
 }
 
 .c-2-color {
-  background: #4878af;
+  background: #00287a;
 }
 
 .c-1-color {
-  background: #416c9d;
+  background: #012266;
 }
 
 
