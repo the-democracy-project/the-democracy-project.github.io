@@ -19,8 +19,7 @@ function democracyEngineUser() {
 
   this.enter = function() {
 
-    if (reconfigBool == true)
-    {
+    if (reconfigBool == true) {
       // windowResized();
       dWidth = windowWidth * .8;
       dHeight = windowHeight * .8;
@@ -42,7 +41,6 @@ function democracyEngineUser() {
     document.getElementById("slider-disp").style.display = "none";
     document.getElementById("sim-info").style.display = "none";
 
-    // window.addEventListener("resize", resized);
     console.log(mgr.isCurrent(democracyEngineUser));
 
   }
@@ -649,25 +647,25 @@ function democracyEngineUser() {
                 if (bodyPass[0] === true && bodyPass[1] === true && bodyPass[3] === false) {
                   textSize(16);
                   if (superThreshIndex[0] === true && superThreshIndex[1] === true) {
-                    text('\n\n\nVETO OVERRIDE BY SUPERMAJORITY IN ALL LEGISLATIVE CHAMBERS', (i) * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                    text('\n\n\nVETO OVERRIDE BY SUPERMAJORITY IN ALL LEGISLATIVE CHAMBERS', (i) * dispW + padX, dHeight / 4, dispW - padX, dispH);
                   } else {
-                    text('\n\n\nPRESIDENTIAL VETO: BILL IS NOT APPROVED', (i) * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                    text('\n\n\nPRESIDENTIAL VETO: BILL IS NOT APPROVED', (i) * dispW + padX, dHeight / 4, dispW - padX, dispH);
                   }
                 } else if (bodyPass[i] == true &&
                   superThreshIndex[0] == false ||
                   superThreshIndex[1] == false) {
-                  text('\n\n\nBILL IS APPROVED', (i) * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                  text('\n\n\nBILL IS APPROVED', (i) * dispW + padX, dHeight / 4, dispW - padX, dispH);
                 } else if (bodyPass[i] == false) {
-                  text('\n\n\nBILL IS NOT APPROVED ', (i) * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                  text('\n\n\nBILL IS NOT APPROVED ', (i) * dispW + padX, dHeight / 4, dispW - padX, dispH);
                 }
               } else {
                 textSize(16);
                 if (bodyPass[0] == false || bodyPass[1] == false) {
                   // dispY = dispY + (dHeight / 5);
-                  text('\n\n\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: PRESIDENT DOES NOT VOTE', (i) * dispW + padX, padY, dispW-padX, dispH);
+                  text('\n\n\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: PRESIDENT DOES NOT VOTE', (i) * dispW + padX, padY, dispW - padX, dispH);
                 } else {
                   textSize(20);
-                  text('\n\n\n\nDOES NOT VOTE', (i) * dispW + padX, padY, dispW-padX, dispH);
+                  text('\n\n\n\nDOES NOT VOTE', (i) * dispW + padX, padY, dispW - padX, dispH);
                 }
               }
 
@@ -682,41 +680,41 @@ function democracyEngineUser() {
 
                 if (bodyPass[0] == false || bodyPass[1] == false) {
                   textSize(16);
-                  text('\n\n\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: NO VICE PRESIDENTIAL VOTE', i * dispW + padX, (dHeight / 4), dispW-padX, dispH);
+                  text('\n\n\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: NO VICE PRESIDENTIAL VOTE', i * dispW + padX, (dHeight / 4), dispW - padX, dispH);
                 } else if (bodyPass[0] == true && bodyPass[1] == true && vpVote == true) {
                   if (bodyPass[i] == false) {
-                    text('\n\n\nBILL IS NOT APPROVED', (i) * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                    text('\n\n\nBILL IS NOT APPROVED', (i) * dispW + padX, dHeight / 4, dispW - padX, dispH);
                   } else if (bodyPass[i] == true) {
-                    text('\n\n\nBILL IS APPROVED', (i) * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                    text('\n\n\nBILL IS APPROVED', (i) * dispW + padX, dHeight / 4, dispW - padX, dispH);
                   }
                 }
 
               } else {
                 textSize(20);
-                text('\n\n\nDOES NOT VOTE', i * dispW + padX, padY, dispW-padX, dispH);
+                text('\n\n\nDOES NOT VOTE', i * dispW + padX, padY, dispW - padX, dispH);
               }
 
             } else {
               textSize(22);
-              text(currentBodyLabel, i * dispW + padX, padY, dispW-padX, dispH);
+              text(currentBodyLabel, i * dispW + padX, padY, dispW - padX, dispH);
               if (stopVoteArr[i] == false) {
                 textSize(20);
-                text("\n\n\nVOTES \n", i * dispW + padX, padY, dispW-padX, dispH);
+                text("\n\n\nVOTES \n", i * dispW + padX, padY, dispW - padX, dispH);
                 textSize(16);
                 text("\n\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, padY);
                 // superthresh
                 if (bodyPass[i] == true && superThreshIndex[i] == true) {
-                  text('\n\n\nBILL IS APPROVED WITH SUPERMAJORITY', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                  text('\n\n\nBILL IS APPROVED WITH SUPERMAJORITY', i * dispW + padX, dHeight / 4, dispW - padX, dispH);
                 } else if (currentBodyLabel == 'SENATE' && bodyPass[0] == true && bodyPass[1] == true && vpVote == true) {
-                  text('\n\n\nTIE-BREAKER VOTE INITIATED', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                  text('\n\n\nTIE-BREAKER VOTE INITIATED', i * dispW + padX, dHeight / 4, dispW - padX, dispH);
                 } else if (bodyPass[i] == false) {
-                  text('\n\n\nBILL IS NOT APPROVED', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                  text('\n\n\nBILL IS NOT APPROVED', i * dispW + padX, dHeight / 4, dispW - padX, dispH);
                 } else if (bodyPass[i] == true && superThreshIndex[i] == false) {
-                  text('\n\n\nBILL IS APPROVED', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                  text('\n\n\nBILL IS APPROVED', i * dispW + padX, dHeight / 4, dispW - padX, dispH);
                 }
               } else {
                 textSize(20);
-                text('\n\n\nDOES NOT VOTE', i * dispW + padX, padY, dispW-padX, dispH);
+                text('\n\n\nDOES NOT VOTE', i * dispW + padX, padY, dispW - padX, dispH);
               }
             }
 
@@ -760,10 +758,10 @@ function democracyEngineUser() {
   //Once Bill Pass result has been calculated users can enter in their own variables to reconfigure congress or recalculate the vote with the same parameters
   function userInput() {
 
-    buttonRecal = createButton('RECALCULATE VOTE');
-    buttonRecal.id('recal-btn');
-    buttonRecal.class('buttons');
-    buttonRecal.mousePressed(inputVar);
+    recalBtn = createButton('RECALCULATE VOTE');
+    recalBtn.id('recal-btn');
+    recalBtn.class('buttons');
+    recalBtn.mousePressed(inputVar);
 
     buttonRC = createButton('RECONFIGURE GOVERNMENT');
     buttonRC.id('rec-btn');
@@ -784,7 +782,7 @@ function democracyEngineUser() {
     emailBtn.parent(buttonDiv);
     buttonRC.parent(buttonDiv);
     buttonRes.parent(buttonDiv);
-    buttonRecal.parent(buttonDiv);
+    recalBtn.parent(buttonDiv);
 
   }
 
@@ -829,7 +827,6 @@ function democracyEngineOrigin() {
     document.getElementById("vote").style.display = "block";
     document.getElementById("slider-disp").style.display = "none";
     currentCongLogic();
-    // window.addEventListener("resize", resized);
   }
 
   this.draw = function() {
@@ -839,14 +836,6 @@ function democracyEngineOrigin() {
     currentCongLogic();
 
   }
-
-
-
-
-  // function windowResized() {
-  //   console.log("resizing canvas");
-  //   resetDraw();
-  // }
 
   function currentCongLogic() {
 
@@ -929,7 +918,7 @@ function democracyEngineOrigin() {
 
     }
 
-    //AB logic for VP if Senate needs a tiebreaker
+    //Logic for VP if Senate needs a tiebreaker
     if (bodyCount == 2) {
       print("votingBodyCounts[1][0]= " + votingBodyCounts[1][0] + "votingBodyCounts[1][1] = " + votingBodyCounts[1][1]);
 
@@ -1005,8 +994,7 @@ function democracyEngineOrigin() {
       }
     }
 
-    // Need to make sure we are not over our number of congressional body numCon and readjusts skip if too big
-
+    // Makes sure we are not over our number of congressional body numCon and readjusts skip if too big
     if (count < numCon - 1 && count1 < 1) {
 
       rotLoadImage();
@@ -1112,7 +1100,7 @@ function democracyEngineOrigin() {
     endBody = 0;
   }
 
-  //AB function to store yay and nay votes into array
+  //Stores yay and nay votes into array
   function storeBodyVotes() {
     votingBodyCounts[bodyCount] = [yay, nay];
     let currentBodyYay = votingBodyCounts[bodyCount][0];
@@ -1124,6 +1112,7 @@ function democracyEngineOrigin() {
 
   }
 
+  //Diplays Voting Results
   function drawRect() {
     let noVoteBool = false;
     var valAdjust = 75;
@@ -1252,10 +1241,6 @@ function democracyEngineOrigin() {
     storeBodyVotes();
   }
 
-  //Diplays Voting Results
-  // Jonathan wants this next to president?
-  // OR windowWidth/bodies + 1 seperate column
-
   function stopVoteChange() {
     if (stopVoteBool == true) {
       stopVoteArr[bodyCount] = true;
@@ -1271,7 +1256,7 @@ function democracyEngineOrigin() {
     }
   }
 
-  //AB -- Logic in which changes the voting body's squares to outlines when no vote is required
+  //Logic in which changes the voting body's squares to outlines when no vote is required
   function stopVoteLogic() {
     //AB if the vp vote is not needed, no vote is necessary
     if (bodyCount == 2 && vpVote == false) {
@@ -1292,6 +1277,7 @@ function democracyEngineOrigin() {
     }
   }
 
+  //Determines the voting outcome of the voting results
   function resultLogic() {
 
     //padding & offsets for text display
@@ -1344,6 +1330,7 @@ function democracyEngineOrigin() {
     endBody = 1;
   }
 
+  //Displays the voting results
   function finalDisplay() {
 
     let currentBodyLabel;
@@ -1420,25 +1407,25 @@ function democracyEngineOrigin() {
 
                 if (bodyPass[0] === true && bodyPass[1] === true && bodyPass[3] === false) {
                   if (superThreshIndex[0] === true && superThreshIndex[1] === true) {
-                    text('\nVETO OVERRIDE BY SUPERMAJORITY IN ALL LEGISLATIVE CHAMBERS', (i - 1) * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                    text('\nVETO OVERRIDE BY SUPERMAJORITY IN ALL LEGISLATIVE CHAMBERS', (i - 1) * dispW + padX, dHeight / 4, dispW - padX, dispH);
                   } else {
-                    text('\nPRESIDENTIAL VETO: BILL IS NOT APPROVED ', (i - 1) * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                    text('\nPRESIDENTIAL VETO: BILL IS NOT APPROVED ', (i - 1) * dispW + padX, dHeight / 4, dispW - padX, dispH);
                   }
                 } else if (bodyPass[i] == true &&
                   superThreshIndex[0] == false ||
                   superThreshIndex[1] == false) {
-                  text('\nBILL IS APPROVED', (i - 1) * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                  text('\nBILL IS APPROVED', (i - 1) * dispW + padX, dHeight / 4, dispW - padX, dispH);
                 } else if (bodyPass[i] == false) {
-                  text('\nBILL IS NOT APPROVED ', (i - 1) * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                  text('\nBILL IS NOT APPROVED ', (i - 1) * dispW + padX, dHeight / 4, dispW - padX, dispH);
                 }
               } else {
 
                 if (bodyPass[0] == false || bodyPass[1] == false) {
                   textSize(16);
-                  text('\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: PRESIDENT DOES NOT VOTE', (i - 1) * dispW + padX, padY, dispW-padX, dispH);
+                  text('\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: PRESIDENT DOES NOT VOTE', (i - 1) * dispW + padX, padY, dispW - padX, dispH);
                 } else {
                   textSize(20);
-                  text('\n\nDOES NOT VOTE', (i - 1) * dispW + padX, padY, dispW-padX, dispH);
+                  text('\n\nDOES NOT VOTE', (i - 1) * dispW + padX, padY, dispW - padX, dispH);
                 }
               }
 
@@ -1449,44 +1436,44 @@ function democracyEngineOrigin() {
                 textSize(20);
                 text("\n\nVOTES \n", i * dispW + padX, dHeight / 2, dispW, dispH);
                 textSize(16);
-                text("\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, dHeight / 2, dispW-padX, dispH);
+                text("\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, dHeight / 2, dispW - padX, dispH);
 
                 if (bodyPass[0] == false || bodyPass[1] == false) {
-                  text('\n\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: NO VICE PRESIDENTIAL VOTE', i * dispW + padX, dHeight * (3 / 4), dispW-padX, dispH);
+                  text('\n\n\nBILL IS NOT APPROVED BY ALL CHAMBERS: NO VICE PRESIDENTIAL VOTE', i * dispW + padX, dHeight * (3 / 4), dispW - padX, dispH);
                 } else if (bodyPass[0] == true && bodyPass[1] == true && vpVote == true) {
                   if (bodyPass[i] == false) {
-                    text('\nBILL IS NOT APPROVED', (i) * dispW + padX, dHeight * (3 / 4), dispW-padX, dispH);
+                    text('\nBILL IS NOT APPROVED', (i) * dispW + padX, dHeight * (3 / 4), dispW - padX, dispH);
                   } else if (bodyPass[i] == true) {
-                    text('\nBILL IS APPROVED', (i) * dispW + padX, dHeight * (3 / 4), dispW-padX, dispH);
+                    text('\nBILL IS APPROVED', (i) * dispW + padX, dHeight * (3 / 4), dispW - padX, dispH);
                   }
                 }
 
               } else {
                 textSize(20);
-                text('\n\nDOES NOT VOTE', i * dispW + padX, dHeight / 2, dispW-padX, dispH);
+                text('\n\nDOES NOT VOTE', i * dispW + padX, dHeight / 2, dispW - padX, dispH);
               }
 
             } else {
               textSize(22);
-              text(currentBodyLabel, i * dispW + padX, padY, dispW-padX, dispH);
+              text(currentBodyLabel, i * dispW + padX, padY, dispW - padX, dispH);
               if (stopVoteArr[i] == false) {
                 textSize(20);
-                text("\n\nVOTES \n", i * dispW + padX, padY, dispW-padX, dispH);
+                text("\n\nVOTES \n", i * dispW + padX, padY, dispW - padX, dispH);
                 textSize(16);
                 text("\n\n\n\nYES: " + votingBodyCounts[i][0] + "\nNO: " + votingBodyCounts[i][1] + "\n ", i * dispW + padX, padY, dispW, dispH);
                 // superthresh
                 if (bodyPass[i] == true && superThreshIndex[i] == true) {
-                  text('\nBILL IS APPROVED WITH SUPERMAJORITY', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                  text('\nBILL IS APPROVED WITH SUPERMAJORITY', i * dispW + padX, dHeight / 4, dispW - padX, dispH);
                 } else if (currentBodyLabel == 'SENATE' && bodyPass[0] == true && bodyPass[1] == true && vpVote == true) {
-                  text('\nTIE-BREAKER VOTE INITIATED', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                  text('\nTIE-BREAKER VOTE INITIATED', i * dispW + padX, dHeight / 4, dispW - padX, dispH);
                 } else if (bodyPass[i] == false) {
-                  text('\nBILL IS NOT APPROVED', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                  text('\nBILL IS NOT APPROVED', i * dispW + padX, dHeight / 4, dispW - padX, dispH);
                 } else if (bodyPass[i] == true && superThreshIndex[i] == false) {
-                  text('\nBILL IS APPROVED', i * dispW + padX, dHeight / 4, dispW-padX, dispH);
+                  text('\nBILL IS APPROVED', i * dispW + padX, dHeight / 4, dispW - padX, dispH);
                 }
               } else {
                 textSize(20);
-                text('\n\nDOES NOT VOTE', i * dispW + padX, padY, dispW-padX, dispH);
+                text('\n\nDOES NOT VOTE', i * dispW + padX, padY, dispW - padX, dispH);
               }
             }
 
@@ -1522,7 +1509,7 @@ function democracyEngineOrigin() {
 
   }
 
-
+  //changes the text on the HTML body for final voting decision
   function changeText(text) {
     document.getElementById("result").innerHTML = text;
   }
@@ -1591,7 +1578,7 @@ function sLegislative() {
     //   removeField();
     // }
 
-    window.removeEventListener("resize", resized);
+
     // noCursor();
     console.log("1st Slider Page");
     document.getElementById("page1").style.display = "block";
@@ -1616,7 +1603,8 @@ function sLegislative() {
     buttonDef.remove();
     if (userEdits == true) {
       dispBtn.remove();
-      buttonRecal.remove();
+      recalBtn.remove();
+      emailBtn.remove();
     }
     // background(0);
     changeText(" ");
@@ -1907,7 +1895,7 @@ function sMembers() {
     if (userEdits == true) {
       //when user chooses 1 party the first time, no sliders get created.
       //The second round needs to create the sliders.
-      console.log("User Edit Count: " + userEditCount + " One Party Chosen Previously?: "+ onePartyBool);
+      console.log("User Edit Count: " + userEditCount + " One Party Chosen Previously?: " + onePartyBool);
       if (userEditCount == 1 && onePartyBool == true) {
         createSlider();
         // sliderVals();
@@ -2198,7 +2186,7 @@ function sMembers() {
 
 
           if (userPerVPBody.length == 3) {
-            value3.innerHTML = "Party A: " + numPerVPBody[0] + " Party B: " + numPerVPBody[1] + " Party C " + numPerVPBody[2];
+            value3.innerHTML = "Party A: " + numPerVPBody[0] + " Party B: " + numPerVPBody[1] + " Party C: " + numPerVPBody[2];
           } else if (userPerVPBody.length == 2) {
             value3.innerHTML = "Party A: " + numPerVPBody[0] + " Party B: " + numPerVPBody[1];
           } else {
@@ -2242,6 +2230,8 @@ function sMembers() {
 
 function sBodyPass() {
 
+  var currSuperThresh = parseFloat(superThresh * 100);
+  var currPerPass = parseFloat(perPass * 100);
 
   this.setup = function() {
     textSize(15);
@@ -2280,6 +2270,8 @@ function sBodyPass() {
 
   function sliders() {
 
+
+
     if (userEdits == true) {
       sliderVals();
     } else {
@@ -2289,7 +2281,7 @@ function sBodyPass() {
     // NOui slider slides
     function createSlider() {
       noUiSlider.create(slider10, {
-        start: [50],
+        start: currPerPass,
         range: {
           'min': [0],
           'max': [100]
@@ -2308,7 +2300,7 @@ function sBodyPass() {
       });
 
       noUiSlider.create(slider11, {
-        start: [50],
+        start: currSuperThresh,
         range: {
           'min': [0],
           'max': [100]
@@ -2354,6 +2346,9 @@ function sBodyPass() {
 }
 
 function sYesVotes() {
+  var curDemYaythresh = parseInt(demYaythresh * 100);
+  var curRepYaythresh = parseInt(repYaythresh * 100);
+  var curIndYaythresh = parseInt(indYaythresh * 100);
 
   this.setup = function() {
 
@@ -2413,7 +2408,7 @@ function sYesVotes() {
 
     function createSlider() {
       noUiSlider.create(slider12, {
-        start: [0],
+        start: curDemYaythresh,
         range: {
           'min': [0],
           'max': [100]
@@ -2432,7 +2427,7 @@ function sYesVotes() {
       });
 
       noUiSlider.create(slider13, {
-        start: [0],
+        start: curRepYaythresh,
         range: {
           'min': [0],
           'max': [100]
@@ -2451,7 +2446,7 @@ function sYesVotes() {
       });
 
       noUiSlider.create(slider14, {
-        start: [0],
+        start: curIndYaythresh,
         range: {
           'min': [0],
           'max': [100]
@@ -2475,9 +2470,8 @@ function sYesVotes() {
       //connecting values to html, each tab value is stored in an array
       // var rangeSliderValueElement = document.getElementById('slider-value');
 
-
-      userRepYaythresh = "";
       userDemYaythresh = "";
+      userRepYaythresh = "";
       userIndYaythresh = "";
 
       slider12.noUiSlider.on('update', function(values, handle) {
@@ -2587,20 +2581,19 @@ function sResults() {
       "<br>Political Party C: " + userIndYaythresh +
       "</p><h3>Percentage of votes required for approval of bill</h3>" +
       "<p>Approval By Majority: " + userBodyPass +
-      "<br> Approval by supermajority: " + userSuperThresh + "</div></p>";
+      "<br> Approval By Supermajority: " + userSuperThresh + "</div></p>";
 
-      if (userEditCount >=2)
-      {
-        nextButton.remove();
-        buttonRecal = createButton('RECALCULATE VOTE');
-        buttonRecal.id('recal-btn');
-        buttonRecal.class('buttons');
-        let buttonDiv = document.getElementById('button-div');
-        buttonRecal.parent(buttonDiv);
+    if (userEditCount >= 2) {
+      nextButton.remove();
+      recalBtn = createButton('RECALCULATE VOTE');
+      recalBtn.id('recal-btn');
+      recalBtn.class('buttons');
+      let buttonDiv = document.getElementById('button-div');
+      recalBtn.parent(buttonDiv);
 
-        // buttonRecal.position(windowWidth - buttonRecal.width - buttonRes.width - buttonRC.width - 20, windowHeight - 45);
-        buttonRecal.mousePressed(inputVar);
-      }
+      // recalBtn.position(windowWidth - recalBtn.width - buttonRes.width - buttonRC.width - 20, windowHeight - 45);
+      recalBtn.mousePressed(inputVar);
+    }
   }
 
 
@@ -2640,14 +2633,6 @@ function sInfo() {
       inputVar();
     }, delayInMilliseconds);
 
-    // buttonRecal = createButton('RECALCULATE VOTE');
-    // buttonRecal.id('recal-btn');
-    // buttonRecal.class('buttons');
-    // let buttonDiv = document.getElementById('button-div');
-    // buttonRecal.parent(buttonDiv);
-    //
-    // // buttonRecal.position(windowWidth - buttonRecal.width - buttonRes.width - buttonRC.width - 20, windowHeight - 45);
-    // buttonRecal.mousePressed(inputVar);
 
   }
 
@@ -2670,7 +2655,7 @@ function sDisplay() {
   }
 
   this.enter = function() {
-    window.removeEventListener("resize", resized);
+
     console.log("user display page");
     document.getElementById("top").innerHTML = "DEMOCRACY ENGINE SIMULATOR INPUT DISPLAY";
     document.getElementById("page1").style.display = "none";
@@ -2719,7 +2704,7 @@ function sDisplay() {
       "<br>Political Party C: " + userIndYaythresh +
       "</p><h3>Percentage of votes required for approval of bill</h3>" +
       "<p>Approval By Majority: " + userBodyPass +
-      "<br> Approval by supermajority: " + userSuperThresh + "</div></p>";
+      "<br> Approval By Supermajority: " + userSuperThresh + "</div></p>";
   }
 
 
@@ -2786,7 +2771,7 @@ function sDefault() {
       "<br>Republican Party: " + repYaythresh +
       "</p><h3>Percentage of votes required for approval of bill</h3>" +
       "<p>Approval By Majority: " + perPass +
-      "<br> Approval by supermajority: " + superThresh + "</p></div>";
+      "<br> Approval By Supermajority: " + superThresh + "</p></div>";
   }
 
 

@@ -2,7 +2,7 @@ var mgr;
 
 let dWidth, dHeight;
 let nextButton;
-var buttonRC, buttonRes, dispBtn, buttonRecal, buttonDef, emailBtn;
+var buttonRC, buttonRes, dispBtn, recalBtn, buttonDef, emailBtn;
 
 var userNumHouse;
 var userPerHouseBody;
@@ -108,12 +108,11 @@ var housePercentage, senPercentage, vpPercentage, presPercentage;
 
 //supermajority Cutoff for override of presidential veto
 var superThresh = 0.67;
-
 var perPass = .5;
 
 //Historical Likelihood of party affiliation & likelihood of 'yay' vote
-var repYaythresh = 0.3;
 var demYaythresh = 0.7;
+var repYaythresh = 0.3;
 var indYaythresh = 0.5;
 
 //How Many Voting Bodies (house, senate, president = 3) *see to DO at top of code
@@ -250,17 +249,7 @@ function setup() {
 
 function draw() {
   mgr.draw();
-  // background('#012244');
-  // textSize(100);
-  // text(sliderVal, windowWidth/2, windowHeight/2);
 
-}
-
-function resized() {
-  // resetDraw();
-  // setup();
-  window.location.reload();
-  // redraw();
 }
 
 function mousePressed() {
@@ -339,9 +328,17 @@ function dispResult() {
   if (mgr.isCurrent(sDisplay)) {
     mgr.showScene(democracyEngineUser);
     dispBtn.elt.textContent = "DISPLAY USER SETTINGS";
+    // emailBtn.show();
+    // buttonRC.show();
+    // buttonRes.show();
+    // recalBtn.show();
   } else {
     mgr.showScene(sDisplay);
     dispBtn.elt.textContent = "DISPLAY VOTE";
+    // emailBtn.hide();
+    // buttonRC.hide();
+    // buttonRes.hide();
+    // recalBtn.hide();
   }
 }
 
@@ -446,9 +443,9 @@ function dispButton() {
 function removeField() {
   buttonRes.remove();
   buttonRC.remove();
-  if (mgr.isCurrent(democracyEngineUser) || mgr.isCurrent(sResults))
+  if (userEdits==true)
   {
-    buttonRecal.remove();
+    recalBtn.remove();
     emailBtn.remove();
   }
   nextButton.remove();
