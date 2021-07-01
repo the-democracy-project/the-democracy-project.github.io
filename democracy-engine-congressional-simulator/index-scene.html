@@ -3,13 +3,14 @@
 
 <head>
   <script src="p5/p5.js"></script>
-  <script src="p5/p5.sound.min.js"></script>
+  <!-- <script src="p5/p5.sound.min.js"></script> -->
   <script src="slider/nouislider.min.js"></script>
   <script src="slider/nouislider.js"></script>
   <script src="slider/wNumb.min.js"></script>
   <script src="p5/scene-manager.js"></script>
   <script language="javascript" type="text/javascript" src="sketches/slider-scenes.js"></script>
   <script language="javascript" type="text/javascript" src="sketches/scene-mgr.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
   <link rel="stylesheet" type="text/css" href="slider/nouislider.css">
   <link rel="stylesheet" type="text/css" href="style/style.css">
   <link rel="stylesheet" type="text/css" href="style/newSlider.css">
@@ -29,92 +30,169 @@
 <body>
   <header>
     <ul class="topnav" id="myTopnav">
-      <li><a href="../index.html">THE FUTURE DEMOCRACIES LABORATORY</a></li>
-      <li><a class="active" href="index.html">SIMULATOR</a></li>
-      <li><a href="../media.html">MEDIA</a></li>
-      <li><a href="../about.html">ABOUT</a></li>
-      <li><a href="../code.html">CODE</a></li>
+      <li><a href="../index.html">THE FUTURE DEMOCRACIES LABORATORY
+          <!-- <img class="icon" src="../assets/numberline.svg" style="padding-top: 10px;"/> -->
+        </a></li>
+      <li>
+        <a class="active" href="../democracy-engine-congressional-simulator/index.html">
+          SIMULATOR
+          <!-- <img class="icon" src="../assets/simulator-icon.svg" /> -->
+        </a>
+      </li>
+      <li>
+        <a href="../media.html">
+          MEDIA
+          <!-- <img class="icon" src="../assets/media-icon.svg" /> -->
+        </a>
+      </li>
+      <li>
+        <a href="../about.html">
+          ABOUT
+          <!-- <img class="icon" src="../assets/about-icon.svg" /> -->
+        </a>
+      </li>
+      <li>
+        <a href="../code.html">
+          CODE
+          <!-- <img class="icon" src="../assets/code-icon.svg" /> -->
+        </a>
+      </li>
+      <!--RH Add from drop-down menu-->
+      <a href="javascript:void(0);" style="font-size:15px;" class="icon2" onclick="myFunction()">&#9776;</a>
+      <!--end RH Add from drop-down menu-->
     </ul>
   </header>
+
 
   <!-- <script class="sketch" src="sketches/nouislider.js"></script> -->
 
   <h1 id="top"></h1>
-
-  <div id="enter"></div>
   <div id="vote"></div>
-  <div id="page1">
-    <div class="first-slider" id="slider1"></div>
-    <p id="slider-text-1">FIRST LEGISLATIVE CHAMBER
-    <p>
-    <div id="slider2"></div>
-    <p id="slider-text-2">SECOND LEGISLATIVE CHAMBER
-    <p>
-    <div id="slider3"></div>
-    <p id="slider-text-3">VICE PRESIDENCY
-    <p>
-    <div id="slider4"></div>
-    <p id="slider-text-4">PRESIDENCY
-    <p>
+  <div id="slider-pages">
+    <div id="page1">
+
+      <div class="first-slider" id="slider1">
+        <p id="slider-text-1">FIRST LEGISLATIVE CHAMBER
+        </p>
+      </div>
+
+      <div id="slider2">
+        <p id="slider-text-2">SECOND LEGISLATIVE CHAMBER
+        </p>
+      </div>
+
+      <div id="slider3">
+        <p id="slider-text-3">VICE PRESIDENCY
+        </p>
+      </div>
+
+      <div id="slider4">
+        <p id="slider-text-4">PRESIDENCY
+        </p>
+      </div>
+
+    </div>
+
+    <div id="page2">
+      <div class="first-slider" id="slider5"></div>
+      <!-- <p id = "slider-text-1">ALL<p> -->
+    </div>
+
+    <div id="page3">
+      <p id="slider-text-1">FIRST LEGISLATIVE CHAMBER
+      </p>
+      <div class="first-slider" id="slider6">
+
+      </div>
+      <p id="slider-text-2">SECOND LEGISLATIVE CHAMBER
+      </p>
+
+      <div id="slider7">
+
+      </div>
+      <p id="slider-text-3">VICE PRESIDENCY
+      </p>
+      <div id="slider8">
+
+      </div>
+      <p id="slider-text-4">PRESIDENCY
+      </p>
+      <div id="slider9">
+
+      </div>
+
+      <div id="slider-value">
+        <p id="value-1"></p>
+        <p id="value-2"></p>
+        <p id="value-3"></p>
+        <p id="value-4"></p>
+      </div>
+
+    </div>
+
+    <div id="page4">
+      <div class="first-slider" id="slider10">
+        <p id="slider-text-1">APPROVAL FOR MAJORITY
+        </p>
+      </div>
+      <!-- for each body -->
+
+
+
+      <div id="slider11">
+        <p id="slider-text-2">APPROVAL FOR SUPERMAJORITY
+      </div>
+
+      </p>
+    </div>
+
+    <div id="page5">
+      <div class="first-slider" id="slider12">
+        <p id="slider-text-1">POLITICAL PARTY A
+        </p>
+      </div>
+
+      <div id="slider13">
+        <p id="slider-text-2">POLITICAL PARTY B
+        </p>
+      </div>
+
+      <div id="slider14">
+        <p id="slider-text-3">POLITICAL PARTY C
+      </div>
+
+      </p>
+    </div>
+
+    <div id="page6">
+
+    </div>
   </div>
+    <div id="slider-disp"></div>
 
-  <div id="page2">
-    <div class="first-slider" id="slider5"></div>
-    <!-- <p id = "slider-text-1">ALL<p> -->
-  </div>
-
-  <div id="page3">
-    <div class="first-slider" id="slider6"></div>
-    <p id="slider-text-1">FIRST LEGISLATIVE CHAMBER
-    <p>
-    <div id="slider7"></div>
-    <p id="slider-text-2">SECOND LEGISLATIVE CHAMBER
-    <p>
-    <div id="slider8"></div>
-    <p id="slider-text-3">VICE PRESIDENCY
-    <p>
-    <div id="slider9"></div>
-    <p id="slider-text-4">PRESIDENCY
-    <p>
-  </div>
-
-  <div id="page4">
-    <div class="first-slider" id="slider10"></div>
-    <!-- for each body -->
-    <p id="slider-text-1">%   APPROVAL FOR MAJORITY
-    <p>
-    <div id="slider11"></div>
-    <p id="slider-text-2">%   APPROVAL FOR SUPERMAJORITY
-    <p>
-  </div>
-
-  <div id="page5">
-    <div class="first-slider" id="slider12"></div>
-    <p id="slider-text-1">%   POLITICAL PARTY A
-    <p>
-    <div id="slider13"></div>
-    <p id="slider-text-2">%   POLITICAL PARTY B
-    <p>
-    <div id="slider14"></div>
-    <p id="slider-text-3">%   POLITICAL PARTY C
-    <p>
-  </div>
-
-  <div id="page6">
-
-  </div>
-
-  <div id="slider-value"></div>
+    <div id="sim-info"></div>
 
 
-  <div id ="slider-disp"></div>
 
+  <!--RH Add from drop-down menu-->
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+  </script>
+  <!--RH Add from drop-down menu-->
 
 
 
   <footer>
-
     <p id="result"></p>
+    <div id="button-div">
+    </div>
   </footer>
 </body>
 

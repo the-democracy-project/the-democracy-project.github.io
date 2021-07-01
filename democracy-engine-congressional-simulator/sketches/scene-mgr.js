@@ -2,7 +2,7 @@ var mgr;
 
 let dWidth, dHeight;
 let nextButton;
-var buttonRC, buttonRes, dispBtn, buttonIV;
+var buttonRC, buttonRes, dispBtn, buttonRecal, buttonDef, emailBtn;
 
 var userNumHouse;
 var userPerHouseBody;
@@ -13,6 +13,9 @@ var userPerPresBody;
 var userNumVP;
 var userPerVPBody;
 var userNumParties;
+var prevUserNumParties;
+var userEditCount = 0;
+var reconfigBool = false;
 var onePartyBool = false;
 
 var userNumHouseRan;
@@ -27,6 +30,7 @@ var userSuperThresh;
 var userRepYaythresh;
 var userDemYaythresh;
 var userIndYaythresh;
+
 
 
 //V1 TO DO
@@ -82,22 +86,22 @@ var numPres = 1;
 var numVP = 1;
 
 //Demographics of House as decimal percentages 1 = 100%
-var perDemHouse = 0.5333;
-var perRepHouse = 0.4551;
-var perIndHouse = 0.0115;
+var perDemHouse = 0.505;
+var perRepHouse = 0.485;
+var perIndHouse = 0.00;
 
 //Demographics of Senate as decimal percentages 1 = 100%
-var perDemSenate = 0.45;
-var perRepSenate = 0.53;
+var perDemSenate = 0.48;
+var perRepSenate = 0.50;
 var perIndSenate = 0.02;
 
 //Demographics of President as decimal percentages 1 = 100%
-var perDemPres = 0.0;
-var perRepPres = 1.0;
+var perDemPres = 1.0;
+var perRepPres = 0.0;
 var perIndPres = 0.0;
 
-var perDemVP = 0.0;
-var perRepVP = 1.0;
+var perDemVP = 1.0;
+var perRepVP = 0.0;
 var perIndVP = 0.0;
 
 var housePercentage, senPercentage, vpPercentage, presPercentage;
@@ -195,6 +199,8 @@ var rot = 0;
 let mainText;
 let headerText;
 let subHeaderText;
+let simInfoText;
+let userOutputText;
 
 //checks for voting bodies and sees if they will actually vote or not
 let stopVoteBool = false;
@@ -213,7 +219,7 @@ let userEdits = false;
 var userPaddingX = 20;
 var userInputY = 20;
 var userInputX = 20;
-var userOutputText;
+
 
 
 function preload() {
@@ -224,8 +230,8 @@ function preload() {
 
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  rectMode(CENTER);
+  // createCanvas(windowWidth*.8, windowHeight*.8);
+  // rectMode(CENTER);
   noStroke();
   mgr = new SceneManager();
   mgr.addScene(democracyEngineOrigin);
@@ -236,7 +242,9 @@ function setup() {
   mgr.addScene(sBodyPass);
   mgr.addScene(sYesVotes);
   mgr.addScene(sResults);
+  mgr.addScene(sInfo);
   mgr.addScene(sDisplay);
+  mgr.addScene(sDefault);
   mgr.showNextScene();
 }
 
@@ -246,6 +254,13 @@ function draw() {
   // textSize(100);
   // text(sliderVal, windowWidth/2, windowHeight/2);
 
+}
+
+function resized() {
+  // resetDraw();
+  // setup();
+  window.location.reload();
+  // redraw();
 }
 
 function mousePressed() {
@@ -267,10 +282,11 @@ function nextScene() {
     mgr.showScene(sYesVotes);
   } else if (mgr.isCurrent(sYesVotes)) {
     mgr.showScene(sResults);
-  } else if (mgr.isCurrent(sResults) && userEdits == true) {
+  }  else if (mgr.isCurrent(sResults) && userEditCount < 2) {
+    mgr.showScene(sInfo);
+  }  else if (mgr.isCurrent(sInfo) && userEdits == true) {
     mgr.showScene(democracyEngineUser);
-  }
-  else if (mgr.isCurrent(democracyEngineUser)) {
+  } else if (mgr.isCurrent(democracyEngineUser)) {
     mgr.showScene(sLegislative);
   }
 
@@ -309,10 +325,10 @@ function nextScene() {
 //   mgr.keyPressed();
 // }
 
-//might not work for fullscreen
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-}
+// might not work for fullscreen
+// function windowResized() {
+//   resizeCanvas(windowWidth*8, windowHeight*8);
+// }
 
 
 function button() {
@@ -320,18 +336,34 @@ function button() {
 }
 
 function dispResult() {
-  if (mgr.isCurrent(sDisplay)){
-      mgr.showScene(democracyEngineUser);
+  if (mgr.isCurrent(sDisplay)) {
+    mgr.showScene(democracyEngineUser);
+    dispBtn.elt.textContent = "DISPLAY USER SETTINGS";
+  } else {
+    mgr.showScene(sDisplay);
+    dispBtn.elt.textContent = "DISPLAY VOTE";
   }
-  else {
-      mgr.showScene(sDisplay);
+}
+
+function defResult() {
+  if (mgr.isCurrent(sDefault)) {
+    mgr.showScene(democracyEngineOrigin);
+    buttonDef.elt.textContent = "DISPLAY DEFAULT SETTINGS";
+  } else {
+    mgr.showScene(sDefault);
+    buttonDef.elt.textContent = "DISPLAY VOTE";
   }
 }
 
 //User Input Values for Congressional Reconfiguration
 function inputVar() {
-
   document.body.style.backgroundColor = "#012244";
+  changeText(" ");
+  if(!document.getElementById('disp-btn')){
+          dispButton();
+    }
+
+
   //Number voting members
   numHouse = userNumHouse;
   numSenate = userNumSenate;
@@ -370,10 +402,11 @@ function inputVar() {
   //supermajority Cutoff for override of presidential veto
 
   superThresh = parseFloat(userSuperThresh) / 100.0;
-
+  console.log("superThresh: " + superThresh);
   //supermajority in a body
 
   perPass = parseFloat(userBodyPass) / 100.0;
+  console.log("per pass: " + perPass);
 
   //How Many Voting Bodies (house, senate, president, VP = 4) *for V2 - see TODO at top
   numBodies = 4;
@@ -395,22 +428,34 @@ function inputVar() {
   removeField();
   // resetSliders();
   userEdits = true;
+  reconfigBool = true;
   mgr.showScene(democracyEngineUser);
+}
+
+function dispButton() {
+  dispBtn = createButton('DISPLAY USER SETTINGS');
+  dispBtn.id("disp-btn");
+  dispBtn.class('buttons');
+  let buttonDiv = document.getElementById('button-div');
+  dispBtn.parent(buttonDiv);
+  // dispBtn.position(19, 19);
+  dispBtn.mousePressed(dispResult);
 }
 
 
 function removeField() {
   buttonRes.remove();
   buttonRC.remove();
-  buttonIV.remove();
-  nextButton.remove();
-  if(userEdits == true){
-    dispBtn.remove();
+  if (mgr.isCurrent(democracyEngineUser) || mgr.isCurrent(sResults))
+  {
+    buttonRecal.remove();
+    emailBtn.remove();
   }
+  nextButton.remove();
+}
 
-
-  // userEdits = false;
-
+function emailFunc(){
+  window.location.href='mailto'+':democracy'+'.project.'+'cadre@'+'gmail.com?subject=The%20Future%20Democracies%20Laboratory%20Simulator%7C%20User%20Results%20and%20Settings&body=Please%20insert%20a%20copy%20of%20your%20user%20settings%20and%20a%20screenshot%20of%20the%20generated%20voting%20results%0D%0A';
 }
 
 function resetCount() {
@@ -426,11 +471,6 @@ function resetCount() {
   moveArrow = 0;
 }
 
-// function resetSliders(){
-//
-//
-// }
-
 function resetDraw() {
   if (yCountT * skip >= offSet) {
     skip = offSet / (1.025 * xCount);
@@ -439,9 +479,6 @@ function resetDraw() {
   fill(bColor);
   tranVal = 255;
   rectMode(CORNER);
-
-  //AB: removed this rect b/c it covers vp or president during logic
-  // rect(0, 0, offSet, dHeight);
 
   x = skip / 2;
   y = skip / 2;
@@ -454,4 +491,8 @@ function resetDraw() {
 
 function roundNum(value, decimals) {
   return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+}
+
+function changeText(text) {
+  document.getElementById("result").innerHTML = text;
 }
