@@ -1,38 +1,5 @@
 var mgr;
 
-let dWidth, dHeight;
-let nextButton;
-var buttonRC, buttonRes, dispBtn, recalBtn, buttonDef, emailBtn;
-
-var userNumHouse;
-var userPerHouseBody;
-var userNumSenate;
-var userPerSenateBody;
-var userNumPres;
-var userPerPresBody;
-var userNumVP;
-var userPerVPBody;
-var userNumParties;
-var prevUserNumParties;
-var userEditCount = 0;
-var reconfigBool = false;
-var onePartyBool = false;
-
-var userNumHouseRan;
-var userNumSenateRan;
-var userNumPresRan;
-var userNumVPRan;
-var userNumHouseConn;
-
-var userBodyPass;
-var userSuperThresh;
-
-var userRepYaythresh;
-var userDemYaythresh;
-var userIndYaythresh;
-
-
-
 //V1 TO DO
 //Work on Diplay Text Design (transparen overlay)
 //Resize User input boxes
@@ -43,19 +10,19 @@ var userIndYaythresh;
 // Allow users to change the configuration and logical interdependencies of decision-making units:
 // see: https://docs.google.com/document/d/118letZLbFm9D3QhtOtrdhQvJU4OJxYWr6OiAuUlJTjA/edit?usp=sharing
 
-// Defaults based on 116th Congress (2019 - 2021) as of 8/7/2020
+// Defaults based on 117 congress 2021-06-01
 
-// Senate (2019-2021)
-// Majority Party: Republican (53 seats)
-// Minority Party: Democrat (45 seats)
+// Senate (2021-2023)
+// Majority Party: Republican (48 seats)
+// Minority Party: Democrat (50 seats)
 // Other Parties: 2 Independents (both caucus with the Democrats)
 // Total Seats: 100
-// https://pressgallery.house.gov/member-data/party-breakdown
+// https://www.senate.gov/history/partydiv.htm
 
 // House
-// 198 Republicans
-// 232 Democrats
-// 1 Libertarian
+// 211 Republicans
+// 220 Democrats
+// 0 Libertarian
 // 4 * Vacancies
 // https://pressgallery.house.gov/member-data/party-breakdown
 
@@ -212,14 +179,48 @@ let helvFont;
 let loadingImage;
 let enterImage;
 
-//user inputs are enabled
-let userEdits = false;
+let dWidth, dHeight;
+let nextButton;
+var buttonRC, buttonRes, dispBtn, recalBtn, buttonDef, emailBtn;
 
 var userPaddingX = 20;
 var userInputY = 20;
 var userInputX = 20;
 
 
+//user input variables
+var userNumHouse;
+var userPerHouseBody;
+
+var userNumSenate;
+var userPerSenateBody;
+
+var userNumPres;
+var userPerPresBody;
+
+var userNumVP;
+var userPerVPBody;
+
+var userNumParties;
+var userNumHouseRan;
+var userNumSenateRan;
+var userNumPresRan;
+var userNumVPRan;
+var userNumHouseConn;
+
+var userBodyPass;
+var userSuperThresh;
+
+var userRepYaythresh;
+var userDemYaythresh;
+var userIndYaythresh;
+var prevUserNumParties;
+var userEditCount = 0;
+
+//user inputs are enabled
+let userEdits = false;
+var reconfigBool = false;
+var onePartyBool = false;
 
 function preload() {
   helvFont = loadFont('/democracy-engine-congressional-simulator/assets/font/HelveticaNeue-Regular.otf');
@@ -328,17 +329,17 @@ function dispResult() {
   if (mgr.isCurrent(sDisplay)) {
     mgr.showScene(democracyEngineUser);
     dispBtn.elt.textContent = "DISPLAY USER SETTINGS";
-    // emailBtn.show();
-    // buttonRC.show();
-    // buttonRes.show();
-    // recalBtn.show();
+    emailBtn.elt.style.opacity = "1";
+    buttonRC.elt.style.opacity = "1";
+    buttonRes.elt.style.opacity = "1";
+    recalBtn.elt.style.opacity = "1";
   } else {
     mgr.showScene(sDisplay);
     dispBtn.elt.textContent = "DISPLAY VOTE";
-    // emailBtn.hide();
-    // buttonRC.hide();
-    // buttonRes.hide();
-    // recalBtn.hide();
+    emailBtn.elt.style.opacity = "0";
+    buttonRC.elt.style.opacity = "0";
+    buttonRes.elt.style.opacity = "0";
+    recalBtn.elt.style.opacity = "0";
   }
 }
 

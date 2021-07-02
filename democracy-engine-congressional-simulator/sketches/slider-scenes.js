@@ -1,3 +1,4 @@
+//democracy simulater, connected to user values
 function democracyEngineUser() {
   console.log("democracy userEdits: " + userEdits);
   this.setup = function() {
@@ -18,7 +19,7 @@ function democracyEngineUser() {
 
 
   this.enter = function() {
-
+    //redraws canvas with new width and height when user simulator restarts
     if (reconfigBool == true) {
       // windowResized();
       dWidth = windowWidth * .8;
@@ -28,7 +29,7 @@ function democracyEngineUser() {
       canvas.parent(canvasDiv);
       reconfigBool = false;
     }
-    //
+
     document.getElementById("top").style.display = "none";
     document.getElementById("page1").style.display = "none";
     document.getElementById("page2").style.display = "none";
@@ -52,20 +53,7 @@ function democracyEngineUser() {
     currentCongLogic();
   }
 
-  //Logic below is setup for current congressional configuration
-  //May want to wrap this in a case state or the like so users can define different logic
-  //if the user has input variables use those instead of the Global declaration
-
-  // function dispButton() {
-  //   dispBtn = createButton('VARIABLES');
-  //   dispBtn.id("disp-btn");
-  //   dispBtn.class('buttons');
-  //   let buttonDiv = document.getElementById('button-div');
-  //   dispBtn.parent(buttonDiv);
-  //   // dispBtn.position(19, 19);
-  //   dispBtn.mousePressed(dispResult);
-  // }
-
+  //Logic below is setup for user congressional configuration
   function currentCongLogic() {
 
     // Logic for House
@@ -253,6 +241,7 @@ function democracyEngineUser() {
     yCountT = 1;
     moveArrow = 0;
   }
+
   //This function tests to see if the circles are being drawn off screen based on first pass of calculations
   function testSize() {
     for (i = 0; i < 1; i++) {
@@ -330,7 +319,7 @@ function democracyEngineUser() {
     endBody = 0;
   }
 
-  //AB function to store yay and nay votes into array
+  //Function to store yay and nay votes into array
   function storeBodyVotes() {
     votingBodyCounts[bodyCount] = [yay, nay];
     let currentBodyYay = votingBodyCounts[bodyCount][0];
@@ -342,7 +331,7 @@ function democracyEngineUser() {
 
   }
 
-  //draws all the rectangles for each vote
+  //Draws all votes as squares
   function drawRect() {
     let noVoteBool = false;
     var valAdjust = 75;
@@ -471,8 +460,7 @@ function democracyEngineUser() {
     storeBodyVotes();
   }
 
-
-  //appearance changes the votiing body's squares to outlines when no vote is required
+  //appearance of squares changes to outlines when no vote is required
   function stopVoteChange() {
     if (stopVoteBool == true) {
       stopVoteArr[bodyCount] = true;
@@ -488,7 +476,7 @@ function democracyEngineUser() {
     }
   }
 
-  //AB this is the stop vote logic before changing appearance
+  //Stop vote logic before changing appearance
   function stopVoteLogic() {
     //AB if the vp vote is not needed, no vote is necessary
     if (bodyCount == 2 && vpVote == false) {
@@ -509,7 +497,7 @@ function democracyEngineUser() {
     }
   }
 
-  //logic for all the final results
+  //Logic for all the final results
   function resultLogic() {
 
     //padding & offsets for text display
@@ -523,8 +511,8 @@ function democracyEngineUser() {
     // console.log(numCon + " " + perPass);
     // console.log("body pass yay: " + yay + "body superthresh cutoff: " + numCon * superThresh);
     // console.log(numCon + " " + superThresh);
+
     if (yay >= numCon * superThresh) {
-      // text('BILL PASSES ' + bodyLabel + ' WITH supermajority', votePadX, votePadY, offSet - votePadX, dHeight - votePadY);
 
       bodyPass[bodyCount] = true;
       superThreshIndex[bodyCount] = true;
@@ -533,37 +521,20 @@ function democracyEngineUser() {
       bodyPass[bodyCount] = true;
       vpVote = true;
     } else if (yay > numCon * perPass) {
-      // text('BILL PASSES ' + bodyLabel, votePadX, votePadY, offSet, dHeight);
-
       bodyPass[bodyCount] = true;
       superThreshIndex[bodyCount] = false;
     } else {
-      // text('BILL DOES NOT PASS ' + bodyLabel, votePadX, votePadY, offSet, dHeight);
       bodyPass[bodyCount] = false;
       superThreshIndex[bodyCount] = false;
     }
-
-
-    //ab removed for VP Logics and blank square
-    // } else if (bodyPass[0] === false || bodyPass[1] === false && bodyCount >= 2) {
-    //     bodyCount = numBodies-1;
-    // }
-
     //Adds one to the count of how many bodies have voted and enters into user input state (buttons) if the vote is done.
-
     if (bodyCount < numBodies) {
       nextBody();
       print("new body count: " + bodyCount);
     }
 
-    //AB removed for VP logic and blank square
-    // } else if (bodyPass[0] === true && bodyPass[1] === true) {
-    //     nextBody();
-    // }
-
     if (bodyCount >= numBodies) {
       finalDisplay();
-
       print('Final Stage');
     }
     endBody = 1;
@@ -750,7 +721,6 @@ function democracyEngineUser() {
 
   }
 
-
   function nextBody() {
     bodyCount++;
   }
@@ -792,6 +762,7 @@ function democracyEngineUser() {
     //reset();
   }
 
+
   function userVars() {
     //AB added this here for less confusion for the user
     buttonRC.remove();
@@ -800,6 +771,7 @@ function democracyEngineUser() {
   }
 }
 
+//original democracy simulater, connected to current values of 117th congress
 function democracyEngineOrigin() {
 
   console.log("democracy userEdits: " + userEdits);
@@ -1023,6 +995,7 @@ function democracyEngineOrigin() {
     yCountT = 1;
     moveArrow = 0;
   }
+
   //This function tests to see if the circles are being drawn off screen based on first pass of calculations
   function testSize() {
     for (i = 0; i < 1; i++) {
@@ -1040,19 +1013,19 @@ function democracyEngineOrigin() {
   function rotLoadImage() {
 
     push();
-    rectMode(CORNER);
+    // rectMode(CORNER);
     noStroke();
     fill(bColor);
 
     translate(offSet / 2, dHeight / 2);
-    rectMode(CENTER);
-    rect(0, 0, 160, 160);
+    ellipseMode(CENTER);
+    ellipse(0, 0, 160, 160);
     rotate(PI / 180 * rot);
     imageMode(CENTER);
     image(loadingImage, 0, 0, 150, 150);
     //AB: small square to cover rotating image after
     if (count == numCon - 2) {
-      rect(0, 0, 160, 160);
+      ellipse(0, 0, 160, 160);
     }
     pop();
 
@@ -1060,7 +1033,7 @@ function democracyEngineOrigin() {
 
   }
 
-  //Shows result of the vote
+  //Start the body vote
   function bodyVote() {
     fill(map(count1, 0, numCon, 0, 255));
     // reset variables if first pass thorugh function
@@ -1114,6 +1087,8 @@ function democracyEngineOrigin() {
 
   //Diplays Voting Results
   function drawRect() {
+    // Square is Drawn for Each Vote
+    rectMode(CENTER);
     let noVoteBool = false;
     var valAdjust = 75;
     var currentTransVal = 0;
@@ -1193,11 +1168,9 @@ function democracyEngineOrigin() {
     //AB: finding problem with x's
     // print("body #: " + bodyCount + " No Vote Bool: " + noVoteBool);
 
-    // Square is Drawn for Each Vote
-    rectMode(CENTER);
-
+  //specific logic for VP and Pres vote boxes stacked
     if (bodyLabel == 'VICE PRESIDENT') {
-      y = y + skip;
+      y = y + (skip*.9);
       if (vpVote == false) {
         stroke(255, 100);
         noFill();
@@ -1552,6 +1525,7 @@ function democracyEngineOrigin() {
 
 }
 
+//user input page for for amount of members in each legislative body
 function sLegislative() {
 
   var slider1 = document.getElementById('slider1');
@@ -1568,18 +1542,10 @@ function sLegislative() {
     textSize(15);
     noStroke();
 
-
-
-
   }
 
   this.enter = function() {
-    // if (userEdits == true) {
-    //   removeField();
-    // }
 
-
-    // noCursor();
     console.log("1st Slider Page");
     document.getElementById("page1").style.display = "block";
     document.getElementById("page2").style.display = "none";
@@ -1590,11 +1556,6 @@ function sLegislative() {
     document.getElementById("slider-value").style.display = "none";
     document.getElementById("vote").style.display = "none";
     document.getElementById("slider-disp").style.display = "none";
-    // let millisecond;
-    //
-    // if (millisecond == 1000) {
-    //   mgr.showScene(main);
-    // }
 
     background(bColor);
     document.body.style.backgroundColor = bColor;
@@ -1606,7 +1567,7 @@ function sLegislative() {
       recalBtn.remove();
       emailBtn.remove();
     }
-    // background(0);
+
     changeText(" ");
 
     sliders();
@@ -1626,7 +1587,6 @@ function sLegislative() {
   }
 
   function sliders() {
-    // NOui slider slides
     console.log("user edits boool: " + userEdits);
     if (userEdits == true) {
       sliderVals();
@@ -1741,19 +1701,15 @@ function sLegislative() {
 
   function button() {
     var sidePad = 20;
-    // backButton = createButton('BACK')
-    // backButton.id("back-btn");
-    // backButton.position((windowWidth / 2) - (backButton.width / 2), dHeight - 80);
-    // backButton.mousePressed(lastScene);
 
     nextButton = createButton('NEXT');
     nextButton.id("next-btn");
     //position of next button is handled in css
-    // nextButton.position((windowWidth / 2) - (nextButton.width / 2), dHeight - 50);
     nextButton.mousePressed(nextScene);
   }
 }
 
+//user input page for number of parties, current maximum of 3
 function sParties() {
   var slider5 = document.getElementById('slider5');
 
@@ -1848,6 +1804,7 @@ function sParties() {
   }
 }
 
+//user input page for number of members in each party
 function sMembers() {
 
   var slider6 = document.getElementById('slider6');
@@ -2228,6 +2185,7 @@ function sMembers() {
   }
 }
 
+//user input page for percentage of votes required for bill approval
 function sBodyPass() {
 
   var currSuperThresh = parseFloat(superThresh * 100);
@@ -2345,6 +2303,7 @@ function sBodyPass() {
 
 }
 
+//user input page for probabily of a yes vote
 function sYesVotes() {
   var curDemYaythresh = parseInt(demYaythresh * 100);
   var curRepYaythresh = parseInt(repYaythresh * 100);
@@ -2366,11 +2325,8 @@ function sYesVotes() {
     document.getElementById("page6").style.display = "none";
     document.getElementById("slider-disp").style.display = "none";
     document.getElementById("slider-value").style.display = "none";
-
     checkParties();
     sliders();
-
-
 
   }
 
@@ -2507,6 +2463,7 @@ function sYesVotes() {
 
 }
 
+//page showing all of user inputs
 function sResults() {
 
   this.setup = function() {
@@ -2606,6 +2563,7 @@ function sResults() {
 
 }
 
+//explanation text before user goes back into simulator
 function sInfo() {
 
   this.setup = function() {
@@ -2648,6 +2606,7 @@ function sInfo() {
 
 }
 
+//display of user inputs while in simulator
 function sDisplay() {
 
   this.setup = function() {
@@ -2715,6 +2674,7 @@ function sDisplay() {
 
 }
 
+//shows default congress settings at end of original simulator
 function sDefault() {
 
   this.setup = function() {
