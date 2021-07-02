@@ -9,7 +9,7 @@ body {
   background-origin: content-box, padding-box;
 }
 
-.homepage {
+.bkgd-img-1 {
   background: #012244;
   /*  rh ad*/
   margin: 0;
@@ -20,6 +20,22 @@ body {
   background-repeat: no-repeat;
   /* Do not repeat the image */
   background-size: 100%;
+  /* Resize the background image to cover the entire container */
+  background-origin: content-box, padding-box;
+}
+.bkgd-img-2 {
+  background: #012244;
+  /*  rh ad*/
+  margin: 0;
+  /* background-image: url('https://projects.cadre.sjsu.edu/democracyproject/assets/hero.svg'); */
+  background-image: url("../assets/2gearslight.svg");
+  background-attachment: fixed;
+  background-position: 70% 70%;
+  /* background-position: 50% 200px; /* Center the image */
+  /* background-repeat:repeat-x; */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: 40%;
   /* Resize the background image to cover the entire container */
   background-origin: content-box, padding-box;
 }
