@@ -153,6 +153,12 @@ h3 {
   font-weight: normal;
 }
 
+a {
+  color: #88b6eb;
+}
+a:hover {
+  color:#c47cb7;
+}
 p {
   color: white;
   /* text-align: justify; */
